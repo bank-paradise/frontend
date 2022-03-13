@@ -1,1 +1,1 @@
-// export { Molecule } from "./Molecule";
+export { Navbar } from "./navbar/navbar";

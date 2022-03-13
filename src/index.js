@@ -18,7 +18,7 @@ ReactDOM.render(
       <RootContainer />
     </Provider>
   </BrowserRouter>,
-  document.getElementById("root")
+  document.getElementById("vanilla_coffee")
 );
 
 // change to register() for active PWA
