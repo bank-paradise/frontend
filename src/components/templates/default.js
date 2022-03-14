@@ -1,6 +1,7 @@
 import { Navbar } from "components/molecules";
+import joinClasses from "helpers/joinClasses";
 
-export const DefaultTemplate = ({ user = {}, children }) => {
+export const DefaultTemplate = ({ user = {}, className = "", children }) => {
   const navitems = [
     {
       path: "/activities",
@@ -30,7 +31,14 @@ export const DefaultTemplate = ({ user = {}, children }) => {
       <header>
         <Navbar items={navitems} />
       </header>
-      <main className="px-[10%] max-w-[1920px] m-auto">{children}</main>
+      <main
+        className={joinClasses(
+          "px-[10%] max-w-[1920px] m-auto min-h-[calc(100vh-73px)]",
+          className
+        )}
+      >
+        {children}
+      </main>
     </div>
   );
 };

@@ -1,0 +1,25 @@
+{
+  "errors": [
+    {
+      "code": "AN_ERROR_HAS_OCCURRED",
+      "message": {
+        "en": "An error has occurred",
+        "fr": "Une erreur est survenue"
+      }
+    },
+    {
+      "code": "WRONG_CREDENTIALS",
+      "message": {
+        "en": "Invalid credentials",
+        "fr": "Identifiants invalides"
+      }
+    },
+    {
+      "code": "USER_ALREADY_REGISTED",
+      "message": {
+        "en": "Email already used",
+        "fr": "Adresse email déjà utilisée"
+      }
+    }
+  ]
+}

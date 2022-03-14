@@ -11,9 +11,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "./user.model";
+import { registration } from "./user.model";
 
-export default function Login() {
+export default function Register() {
   const [error, setError] = useState(null);
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     setError(null);
-    const response = await dispatch(login(data));
+    const response = await dispatch(registration(data));
     const { status } = response.payload;
     if (status === "error") {
       setError(response.payload.response);
@@ -33,17 +33,24 @@ export default function Login() {
   return (
     <DefaultTemplate className="flex justify-center items-center">
       <PrimaryCard className="w-full max-w-[530px] m-auto px-8 py-12">
-        <SubTitle>Connexion</SubTitle>
+        <SubTitle>Inscription</SubTitle>
         <SubParagraph>
-          Vous n'avez pas de compte ?{" "}
-          <Link to="/auth/register" className="underline text-primary">
-            Inscription
+          Vous avez un compte ?{" "}
+          <Link to="/auth/login" className="underline text-primary">
+            Connexion
           </Link>
         </SubParagraph>
         <form
           className="flex flex-col gap-10 mt-10"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <Input
+            type="text"
+            placeholder="Pseudo"
+            register={register}
+            name="name"
+            required
+          />
           <Input
             type="email"
             placeholder="Adresse mail"
