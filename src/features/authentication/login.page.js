@@ -6,6 +6,7 @@ import {
   SubParagraph,
 } from "components/atoms";
 import { DefaultTemplate } from "components/templates";
+import joinClasses from "helpers/joinClasses";
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
@@ -15,13 +16,17 @@ import { login } from "./user.model";
 
 export default function Login() {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    if (loading) return;
     setError(null);
+    setLoading(true);
     const response = await dispatch(login(data));
+    setLoading(false);
     const { status } = response.payload;
     if (status === "error") {
       setError(response.payload.response);
@@ -31,7 +36,10 @@ export default function Login() {
   };
 
   return (
-    <DefaultTemplate className="flex justify-center items-center">
+    <DefaultTemplate
+      className="flex justify-center items-center"
+      connected={false}
+    >
       <PrimaryCard className="w-full max-w-[530px] m-auto px-8 py-12">
         <SubTitle>Connexion</SubTitle>
         <SubParagraph>
@@ -59,9 +67,14 @@ export default function Login() {
             required
           />
           {error && <p className="text-sm text-red-500">{error}</p>}
-          <PrimaryButton className="max-w-min" type="submit">
-            Connexion
-          </PrimaryButton>
+          {
+            <PrimaryButton
+              className={joinClasses("max-w-min", loading ? "opacity-50" : "")}
+              type="submit"
+            >
+              {loading ? "Chargement..." : "Connexion"}
+            </PrimaryButton>
+          }
         </form>
       </PrimaryCard>
     </DefaultTemplate>

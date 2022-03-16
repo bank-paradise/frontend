@@ -6,6 +6,7 @@ import {
   SubParagraph,
 } from "components/atoms";
 import { DefaultTemplate } from "components/templates";
+import joinClasses from "helpers/joinClasses";
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
@@ -15,13 +16,17 @@ import { registration } from "./user.model";
 
 export default function Register() {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    if (loading) return;
     setError(null);
+    setLoading(true);
     const response = await dispatch(registration(data));
+    setLoading(false);
     const { status } = response.payload;
     if (status === "error") {
       setError(response.payload.response);
@@ -66,8 +71,11 @@ export default function Register() {
             required
           />
           {error && <p className="text-sm text-red-500">{error}</p>}
-          <PrimaryButton className="max-w-min" type="submit">
-            Connexion
+          <PrimaryButton
+            className={joinClasses("max-w-min", loading ? "opacity-50" : "")}
+            type="submit"
+          >
+            {loading ? "Chargement..." : "Insciption"}
           </PrimaryButton>
         </form>
       </PrimaryCard>

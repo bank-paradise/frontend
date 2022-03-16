@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchLogin, fetchRegister, fetchUser } from "api/authentication";
+import {
+  fetchLogin,
+  fetchLogout,
+  fetchRegister,
+  fetchUser,
+} from "api/authentication";
 
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -25,6 +30,11 @@ export const registration = createAsyncThunk(
 export const check = createAsyncThunk("user/me", async () => {
   const response = await fetchUser();
   return response;
+});
+
+export const logout = createAsyncThunk("user/logout", async () => {
+  const response = await fetchLogout();
+  return { success: response.status === "done" };
 });
 
 export const userSlice = createSlice({
@@ -75,6 +85,13 @@ export const userSlice = createSlice({
         state.header.status = "done";
         state.header.connected = true;
         state.data = action.payload.response.user;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          cookies.remove("::token");
+          state.header = initialState.header;
+          state.data = initialState.data;
+        }
       });
   },
 });

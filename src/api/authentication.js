@@ -38,3 +38,15 @@ export async function fetchUser(credentials) {
 
   return response;
 }
+
+export async function fetchLogout() {
+  const response = await axiosRequest({
+    method: "POST",
+    url: "/auth/logout",
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}

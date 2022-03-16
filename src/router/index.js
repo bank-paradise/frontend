@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { check, userHeader } from "features/authentication/user.model";
 import { useEffect } from "react";
 import Cookies from "universal-cookie";
+import AuthenticationRouter from "./authentication";
+import DefaultRouter from "./default";
 
 export default function RootContainer() {
   const cookies = new Cookies();
@@ -20,16 +22,6 @@ export default function RootContainer() {
   }, [authHeader]);
 
   return (
-    <>
-      {authHeader.connected ? (
-        <h1>Connecté</h1>
-      ) : (
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/register" element={<Register />} />
-        </Routes>
-      )}
-    </>
+    <>{authHeader.connected ? <DefaultRouter /> : <AuthenticationRouter />}</>
   );
 }

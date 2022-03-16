@@ -1,9 +1,12 @@
 import { PrimaryButton } from "components/atoms";
+import { logout } from "features/authentication/user.model";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-export const Navbar = ({ items = [] }) => {
+export const Navbar = ({ connected = true, items = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
   return (
     <>
       <nav className="h-[73px] w-full bg-gradient-to-r from-primary to-primary-light fixed z-10">
@@ -56,7 +59,9 @@ export const Navbar = ({ items = [] }) => {
                 <Link to="/">Compte</Link>
               </li>
               <li>
-                <PrimaryButton>Déconnexion</PrimaryButton>
+                <PrimaryButton onClick={() => dispatch(logout())}>
+                  Déconnexion
+                </PrimaryButton>
               </li>
             </ul>
           </div>
@@ -117,7 +122,9 @@ export const Navbar = ({ items = [] }) => {
               </Link>
             </li>
             <li className="w-full">
-              <PrimaryButton>Déconnexion</PrimaryButton>
+              <PrimaryButton onClick={() => dispatch(logout())}>
+                Déconnexion
+              </PrimaryButton>
             </li>
           </ul>
         </div>

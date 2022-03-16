@@ -1,7 +1,12 @@
 import { Navbar } from "components/molecules";
 import joinClasses from "helpers/joinClasses";
 
-export const DefaultTemplate = ({ user = {}, className = "", children }) => {
+export const DefaultTemplate = ({
+  connected = true,
+  user = {},
+  className = "",
+  children,
+}) => {
   const navitems = [
     {
       path: "/activities",
@@ -29,11 +34,11 @@ export const DefaultTemplate = ({ user = {}, className = "", children }) => {
   return (
     <div className="font-montserrat">
       <header>
-        <Navbar items={navitems} />
+        <Navbar items={navitems} connected={connected} />
       </header>
       <main
         className={joinClasses(
-          "px-[10%] max-w-[1920px] m-auto min-h-[calc(100vh-73px)]",
+          "px-[5%] xl:px-[10%] max-w-[1500px] m-auto min-h-[calc(100vh-73px)]",
           className
         )}
       >
