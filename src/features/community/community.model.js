@@ -10,6 +10,10 @@ const initialState = {
   header: { status: "nothing" },
   invitations: [],
   informations: {},
+  accounts: {
+    personnal: [],
+    professional: [],
+  },
 };
 
 export const getCommunity = createAsyncThunk("community/get", async () => {
@@ -42,11 +46,13 @@ export const communitySlice = createSlice({
     builder.addCase(getCommunity.fulfilled, (state, action) => {
       state.informations = action.payload.response.community;
       state.invitations = action.payload.response.invitations;
+      state.accounts = action.payload.response.accounts;
       state.header.status = "done";
     });
     builder.addCase(joinCommunity.fulfilled, (state, action) => {
       state.informations = action.payload.response.community;
       state.invitations = action.payload.response.invitations;
+      state.accounts = action.payload.response.accounts;
       state.header.status = "done";
     });
     builder.addCase(createCommunity.fulfilled, (state, action) => {
@@ -60,5 +66,6 @@ export const communitySlice = createSlice({
 export const communityInfo = (state) => state.community.informations;
 export const invitationsList = (state) => state.community.invitations;
 export const communityStatus = (state) => state.community.header.status;
+export const communityAccounts = (state) => state.community.accounts;
 
 export default communitySlice.reducer;

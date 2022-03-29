@@ -49,50 +49,46 @@ export const userSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder
-      .addCase(login.pending, (state) => {
-        state.header.status = "loading";
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        if (action.payload.status === "error") {
-          state.header.status = "error";
-          return;
-        }
-        state.header.status = "done";
-        state.header.connected = true;
-        state.data = action.payload.response.user;
-        cookies.set("::token", action.payload.response.token, {
-          path: "/",
-        });
-      })
-      .addCase(registration.fulfilled, (state, action) => {
-        if (action.payload.status === "error") {
-          state.header.status = "error";
-          return;
-        }
-        state.header.status = "done";
-        state.header.connected = true;
-        state.data = action.payload.response.user;
-        cookies.set("::token", action.payload.response.token, {
-          path: "/",
-        });
-      })
-      .addCase(check.fulfilled, (state, action) => {
-        if (action.payload.status === "error") {
-          cookies.remove("::token");
-          return;
-        }
-        state.header.status = "done";
-        state.header.connected = true;
-        state.data = action.payload.response.user;
-      })
-      .addCase(logout.fulfilled, (state, action) => {
-        if (action.payload.success) {
-          cookies.remove("::token");
-          state.header = initialState.header;
-          state.data = initialState.data;
-        }
+    builder.addCase(login.fulfilled, (state, action) => {
+      if (action.payload.status === "error") {
+        state.header.status = "error";
+        return;
+      }
+      state.header.status = "done";
+      state.header.connected = true;
+      state.data = action.payload.response.user;
+      cookies.set("::token", action.payload.response.token, {
+        path: "/",
       });
+    });
+    builder.addCase(registration.fulfilled, (state, action) => {
+      if (action.payload.status === "error") {
+        state.header.status = "error";
+        return;
+      }
+      state.header.status = "done";
+      state.header.connected = true;
+      state.data = action.payload.response.user;
+      cookies.set("::token", action.payload.response.token, {
+        path: "/",
+      });
+    });
+    builder.addCase(check.fulfilled, (state, action) => {
+      if (action.payload.status === "error") {
+        cookies.remove("::token");
+        return;
+      }
+      state.header.status = "done";
+      state.header.connected = true;
+      state.data = action.payload.response.user;
+    });
+    builder.addCase(logout.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        cookies.remove("::token");
+        state.header = initialState.header;
+        state.data = initialState.data;
+      }
+    });
   },
 });
 

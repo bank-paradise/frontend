@@ -17,6 +17,9 @@ export { SubParagraph } from "./texts/subParagraph";
  * Inputs
  */
 export { Input } from "./inputs/input";
+export { InputIcon } from "./inputs/inputIcon";
+export { Select } from "./inputs/select";
+export { Search } from "./inputs/search";
 
 /**
  * Cards

@@ -1,4 +1,10 @@
-import { Input, PrimaryButton, PrimaryCard, SubTitle } from "components/atoms";
+import {
+  Input,
+  PrimaryButton,
+  PrimaryCard,
+  Select,
+  SubTitle,
+} from "components/atoms";
 import {
   createCommunity,
   invitationsList,
@@ -52,16 +58,30 @@ export default function DontHaveCommunity() {
           </SubTitle>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="max-w-[300px] flex flex-col gap-5 w-full mt-5"
+            className="max-w-[400px] flex flex-col gap-5 w-full mt-5"
           >
-            <Input
-              className="w-full"
-              type="text"
-              placeholder="Nom de la communauté"
-              register={register}
-              name="name"
-              required
-            />
+            <div className="flex gap-5">
+              <Input
+                className="w-full"
+                type="text"
+                placeholder="Nom de la communauté"
+                register={register}
+                name="name"
+                required
+              />
+              <Select
+                className="w-full max-w-[100px]"
+                type="text"
+                placeholder="Devise"
+                register={register}
+                name="currency"
+                required
+              >
+                <option value="">Devise</option>
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+              </Select>
+            </div>
             <Input
               className="w-full"
               placeholder="Description"
