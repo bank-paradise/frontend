@@ -21,7 +21,7 @@ export default function BankAccount() {
       broadcaster: "pusher",
       wsHost: process.env.REACT_APP_WS_HOST,
       wsPort: process.env.REACT_APP_WS_PORT,
-      forceTLS: false,
+      forceTLS: process.env.REACT_APP_WS_TLS,
       disableStats: true,
     });
 
