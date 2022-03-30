@@ -17,8 +17,6 @@ export const Search = ({
   const [selected, setSelected] = useState(null);
   const [value, setValue] = useState("");
 
-  console.log(selected);
-
   const handleChange = (event) => {
     setSelected(null);
     select(null);
