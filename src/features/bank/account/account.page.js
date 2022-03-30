@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Howl, Howler } from "howler";
 import Pusher from "pusher-js";
 import { DefaultTemplate } from "components/templates";
 import { userData } from "features/authentication/user.model";
@@ -20,15 +21,19 @@ export default function BankAccount() {
       broadcaster: "pusher",
       wsHost: process.env.REACT_APP_WS_HOST,
       wsPort: process.env.REACT_APP_WS_PORT,
-      forceTLS: true,
+      forceTLS: false,
       disableStats: true,
     });
 
     const channel = pusher.subscribe(`transaction.${userInfo.id}`);
 
-    channel.bind("transaction.received", async (data) => {
-      console.log(data);
+    channel.bind("transaction.received", async () => {
       await dispatch(getBank());
+      let sound = new Howl({
+        src: ["/assets/sounds/notification.mp3"],
+      });
+
+      sound.play();
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

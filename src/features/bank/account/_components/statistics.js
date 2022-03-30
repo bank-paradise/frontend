@@ -1,6 +1,7 @@
 import { bankAccounts, bankStatistics } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
 import joinClasses from "helpers/joinClasses";
+import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import BankTitle from "./bankTitle";
 
@@ -39,7 +40,7 @@ export default function Statistics() {
         <BankTitle>Comptes</BankTitle>
         <div className="mt-7 gap-5 flex flex-col">
           {accounts.map((account, index) => (
-            <>
+            <Fragment key={account.id}>
               <div>
                 <p className="uppercase text-sm flex">COMPTE {account.name}</p>
                 <p className="uppercase text-sm flex justify-between w-full">
@@ -52,7 +53,7 @@ export default function Statistics() {
                   index !== accounts.length - 1 ? "block" : "hidden"
                 )}
               />
-            </>
+            </Fragment>
           ))}
         </div>
       </div>
