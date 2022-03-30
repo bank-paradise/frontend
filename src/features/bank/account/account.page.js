@@ -40,21 +40,10 @@ export default function BankAccount() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addTransaction = () => {
-    dispatch(
-      createTransaction({
-        amount: 1,
-        transmitter: "f47a4352-09a4-479a-9f3c-41366458568a",
-        receiver: "7d0d3d0e-8d96-429e-9c4c-9337f26b6503",
-      })
-    );
-  };
-
   return (
     <DefaultTemplate>
       <div className="w-full my-7">
         <h1 className="text-2xl font-medium">Bonjour {userInfo.name}</h1>
-        <button onClick={addTransaction}>create transaction</button>
       </div>
       {accounts && (
         <div className="flex flex-col gap-10">
