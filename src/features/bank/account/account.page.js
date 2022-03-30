@@ -17,6 +17,8 @@ export default function BankAccount() {
   useEffect(() => {
     dispatch(getBank());
 
+    Pusher.logToConsole = true;
+
     const pusher = new Pusher("15c2976a1d4aa2b7300e", {
       broadcaster: "pusher",
       wsHost: process.env.REACT_APP_WS_HOST,
