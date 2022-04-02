@@ -4,6 +4,7 @@ import {
   fetchCommunity,
   fetchJoinCommunity,
   fetchCreateCommunity,
+  fetchUpdateCommunity,
 } from "api/community";
 
 const initialState = {
@@ -37,6 +38,14 @@ export const createCommunity = createAsyncThunk(
   }
 );
 
+export const updateCommunity = createAsyncThunk(
+  "community/update",
+  async (payload) => {
+    const response = await fetchUpdateCommunity(payload);
+    return response;
+  }
+);
+
 export const communitySlice = createSlice({
   name: "community",
   initialState,
@@ -58,6 +67,10 @@ export const communitySlice = createSlice({
     builder.addCase(createCommunity.fulfilled, (state, action) => {
       state.informations = action.payload.response.community;
       state.invitations = [];
+      state.header.status = "done";
+    });
+    builder.addCase(updateCommunity.fulfilled, (state, action) => {
+      state.informations = action.payload.response.community;
       state.header.status = "done";
     });
   },

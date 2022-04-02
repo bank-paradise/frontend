@@ -1,9 +1,8 @@
-import { Navbar } from "components/molecules";
+import { Navbar, SubNavbar } from "components/molecules";
 import joinClasses from "helpers/joinClasses";
 
-export const DefaultTemplate = ({
+export const StaffTemplate = ({
   connected = true,
-  user = {},
   className = "",
   children,
 }) => {
@@ -31,18 +30,39 @@ export const DefaultTemplate = ({
       ],
     },
   ];
+
+  const adminnavitems = [
+    {
+      path: "/commu/invitation",
+      name: "Invitation",
+    },
+    {
+      path: "/commu/users",
+      name: "Membres",
+    },
+    {
+      path: "/commu/transactions",
+      name: "Virements",
+    },
+    {
+      path: "/commu/statistiques",
+      name: "Statistiques",
+    },
+    {
+      path: "/commu/settings",
+      name: "Paramètres",
+    },
+  ];
   return (
     <div className="font-montserrat">
       <header>
         <Navbar items={navitems} connected={connected} />
       </header>
-      <main
-        className={joinClasses(
-          "px-[5%] xl:px-[10%] max-w-[1500px] m-auto min-h-[calc(100vh-73px)] py-3",
-          className
-        )}
-      >
-        {children}
+      <main className="flex flex-col md:flex-row">
+        <SubNavbar items={adminnavitems} />
+        <div className="px-14 py-10 w-full md:w-[calc(100vw-260px)]">
+          {children}
+        </div>
       </main>
     </div>
   );

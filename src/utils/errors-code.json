@@ -20,6 +20,34 @@
         "en": "Email already used",
         "fr": "Adresse email déjà utilisée"
       }
+    },
+    {
+      "code": "USER_NOT_FOUND",
+      "message": {
+        "en": "User not found",
+        "fr": "Joueur introuvable"
+      }
+    },
+    {
+      "code": "USER_ALREADY_IN_A_COMMUNITY",
+      "message": {
+        "en": "User already in a community",
+        "fr": "Le joueur est déjà dans une communauté"
+      }
+    },
+    {
+      "code": "USER_ALREADY_INVITED",
+      "message": {
+        "en": "User already invited",
+        "fr": "Ce joueur a déjà été invité"
+      }
+    },
+    {
+      "code": "USER_DOES_NOT_HAVE_PERMISSION",
+      "message": {
+        "en": "User does not have permission",
+        "fr": "Vous n'avez pas la permission de faire ceci"
+      }
     }
   ]
 }

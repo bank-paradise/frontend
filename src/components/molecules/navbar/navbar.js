@@ -1,11 +1,17 @@
-import { PrimaryButton } from "components/atoms";
-import { logout } from "features/authentication/user.model";
+import { PrimaryButton, SecondaryButton } from "components/atoms";
+import { logout, userData } from "features/authentication/user.model";
+import checkPermissions from "helpers/checkPermissions";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Navbar = ({ connected = true, items = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  let navigate = useNavigate();
+
+  const user = useSelector(userData);
+
   const dispatch = useDispatch();
   return (
     <>
@@ -15,56 +21,90 @@ export const Navbar = ({ connected = true, items = [] }) => {
           <Link to="/" className="flex items-center justify-center h-full">
             <img src="/assets/brand/logo.svg" alt="accueil du site" />
           </Link>
-          <div className="flex justify-between gap-16 text-white">
-            <ul className="flex gap-7 items-center">
-              {items.map((item, index) => {
-                if (item.dropdown) {
-                  return (
-                    <li key={index} className="group hover:underline">
-                      <Link to={item.path} className="flex items-center gap-1">
-                        {item.name}
+          {user && (
+            <div className="flex justify-between gap-16 text-white">
+              <ul className="flex gap-7 items-center">
+                {items.map((item, index) => {
+                  if (item.dropdown) {
+                    return (
+                      <li key={index} className="group hover:underline">
+                        <Link
+                          to={item.path}
+                          className="flex items-center gap-1"
+                        >
+                          {item.name}
 
-                        <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
-                          <path fill="currentColor" d="m7 10l5 5l5-5H7z"></path>
-                        </svg>
+                          <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                            <path
+                              fill="currentColor"
+                              d="m7 10l5 5l5-5H7z"
+                            ></path>
+                          </svg>
+                        </Link>
+                        <ul className="absolute bg-white group-hover:flex hidden px-5 py-3 rounded-md shadow-md flex-col gap-3">
+                          {item.dropdown.map((dropdownItem, index) => {
+                            return (
+                              <li
+                                key={index}
+                                className="text-secondary text-sm hover:text-primary"
+                              >
+                                <Link to={dropdownItem.path}>
+                                  {dropdownItem.name}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </li>
+                    );
+                  }
+                  return (
+                    <li key={index}>
+                      <Link to={item.path} className="hover:underline">
+                        {item.name}
                       </Link>
-                      <ul className="absolute bg-white group-hover:flex hidden px-5 py-3 rounded-md shadow-md flex-col gap-3">
-                        {item.dropdown.map((dropdownItem, index) => {
-                          return (
-                            <li
-                              key={index}
-                              className="text-secondary text-sm hover:text-primary"
-                            >
-                              <Link to={dropdownItem.path}>
-                                {dropdownItem.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
                     </li>
                   );
-                }
-                return (
-                  <li key={index}>
-                    <Link to={item.path} className="hover:underline">
-                      {item.name}
-                    </Link>
+                })}
+              </ul>
+              <ul className="flex gap-7 items-center">
+                <li>
+                  <Link to="/">Compte</Link>
+                </li>
+                {checkPermissions(user, 2) && (
+                  <li>
+                    <SecondaryButton
+                      className="flex gap-2 items-center px-4 font-medium"
+                      onClick={() => navigate("/commu/users")}
+                    >
+                      <svg width="1.3em" height="1.3em" viewBox="0 0 24 24">
+                        <path
+                          fill="currentColor"
+                          d="M12 23C6.443 21.765 2 16.522 2 11V5l10-4l10 4v6c0 5.524-4.443 10.765-10 12ZM4 6v5a10.58 10.58 0 0 0 8 10a10.58 10.58 0 0 0 8-10V6l-8-3Z"
+                        ></path>
+                        <circle
+                          cx="12"
+                          cy="8.5"
+                          r="2.5"
+                          fill="currentColor"
+                        ></circle>
+                        <path
+                          fill="currentColor"
+                          d="M7 15a5.782 5.782 0 0 0 5 3a5.782 5.782 0 0 0 5-3c-.025-1.896-3.342-3-5-3c-1.667 0-4.975 1.104-5 3Z"
+                        ></path>
+                      </svg>
+                      Staff
+                    </SecondaryButton>
                   </li>
-                );
-              })}
-            </ul>
-            <ul className="flex gap-7 items-center">
-              <li>
-                <Link to="/">Compte</Link>
-              </li>
-              <li>
-                <PrimaryButton onClick={() => dispatch(logout())}>
-                  Déconnexion
-                </PrimaryButton>
-              </li>
-            </ul>
-          </div>
+                )}
+                <li>
+                  <PrimaryButton onClick={() => dispatch(logout())}>
+                    Déconnexion
+                  </PrimaryButton>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
         {/* MOBILE VERSION */}
         <div className="flex justify-between items-center h-full px-[10%] lg:hidden">
@@ -76,57 +116,88 @@ export const Navbar = ({ connected = true, items = [] }) => {
       </nav>
       {isOpen && (
         <div className="fixed h-screen w-screen bg-white flex items-end lg:hidden">
-          <ul className="h-[calc(100vh-100px)] overflow-y-auto flex flex-col w-full gap-10 px-[10%]">
-            {items.map((item, index) => {
-              if (item.dropdown) {
-                return (
-                  <li key={index} className="group ">
-                    <p className="flex items-center gap-1 text-xl w-full group-hover:underline">
-                      {item.name}
+          {user && (
+            <ul className="h-[calc(100vh-100px)] overflow-y-auto flex flex-col w-full gap-10 px-[10%]">
+              {items.map((item, index) => {
+                if (item.dropdown) {
+                  return (
+                    <li key={index} className="group ">
+                      <p className="flex items-center gap-1 text-xl w-full group-hover:underline">
+                        {item.name}
 
-                      <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="m7 10l5 5l5-5H7z"></path>
-                      </svg>
-                    </p>
-                    <ul className="group-hover:flex hidden px-7 py-5 flex-col gap-5 bg-gray-100 w-full left-0 mt-5">
-                      {item.dropdown.map((dropdownItem, index) => {
-                        return (
-                          <li
-                            key={index}
-                            className="text-secondary text-xl hover:text-primary"
-                          >
-                            <Link to={dropdownItem.path} className="w-full">
-                              {dropdownItem.name}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="m7 10l5 5l5-5H7z"></path>
+                        </svg>
+                      </p>
+                      <ul className="group-hover:flex hidden px-7 py-5 flex-col gap-5 bg-gray-100 w-full left-0 mt-5">
+                        {item.dropdown.map((dropdownItem, index) => {
+                          return (
+                            <li
+                              key={index}
+                              className="text-secondary text-xl hover:text-primary"
+                            >
+                              <Link to={dropdownItem.path} className="w-full">
+                                {dropdownItem.name}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </li>
+                  );
+                }
+                return (
+                  <li className="w-full" key={index}>
+                    <Link
+                      to={item.path}
+                      className="hover:underline text-xl w-full"
+                    >
+                      {item.name}
+                    </Link>
                   </li>
                 );
-              }
-              return (
-                <li className="w-full" key={index}>
-                  <Link
-                    to={item.path}
-                    className="hover:underline text-xl w-full"
+              })}
+              <li className="w-full">
+                <Link to="/account" className="hover:underline text-xl w-full">
+                  Compte
+                </Link>
+              </li>
+              {checkPermissions(user, 2) && (
+                <li className="w-full">
+                  <SecondaryButton
+                    onClick={() => {
+                      navigate("/commu/users");
+                      setIsOpen(false);
+                    }}
+                    className="flex gap-2 items-center font-medium"
                   >
-                    {item.name}
-                  </Link>
+                    <svg width="1.3em" height="1.3em" viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M12 23C6.443 21.765 2 16.522 2 11V5l10-4l10 4v6c0 5.524-4.443 10.765-10 12ZM4 6v5a10.58 10.58 0 0 0 8 10a10.58 10.58 0 0 0 8-10V6l-8-3Z"
+                      ></path>
+                      <circle
+                        cx="12"
+                        cy="8.5"
+                        r="2.5"
+                        fill="currentColor"
+                      ></circle>
+                      <path
+                        fill="currentColor"
+                        d="M7 15a5.782 5.782 0 0 0 5 3a5.782 5.782 0 0 0 5-3c-.025-1.896-3.342-3-5-3c-1.667 0-4.975 1.104-5 3Z"
+                      ></path>
+                    </svg>
+                    Staff
+                  </SecondaryButton>
                 </li>
-              );
-            })}
-            <li className="w-full">
-              <Link to="/account" className="hover:underline text-xl w-full">
-                Compte
-              </Link>
-            </li>
-            <li className="w-full">
-              <PrimaryButton onClick={() => dispatch(logout())}>
-                Déconnexion
-              </PrimaryButton>
-            </li>
-          </ul>
+              )}
+              <li className="w-full">
+                <PrimaryButton onClick={() => dispatch(logout())}>
+                  Déconnexion
+                </PrimaryButton>
+              </li>
+            </ul>
+          )}
         </div>
       )}
       <div className="h-[73px]" />

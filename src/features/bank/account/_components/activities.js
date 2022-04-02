@@ -1,6 +1,8 @@
 import { userData } from "features/authentication/user.model";
 import { bankTransactions } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
+import { formatPrice } from "helpers/formatPrice";
+import joinClasses from "helpers/joinClasses";
 import { useSelector } from "react-redux";
 
 export default function Activities() {
@@ -8,7 +10,7 @@ export default function Activities() {
   const user = useSelector(userData);
   const community = useSelector(communityInfo);
 
-  const transactionType = (transaction) => {
+  const transactionType = (transaction, position) => {
     const formatedDate = new Date(transaction.created_at);
     const date = `${formatedDate.getDate()}/${
       formatedDate.getMonth() + 1
@@ -17,7 +19,10 @@ export default function Activities() {
     if (!transaction.transmitter) {
       return (
         <li
-          className="grid grid-cols-4 gap-5 text-sm bg-gray-100 px-5 py-4"
+          className={joinClasses(
+            "grid grid-cols-4 gap-5 text-sm  px-5 py-4",
+            position ? "bg-white" : "bg-gray-100"
+          )}
           key={transaction.id}
         >
           <p>{date}</p>
@@ -29,14 +34,17 @@ export default function Activities() {
             </p>
           </div>
           <p className="text-right text-green-500">
-            +{transaction.amount} {community.currency}
+            +{formatPrice(transaction.amount, community.currency)}
           </p>
         </li>
       );
     } else if (transaction.transmitter.user_id === user.id) {
       return (
         <li
-          className="grid grid-cols-4 gap-5 text-sm bg-gray-100 px-5 py-4"
+          className={joinClasses(
+            "grid grid-cols-4 gap-5 text-sm  px-5 py-4",
+            position ? "bg-white" : "bg-gray-100"
+          )}
           key={transaction.id}
         >
           <p>{date}</p>
@@ -48,14 +56,17 @@ export default function Activities() {
             </p>
           </div>
           <p className="text-right text-red-500">
-            -{transaction.amount} {community.currency}
+            -{formatPrice(transaction.amount, community.currency)}
           </p>
         </li>
       );
     } else if (transaction.receiver.user_id === user.id) {
       return (
         <li
-          className="grid grid-cols-4 gap-5 text-sm bg-gray-100 px-5 py-4"
+          className={joinClasses(
+            "grid grid-cols-4 gap-5 text-sm  px-5 py-4",
+            position ? "bg-white" : "bg-gray-100"
+          )}
           key={transaction.id}
         >
           <p>{date}</p>
@@ -67,7 +78,7 @@ export default function Activities() {
             </p>
           </div>
           <p className="text-right text-green-500">
-            +{transaction.amount} {community.currency}
+            +{formatPrice(transaction.amount, community.currency)}
           </p>
         </li>
       );
@@ -81,7 +92,10 @@ export default function Activities() {
       {transactions
         .slice(0)
         .reverse()
-        .map((transaction, index) => index < 6 && transactionType(transaction))}
+        .map(
+          (transaction, index) =>
+            index < 6 && transactionType(transaction, index % 2)
+        )}
     </ul>
   );
 }
