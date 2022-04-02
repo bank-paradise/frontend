@@ -21,6 +21,7 @@ export default function BankAccount() {
 
     const pusher = new Pusher("15c2976a1d4aa2b7300e", {
       broadcaster: "pusher",
+      wsHost: window.location.href,
       wsPath: "/socket",
       forceTLS: process.env.REACT_APP_WS_TLS === "true",
       disableStats: true,
