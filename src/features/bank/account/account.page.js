@@ -21,6 +21,7 @@ export default function BankAccount() {
 
     const pusher = new Pusher("15c2976a1d4aa2b7300e", {
       broadcaster: "pusher",
+      cluster: "eu",
       wsHost: "ws.bank-paradise.fr",
       wsPort: 6001,
       forceTLS: process.env.REACT_APP_WS_TLS === "true",
