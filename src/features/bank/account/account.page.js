@@ -19,7 +19,7 @@ export default function BankAccount() {
 
     Pusher.logToConsole = true;
 
-    const pusher = new Pusher("15c2976a1d4aa2b7300e", {
+    const pusher = new Pusher("BCN5HT4fS9AofMgc", {
       broadcaster: "pusher",
       cluster: "eu",
       wsHost: "ws.bank-paradise.fr",
