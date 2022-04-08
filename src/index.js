@@ -35,4 +35,4 @@ ReactDOM.render(
 );
 
 // change to register() for active PWA
-serviceWorker.unregister();
+serviceWorker.register();
