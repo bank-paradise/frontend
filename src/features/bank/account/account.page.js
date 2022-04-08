@@ -8,6 +8,7 @@ import { bankAllInfo, createTransaction, getBank } from "../bank.model";
 import Activities from "./_components/activities";
 import BankHeader from "./_components/bankHeader";
 import Statistics from "./_components/statistics";
+import createNotification from "helpers/createNotif";
 
 export default function BankAccount() {
   const userInfo = useSelector(userData);
@@ -34,10 +35,7 @@ export default function BankAccount() {
       });
 
       // créer une notification
-      new Notification("Nouvelle transaction", {
-        body: "Vous avez reçu une nouvelle transaction",
-        icon: "https://beta.bank-paradise.fr/assets/brand/avatar.png",
-      });
+      createNotification(`Nouvelle transaction reçue`);
 
       sound.play();
     });
