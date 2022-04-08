@@ -36,6 +36,7 @@ export default function BankAccount() {
       // créer une notification
       new Notification("Nouvelle transaction", {
         body: "Vous avez reçu une nouvelle transaction",
+        icon: "https://beta.bank-paradise.fr/assets/brand/avatar.png",
       });
 
       sound.play();
