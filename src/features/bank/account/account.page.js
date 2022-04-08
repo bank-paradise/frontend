@@ -16,9 +16,7 @@ export default function BankAccount() {
 
   useEffect(() => {
     dispatch(getBank());
-
     Pusher.logToConsole = true;
-
     const pusher = new Pusher("BCN5HT4fS9AofMgc", {
       broadcaster: "pusher",
       wsHost: "ws.bank-paradise.fr",
@@ -33,6 +31,11 @@ export default function BankAccount() {
       await dispatch(getBank());
       let sound = new Howl({
         src: ["/assets/sounds/notification.mp3"],
+      });
+
+      // créer une notification
+      new Notification("Nouvelle transaction", {
+        body: "Vous avez reçu une nouvelle transaction",
       });
 
       sound.play();

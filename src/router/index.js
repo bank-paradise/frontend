@@ -18,6 +18,16 @@ export default function RootContainer() {
     if (authHeader.status === "nothing" && cookies.get("::token")) {
       dispatch(check());
     }
+    if (authHeader.status === "done") {
+      // demander la permission des notifications
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+      // si l'utilisateur est connecté, on lui envoie une notification
+      const notification = new Notification("Bienvenue sur Bank Paradise", {
+        body: "Vous êtes connecté",
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authHeader]);
 
