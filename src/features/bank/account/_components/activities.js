@@ -20,7 +20,7 @@ export default function Activities() {
       return (
         <li
           className={joinClasses(
-            "grid grid-cols-4 gap-5 text-sm  px-5 py-4",
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm  px-5 py-4",
             position ? "bg-white" : "bg-gray-100"
           )}
           key={transaction.id}
@@ -29,8 +29,10 @@ export default function Activities() {
           <div className="col-span-2">
             <p className="uppercase">{community.name}</p>
             <p className="text-xs">
-              <span className="text-green-500">Argent Reçu</span> -{" "}
-              {transaction.description}
+              <span className="text-green-500">Argent Reçu</span>
+              {transaction.description.length
+                ? ` - ${transaction.description}`
+                : ""}
             </p>
           </div>
           <p className="text-right text-green-500">
@@ -42,17 +44,19 @@ export default function Activities() {
       return (
         <li
           className={joinClasses(
-            "grid grid-cols-4 gap-5 text-sm  px-5 py-4",
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm  px-5 py-4",
             position ? "bg-white" : "bg-gray-100"
           )}
           key={transaction.id}
         >
           <p>{date}</p>
-          <div className="col-span-2">
+          <div className="col-span-1 md:col-span-2">
             <p className="uppercase">Moi</p>
             <p className="text-xs">
-              <span className="text-red-500">Payement</span> -{" "}
-              {transaction.description}
+              <span className="text-red-500">Payement</span>
+              {transaction.description.length
+                ? ` - ${transaction.description}`
+                : ""}
             </p>
           </div>
           <p className="text-right text-red-500">
@@ -64,7 +68,7 @@ export default function Activities() {
       return (
         <li
           className={joinClasses(
-            "grid grid-cols-4 gap-5 text-sm  px-5 py-4",
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm  px-5 py-4",
             position ? "bg-white" : "bg-gray-100"
           )}
           key={transaction.id}
@@ -73,8 +77,10 @@ export default function Activities() {
           <div className="col-span-2">
             <p className="uppercase">{transaction.transmitter.name}</p>
             <p className="text-xs">
-              <span className="text-green-500">Argent Reçu</span> -{" "}
-              {transaction.description}
+              <span className="text-green-500">Argent Reçu</span>
+              {transaction.description.length
+                ? ` - ${transaction.description}`
+                : ""}
             </p>
           </div>
           <p className="text-right text-green-500">

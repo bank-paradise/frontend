@@ -9,6 +9,7 @@ import Activities from "./_components/activities";
 import BankHeader from "./_components/bankHeader";
 import Statistics from "./_components/statistics";
 import createNotification from "helpers/createNotif";
+import { formatPrice } from "helpers/formatPrice";
 
 export default function BankAccount() {
   const userInfo = useSelector(userData);
@@ -17,10 +18,12 @@ export default function BankAccount() {
 
   useEffect(() => {
     dispatch(getBank());
-    Pusher.logToConsole = true;
+
+    if (process.env.NODE_ENV === "development") Pusher.logToConsole = true;
+    // || "ws.bank-paradise.fr"
     const pusher = new Pusher("BCN5HT4fS9AofMgc", {
       broadcaster: "pusher",
-      wsHost: "ws.bank-paradise.fr",
+      wsHost: process.env.REACT_APP_WS_HOST,
       wsPort: 6001,
       forceTLS: process.env.REACT_APP_WS_TLS === "true",
       disableStats: true,
@@ -28,16 +31,23 @@ export default function BankAccount() {
 
     const channel = pusher.subscribe(`transaction.${userInfo.id}`);
 
-    channel.bind("transaction.received", async () => {
-      await dispatch(getBank());
-      let sound = new Howl({
-        src: ["/assets/sounds/notification.mp3"],
-      });
+    channel.bind("transaction.received", async (event) => {
+      if (event.transaction) {
+        console.log(event.transaction);
+        await dispatch(getBank());
+        let sound = new Howl({
+          src: ["/assets/sounds/notification.mp3"],
+        });
 
-      // créer une notification
-      createNotification(`Nouvelle transaction reçue`);
+        // créer une notification
+        createNotification(
+          `Vous avez reçu une transaction de ${formatPrice(
+            event.transaction.transaction.amount
+          )}`
+        );
 
-      sound.play();
+        sound.play();
+      }
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

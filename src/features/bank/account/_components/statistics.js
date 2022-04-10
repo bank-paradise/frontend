@@ -1,5 +1,6 @@
 import { bankAccounts, bankStatistics } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
+import { formatPrice } from "helpers/formatPrice";
 import joinClasses from "helpers/joinClasses";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
@@ -18,20 +19,23 @@ export default function Statistics() {
           <p className="uppercase text-sm flex justify-between w-full">
             ARGENTS ENTRANT:{" "}
             <span className="text-green-500">
-              {statistics.incoming} {community.currency}
+              {formatPrice(statistics.incoming, community.currency)}
             </span>
           </p>
           <p className="uppercase text-sm flex justify-between w-full">
             ARGENTS SORTANT:{" "}
             <span className="text-red-500">
-              {statistics.outgoing} {community.currency}
+              {formatPrice(statistics.outgoing, community.currency)}
             </span>
           </p>
           <div className="w-full h-[1px] bg-gray-300" />
           <p className="uppercase text-sm flex justify-between w-full">
             TOTAL:{" "}
             <span>
-              {statistics.incoming - statistics.outgoing} {community.currency}
+              {formatPrice(
+                statistics.incoming - statistics.outgoing,
+                community.currency
+              )}
             </span>
           </p>
         </div>

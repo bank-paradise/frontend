@@ -8,6 +8,7 @@ import {
 } from "components/atoms";
 import { Modal } from "components/molecules";
 import { communityAccounts } from "features/community/community.model";
+import { formatPrice } from "helpers/formatPrice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import BankTitle from "./bankTitle";
@@ -28,12 +29,12 @@ export default function BankHeader({ accounts, currency = "EUR" }) {
         <div className="bg-primary text-white mt-4 px-5 py-5 rounded-lg ">
           <p className="text-md">Total:</p>
           <h3 className="text-[30px] font-bold mb-3">
-            {getBalanceTotal()} {currency}
+            {formatPrice(getBalanceTotal(), currency)}
           </h3>
           <div className="w-[100px] h-[1px] bg-white mb-3" />
           {accounts.map(({ id, name, balance }) => (
             <p className="font-light text-md mt-1" key={id}>
-              {balance} {currency} - {name}
+              {formatPrice(balance, currency)} - {name}
             </p>
           ))}
         </div>

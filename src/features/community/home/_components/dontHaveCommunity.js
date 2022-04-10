@@ -5,6 +5,7 @@ import {
   Select,
   SubTitle,
 } from "components/atoms";
+import { check } from "features/authentication/user.model";
 import {
   createCommunity,
   invitationsList,
@@ -21,7 +22,8 @@ export default function DontHaveCommunity() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    dispatch(createCommunity(data));
+    await dispatch(createCommunity(data));
+    await dispatch(check());
   };
 
   return (
