@@ -13,6 +13,8 @@ import CommunitySettings from "features/admin/settings/settings.page";
 import CommunityInvitations from "features/admin/invitations/invitations.page";
 import CommunityTransactions from "features/admin/transactions/transactions.page";
 import CommunityMembers from "features/admin/members/members.page";
+import CompanyAccount from "features/bank/company/company.page";
+import { bankAccounts, getBank } from "features/bank/bank.model";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ export default function DefaultRouter() {
 
   useEffect(() => {
     dispatch(getCommunity());
+    dispatch(getBank());
   }, []);
 
   return (
@@ -29,6 +32,7 @@ export default function DefaultRouter() {
         path="/"
         element={!community ? <CreateCommunity /> : <BankAccount />}
       />
+      <Route path="/entreprises/:companyId" element={<CompanyAccount />} />
       {/* All staff routes */}
       {checkPermissions(user, 2) && (
         <React.Fragment>

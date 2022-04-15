@@ -6,7 +6,7 @@ export const LineButton = ({ children, className, ...props }) => {
     <Button
       {...props}
       className={joinClasses(
-        "bg-transparent border border-primary text-primary hover:bg-primary hover:text-white",
+        "bg-transparent border border-primary text-primary hover:bg-primary hover:text-white dark:border-white dark:text-white",
         className
       )}
     >

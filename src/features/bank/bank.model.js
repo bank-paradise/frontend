@@ -60,6 +60,12 @@ export const bankPersonalAccount = (state) => {
     null
   );
 };
+export const bankProfessionalAccounts = (state) => {
+  return (
+    state.bank.accounts.filter((account) => account.type === "professional") ||
+    null
+  );
+};
 export const bankCurrentcy = (state) => state.bank.currency;
 export const bankAllInfo = (state) => state.bank;
 export const bankStatistics = (state) => state.bank.statistics;

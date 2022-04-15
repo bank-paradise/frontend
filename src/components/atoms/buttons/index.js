@@ -5,7 +5,7 @@ export const Button = ({ children, className, size = "", ...props }) => {
   return (
     <button
       className={joinClasses(
-        "rounded-[8px] font-mediumx shadow-lg hover:shadow-sm transition-all",
+        "rounded-[8px] font-medium shadow-lg hover:shadow-sm transition-all",
         getSizeClass(size),
         className
       )}

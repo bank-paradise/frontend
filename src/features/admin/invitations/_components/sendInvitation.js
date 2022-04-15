@@ -12,7 +12,6 @@ export default function SendInvitation({ callback = () => {} }) {
     if (loading) return;
     setLoading(true);
     const invitation = await fetchsendInvitation(data);
-    console.log(invitation);
     if (invitation.status === "done") {
       toast.success("Invitation envoyé !");
       callback();

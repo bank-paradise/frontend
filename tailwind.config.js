@@ -13,5 +13,13 @@ module.exports = {
       ...theme.fonts,
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss-animatecss")({
+      classes: [],
+      settings: {
+        animatedSpeed: 250,
+      },
+      variants: ["responsive", "hover", "reduced-motion"],
+    }),
+  ],
 };

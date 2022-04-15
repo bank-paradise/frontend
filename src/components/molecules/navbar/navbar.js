@@ -1,6 +1,7 @@
 import { PrimaryButton, SecondaryButton } from "components/atoms";
 import { logout, userData } from "features/authentication/user.model";
 import checkPermissions from "helpers/checkPermissions";
+import joinClasses from "helpers/joinClasses";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -41,7 +42,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
                             ></path>
                           </svg>
                         </Link>
-                        <ul className="absolute bg-white group-hover:flex hidden px-5 py-3 rounded-md shadow-md flex-col gap-3">
+                        <ul className="absolute bg-white group-hover:flex hidden px-5 py-3 rounded-md shadow-md flex-col gap-3 animate__animated animate__fadeIn">
                           {item.dropdown.map((dropdownItem, index) => {
                             return (
                               <li
@@ -111,11 +112,30 @@ export const Navbar = ({ connected = true, items = [] }) => {
           <Link to="/" className="flex items-center justify-center h-full">
             <img src="/assets/brand/logo.svg" alt="accueil du site" />
           </Link>
-          <button onClick={() => setIsOpen(!isOpen)}>x</button>
+          <button onClick={() => setIsOpen(!isOpen)}>
+            <span
+              className={joinClasses(
+                "block h-0.5 w-5 my-1 transition-all transform bg-white",
+                isOpen && "absolute rotate-45 translate-y-0.5"
+              )}
+            />
+            <span
+              className={joinClasses(
+                "block bg-white h-0.5 w-5 my-1 transition-all",
+                isOpen && "opacity-0"
+              )}
+            />
+            <span
+              className={joinClasses(
+                "block h-0.5 w-5 my-1 transition-all transform bg-white",
+                isOpen && "absolute -rotate-45 -translate-y-2"
+              )}
+            />
+          </button>
         </div>
       </nav>
       {isOpen && (
-        <div className="fixed h-screen w-screen bg-white flex items-end lg:hidden">
+        <div className="fixed h-screen w-screen bg-white flex items-end lg:hidden animate__animated animate__fadeIn">
           {user && (
             <ul className="h-[calc(100vh-100px)] overflow-y-auto flex flex-col w-full gap-10 px-[10%]">
               {items.map((item, index) => {

@@ -33,7 +33,6 @@ export default function BankAccount() {
 
     channel.bind("transaction.received", async (event) => {
       if (event.transaction) {
-        console.log(event.transaction);
         await dispatch(getBank());
         let sound = new Howl({
           src: ["/assets/sounds/notification.mp3"],

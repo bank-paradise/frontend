@@ -1,21 +1,9 @@
-import { PrimaryButton, SecondaryButton } from "components/atoms";
-import { logout, userData } from "features/authentication/user.model";
-import checkPermissions from "helpers/checkPermissions";
 import joinClasses from "helpers/joinClasses";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Link,
-  useNavigate,
-  useMatch,
-  useResolvedPath,
-  useLocation,
-} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const SubNavbar = ({ items = [] }) => {
   const location = useLocation();
 
-  console.log(location);
   return (
     <>
       <nav className="md:h-screen md:w-[260px] md:bg-primary-light flex px-5 md:px-10 py-3 md:py-10 md:fixed justify-center md:justify-start">
