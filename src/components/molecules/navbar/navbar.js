@@ -42,16 +42,20 @@ export const Navbar = ({ connected = true, items = [] }) => {
                             ></path>
                           </svg>
                         </Link>
-                        <ul className="absolute bg-white group-hover:flex hidden px-5 py-3 rounded-md shadow-md flex-col gap-3 animate__animated animate__fadeIn">
+                        <ul className="absolute bg-white group-hover:flex hidden px-5 py-3 rounded-md shadow-md flex-col justify-start gap-3 animate__animated animate__fadeIn">
                           {item.dropdown.map((dropdownItem, index) => {
                             return (
                               <li
                                 key={index}
                                 className="text-secondary text-sm hover:text-primary"
                               >
-                                <Link to={dropdownItem.path}>
-                                  {dropdownItem.name}
-                                </Link>
+                                <Link
+                                  className="flex items-center gap-2"
+                                  to={dropdownItem.path}
+                                  dangerouslySetInnerHTML={{
+                                    __html: dropdownItem.name,
+                                  }}
+                                ></Link>
                               </li>
                             );
                           })}
@@ -135,7 +139,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
         </div>
       </nav>
       {isOpen && (
-        <div className="fixed h-screen w-screen bg-white flex items-end lg:hidden animate__animated animate__fadeIn">
+        <div className="fixed h-screen w-screen bg-white flex items-end lg:hidden animate__animated animate__fadeIn z-[5]">
           {user && (
             <ul className="h-[calc(100vh-100px)] overflow-y-auto flex flex-col w-full gap-10 px-[10%]">
               {items.map((item, index) => {
@@ -156,9 +160,13 @@ export const Navbar = ({ connected = true, items = [] }) => {
                               key={index}
                               className="text-secondary text-xl hover:text-primary"
                             >
-                              <Link to={dropdownItem.path} className="w-full">
-                                {dropdownItem.name}
-                              </Link>
+                              <Link
+                                to={dropdownItem.path}
+                                dangerouslySetInnerHTML={{
+                                  __html: dropdownItem.name,
+                                }}
+                                className="w-full flex items-center gap-2"
+                              ></Link>
                             </li>
                           );
                         })}

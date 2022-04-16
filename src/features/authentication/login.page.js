@@ -40,9 +40,9 @@ export default function Login() {
       className="flex justify-center items-center"
       connected={false}
     >
-      <PrimaryCard className="w-full max-w-[530px] m-auto px-8 py-12">
+      <PrimaryCard className="w-full max-w-[530px] m-auto px-8 py-12 dark:bg-slate-800">
         <SubTitle>Connexion</SubTitle>
-        <SubParagraph>
+        <SubParagraph className="dark:text-white">
           Vous n'avez pas de compte ?{" "}
           <Link to="/auth/register" className="underline text-primary">
             Inscription
@@ -55,6 +55,7 @@ export default function Login() {
           <Input
             type="email"
             placeholder="Adresse mail"
+            className="dark:bg-slate-800"
             register={register}
             name="email"
             required
@@ -62,6 +63,7 @@ export default function Login() {
           <Input
             type="password"
             placeholder="Mot de passe"
+            className="dark:bg-slate-800"
             register={register}
             name="password"
             required

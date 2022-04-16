@@ -55,7 +55,9 @@ export default function BankAccount() {
   return (
     <DefaultTemplate>
       <div className="w-full my-7">
-        <h1 className="text-2xl font-medium">Bonjour {userInfo.name}</h1>
+        <h1 className="text-2xl font-medium dark:text-white">
+          Bonjour {userInfo.name}
+        </h1>
       </div>
       {accounts && (
         <div className="flex flex-col gap-10">

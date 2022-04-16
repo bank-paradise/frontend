@@ -48,8 +48,10 @@ export default function MemberItem({
     <li
       key={member.id}
       className={joinClasses(
-        "flex flex-col md:grid grid-cols-4 gap-5 px-5 py-3 justify-between",
-        index % 2 ? "bg-white" : "bg-gray-100"
+        "flex flex-col md:grid grid-cols-4 gap-5 px-5 py-3 justify-between dark:text-white",
+        index % 2
+          ? "bg-white dark:bg-slate-600"
+          : "bg-gray-100 dark:bg-slate-700"
       )}
     >
       <p className="font-medium">

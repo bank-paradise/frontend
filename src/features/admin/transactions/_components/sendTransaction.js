@@ -26,7 +26,9 @@ export default function SendTransaction({ callback = () => {} }) {
 
   return (
     <div>
-      <h4 className="text-md font-medium mt-5 mb-2">Envoyer de l'argent</h4>
+      <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">
+        Envoyer de l'argent
+      </h4>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-10 max-w-xl"
@@ -40,12 +42,12 @@ export default function SendTransaction({ callback = () => {} }) {
           required
         >
           <option disabled>compte</option>
-          <option disabled>───── JOUEURS ─────</option>
+          <option disabled>─── JOUEURS ───</option>
 
           {accounts.personnal.map((account) => (
             <option value={account.rib}>{account.name}</option>
           ))}
-          <option disabled>───── ENTREPRISES ─────</option>
+          <option disabled>── ENTREPRISES ──</option>
           {accounts.professional.map((account) => (
             <option value={account.rib}>{account.name}</option>
           ))}

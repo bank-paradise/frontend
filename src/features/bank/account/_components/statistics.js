@@ -15,7 +15,7 @@ export default function Statistics() {
     <div className="flex flex-col md:flex-row lg:flex-col gap-5">
       <div className="w-full">
         <BankTitle>Statistiques</BankTitle>
-        <div className="mt-7 bg-gray-100 px-4 py-5 gap-3 flex flex-col">
+        <div className="mt-7 bg-gray-100 px-4 py-5 gap-3 flex flex-col dark:bg-slate-600 dark:text-white">
           <p className="uppercase text-sm flex justify-between w-full">
             ARGENTS ENTRANT:{" "}
             <span className="text-green-500">
@@ -42,7 +42,7 @@ export default function Statistics() {
       </div>
       <div className="w-full">
         <BankTitle>Comptes</BankTitle>
-        <div className="mt-7 gap-5 flex flex-col">
+        <div className="mt-7 gap-5 flex flex-col dark:text-white">
           {accounts.map((account, index) => (
             <Fragment key={account.id}>
               <div>

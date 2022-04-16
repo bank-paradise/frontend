@@ -23,7 +23,9 @@ export default function SendInvitation({ callback = () => {} }) {
 
   return (
     <div>
-      <h4 className="text-md font-medium mt-5 mb-2">Inviter un joueur</h4>
+      <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">
+        Inviter un joueur
+      </h4>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-10 max-w-xl"

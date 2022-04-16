@@ -5,7 +5,9 @@ import joinClasses from "helpers/joinClasses";
 export default function TransactionsList({ list = [] }) {
   return (
     <div>
-      <h4 className="text-md font-medium mt-5 mb-2">Liste des transactions</h4>
+      <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">
+        Liste des transactions
+      </h4>
       <ul className="w-full">
         {list.length ? (
           list
@@ -16,8 +18,10 @@ export default function TransactionsList({ list = [] }) {
               <li
                 key={transaction.id}
                 className={joinClasses(
-                  "flex flex-col md:grid grid-cols-4 gap-5 px-5 py-3 justify-between",
-                  index % 2 ? "bg-white" : "bg-gray-100"
+                  "flex flex-col md:grid grid-cols-4 gap-5 px-5 py-3 justify-between dark:text-white",
+                  index % 2
+                    ? "bg-white dark:bg-slate-600"
+                    : "bg-gray-100 dark:bg-slate-700"
                 )}
               >
                 <p className="font-medium">

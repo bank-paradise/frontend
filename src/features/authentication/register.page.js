@@ -37,9 +37,9 @@ export default function Register() {
 
   return (
     <DefaultTemplate className="flex justify-center items-center">
-      <PrimaryCard className="w-full max-w-[530px] m-auto px-8 py-12">
+      <PrimaryCard className="w-full max-w-[530px] m-auto px-8 py-12 dark:bg-slate-800">
         <SubTitle>Inscription</SubTitle>
-        <SubParagraph>
+        <SubParagraph className="dark:text-white">
           Vous avez un compte ?{" "}
           <Link to="/auth/login" className="underline text-primary">
             Connexion
@@ -52,6 +52,7 @@ export default function Register() {
           <Input
             type="text"
             placeholder="Pseudo"
+            className="dark:bg-slate-800"
             register={register}
             name="name"
             required
@@ -59,6 +60,7 @@ export default function Register() {
           <Input
             type="email"
             placeholder="Adresse mail"
+            className="dark:bg-slate-800"
             register={register}
             name="email"
             required
@@ -66,6 +68,7 @@ export default function Register() {
           <Input
             type="password"
             placeholder="Mot de passe"
+            className="dark:bg-slate-800"
             register={register}
             name="password"
             required

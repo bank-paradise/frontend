@@ -16,10 +16,15 @@ export const Modal = ({
       )}
       {...props}
     >
-      <div className="bg-white max-w-xl z-10 h-min w-11/12 md:w-full rounded-lg px-5 pt-14 pb-4 relative">
+      <div className="bg-white dark:bg-slate-700 max-w-xl z-10 h-min w-11/12 md:w-full rounded-lg px-5 pt-14 pb-4 relative">
         <div className="absolute top-0 left-0 w-full flex justify-between px-5 py-3">
-          <Paragraph className="font-bold !text-[18px]">{title}</Paragraph>
-          <button className=" text-primary" onClick={() => setIsOpen(false)}>
+          <Paragraph className="font-bold !text-[18px] dark:text-white">
+            {title}
+          </Paragraph>
+          <button
+            className=" text-primary dark:text-white"
+            onClick={() => setIsOpen(false)}
+          >
             <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
               <path
                 fill="currentColor"

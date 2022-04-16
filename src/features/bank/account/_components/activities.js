@@ -20,8 +20,10 @@ export default function Activities() {
       return (
         <li
           className={joinClasses(
-            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm  px-5 py-4",
-            position ? "bg-white" : "bg-gray-100"
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm dark:text-white px-5 py-4",
+            position
+              ? "bg-white  dark:bg-slate-600"
+              : "bg-gray-100  dark:bg-slate-700"
           )}
           key={transaction.id}
         >
@@ -44,8 +46,10 @@ export default function Activities() {
       return (
         <li
           className={joinClasses(
-            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm  px-5 py-4",
-            position ? "bg-white" : "bg-gray-100"
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm dark:text-white px-5 py-4",
+            position
+              ? "bg-white  dark:bg-slate-600"
+              : "bg-gray-100  dark:bg-slate-700"
           )}
           key={transaction.id}
         >
@@ -68,8 +72,10 @@ export default function Activities() {
       return (
         <li
           className={joinClasses(
-            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm  px-5 py-4",
-            position ? "bg-white" : "bg-gray-100"
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm dark:text-white px-5 py-4",
+            position
+              ? "bg-white  dark:bg-slate-600"
+              : "bg-gray-100  dark:bg-slate-700"
           )}
           key={transaction.id}
         >

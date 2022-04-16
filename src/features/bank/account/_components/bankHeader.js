@@ -51,7 +51,7 @@ export default function BankHeader({ accounts, currency = "EUR" }) {
           ))}
         </div>
       </div>
-      <div className="flex flex-col md:flex-row w-full bg-gray-100 px-10 py-5 gap-16 rounded-lg">
+      <div className="flex flex-col md:flex-row w-full bg-gray-100 px-10 py-5 gap-16 rounded-lg dark:bg-slate-700 dark:text-white">
         <div className="w-full flex flex-col">
           <BankTitle className="mb-5">Actions Rapides</BankTitle>
           <div className="flex flex-col gap-5 justify-center">

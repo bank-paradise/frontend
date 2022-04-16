@@ -4,15 +4,19 @@ import joinClasses from "helpers/joinClasses";
 export default function InvitationsList({ list = [] }) {
   return (
     <div>
-      <h4 className="text-md font-medium mt-5 mb-2">Invitations en attente</h4>
+      <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">
+        Invitations en attente
+      </h4>
       <ul className="w-full">
         {list.length ? (
           list.map((invitation, index) => (
             <li
               key={invitation.id}
               className={joinClasses(
-                "flex gap-10 px-5 py-3",
-                index % 2 ? "bg-white" : "bg-gray-100"
+                "flex gap-10 px-5 py-3 dark:text-white",
+                index % 2
+                  ? "bg-white  dark:bg-slate-600"
+                  : "bg-gray-100  dark:bg-slate-700"
               )}
             >
               <p className="font-medium">{formatDate(invitation.created_at)}</p>
@@ -23,7 +27,7 @@ export default function InvitationsList({ list = [] }) {
             </li>
           ))
         ) : (
-          <p className="text-center text-sm font-medium py-5">
+          <p className="text-center text-sm font-medium py-5 dark:text-white">
             Aucune invitation
           </p>
         )}
