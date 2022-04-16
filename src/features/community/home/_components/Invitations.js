@@ -1,7 +1,10 @@
 import { LineButton, PrimaryButton, SubParagraph } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import { Card } from "components/atoms/cards";
-import { joinCommunity } from "features/community/community.model";
+import {
+  getCommunity,
+  joinCommunity,
+} from "features/community/community.model";
 import joinClasses from "helpers/joinClasses";
 import { useDispatch } from "react-redux";
 
@@ -11,6 +14,7 @@ export default function Invitations({ invitations = [] }) {
   const handleInvitation = async (e, invitation, accept) => {
     e.preventDefault();
     await dispatch(joinCommunity({ ...invitation, accept }));
+    await dispatch(getCommunity());
   };
 
   return (
