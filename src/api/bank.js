@@ -25,3 +25,16 @@ export async function fetchCreateTransaction(transaction) {
 
   return response;
 }
+
+export async function fetchCreateCompany(payload) {
+  const response = await axiosRequest({
+    method: "POST",
+    url: "/bank/company",
+    data: payload,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}

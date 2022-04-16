@@ -50,7 +50,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
                                 className="text-secondary text-sm hover:text-primary"
                               >
                                 <Link
-                                  className="flex items-center gap-2"
+                                  className="flex items-center gap-1"
                                   to={dropdownItem.path}
                                   dangerouslySetInnerHTML={{
                                     __html: dropdownItem.name,

@@ -10,14 +10,13 @@ import { Modal } from "components/molecules";
 import { communityAccounts } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import BankTitle from "./bankTitle";
 import Contact from "./contact";
 import CountUp from "react-countup";
-import { PersoTransactions } from "./personnalTransactions";
+import { useNavigate } from "react-router-dom";
 
 export default function BankHeader({ accounts, currency = "EUR" }) {
-  const [isOpenPersoTransac, setIsOpenPersoTransac] = useState(false);
+  let navigate = useNavigate();
 
   const getBalanceTotal = () => {
     return accounts.reduce((acc, account) => acc + account.balance, 0);
@@ -57,11 +56,14 @@ export default function BankHeader({ accounts, currency = "EUR" }) {
           <div className="flex flex-col gap-5 justify-center">
             <LineButton
               className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
-              onClick={() => setIsOpenPersoTransac(true)}
+              onClick={() => navigate("/payment/personnal")}
             >
               Envoyer de l'argent
             </LineButton>
-            <LineButton className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3">
+            <LineButton
+              className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
+              onClick={() => navigate("/payment/professional")}
+            >
               Payer un bien ou un service
             </LineButton>
           </div>
@@ -78,12 +80,6 @@ export default function BankHeader({ accounts, currency = "EUR" }) {
           </div>
         </div>
       </div>
-      {isOpenPersoTransac && (
-        <PersoTransactions
-          setIsOpen={setIsOpenPersoTransac}
-          isOpen={isOpenPersoTransac}
-        />
-      )}
     </div>
   );
 }

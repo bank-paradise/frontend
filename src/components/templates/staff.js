@@ -24,7 +24,7 @@ export const StaffTemplate = ({
         name: "Activités",
       },
       {
-        path: "/transactions",
+        path: "/payment/new",
         name: "Virements",
       },
       {

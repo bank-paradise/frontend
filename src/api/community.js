@@ -153,3 +153,15 @@ export async function fetchMembers() {
 
   return response;
 }
+
+export async function fetchAllAccounts() {
+  const response = await axiosRequest({
+    method: "GET",
+    url: "community/accounts/all",
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}

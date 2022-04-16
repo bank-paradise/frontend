@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export default function createNotification(text = "", callback = () => {}) {
   if (!("Notification" in window)) {
     console.warn("This browser does not support desktop notification");
@@ -11,6 +13,8 @@ export default function createNotification(text = "", callback = () => {}) {
     body: text,
     icon: "https://beta.bank-paradise.fr/assets/brand/avatar.png",
   });
+
+  toast.success(text);
 
   notification.onclick = callback;
 }

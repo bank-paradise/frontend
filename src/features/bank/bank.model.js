@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchBankInformations, fetchCreateTransaction } from "api/bank";
+import {
+  fetchBankInformations,
+  fetchCreateCompany,
+  fetchCreateTransaction,
+} from "api/bank";
 
 const initialState = {
   header: { status: "nothing" },
@@ -25,6 +29,14 @@ export const createTransaction = createAsyncThunk(
   }
 );
 
+export const createCompany = createAsyncThunk(
+  "bank/company/create",
+  async (payload) => {
+    const response = await fetchCreateCompany(payload);
+    return response;
+  }
+);
+
 export const bankSlice = createSlice({
   name: "bank",
   initialState,
@@ -32,11 +44,13 @@ export const bankSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getBank.fulfilled, (state, action) => {
-      state.accounts = action.payload.response.accounts;
-      state.transactions = action.payload.response.transactions;
-      state.currency = action.payload.response.currency;
-      state.statistics = action.payload.response.statistics;
-      state.header.status = "done";
+      if (action.payload.status === "done") {
+        state.accounts = action.payload.response.accounts;
+        state.transactions = action.payload.response.transactions;
+        state.currency = action.payload.response.currency;
+        state.statistics = action.payload.response.statistics;
+        state.header.status = "done";
+      }
     });
     builder.addCase(createTransaction.fulfilled, (state, action) => {
       if (action.payload.status === "done") {
@@ -47,6 +61,11 @@ export const bankSlice = createSlice({
 
         state.accounts[accountIndex] = action.payload.response.account;
         state.header.status = "done";
+      }
+    });
+    builder.addCase(createCompany.fulfilled, (state, action) => {
+      if (action.payload.status === "done") {
+        state.accounts.push(action.payload.response.account);
       }
     });
   },

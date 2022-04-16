@@ -25,7 +25,7 @@ export const DefaultTemplate = ({
         name: "Activités",
       },
       {
-        path: "/transactions",
+        path: "/payment/new",
         name: "Virements",
       },
       {

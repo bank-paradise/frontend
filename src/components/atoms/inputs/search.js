@@ -62,7 +62,7 @@ export const Search = ({
         {...register(name, { required })}
         {...props}
       />
-      <ul className="bg-gray-50 shadow-lg absolute bottom-0 w-full translate-y-full max-h-[150px] overflow-y-auto">
+      <ul className="bg-gray-50 shadow-lg absolute bottom-0 w-full translate-y-full max-h-[150px] overflow-y-auto z-[2]">
         {!selected &&
           value.length > 0 &&
           results.map((item, index) => (

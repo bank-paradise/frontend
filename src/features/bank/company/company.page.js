@@ -9,7 +9,8 @@ import CompanySolde from "./_components/companySolde";
 import CompanyActions from "./_components/companyActions";
 
 export default function CompanyAccount() {
-  const { accounts, currency } = useSelector(bankAllInfo);
+  const bankInformations = useSelector(bankAllInfo);
+  const { accounts, currency } = bankInformations;
   const [account, setAccount] = useState(null);
   const [tab, setTab] = useState("activities");
   const params = useParams();
@@ -17,9 +18,9 @@ export default function CompanyAccount() {
     const accountById = accounts.find(
       (account) => account.id === Number(params.companyId)
     );
-    console.log("accountById", accountById);
+    console.log(accountById);
     setAccount(accountById);
-  }, [accounts]);
+  }, [accounts, params, bankInformations]);
 
   return (
     <DefaultTemplate>

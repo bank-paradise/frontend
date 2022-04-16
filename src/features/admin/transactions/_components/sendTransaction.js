@@ -1,15 +1,28 @@
-import { fetchinjectTransaction } from "api/community";
+import { fetchAllAccounts, fetchinjectTransaction } from "api/community";
 import { Input, PrimaryButton, Select } from "components/atoms";
 import { communityAccounts } from "features/community/community.model";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function SendTransaction({ callback = () => {} }) {
   const { register, handleSubmit } = useForm();
+  const [accounts, setAccounts] = useState({
+    personnal: [],
+    professional: [],
+  });
   const [loading, setLoading] = useState(false);
-  const accounts = useSelector(communityAccounts);
+
+  const getAccounts = async () => {
+    const accountsResponse = await fetchAllAccounts();
+    console.log(accountsResponse);
+    if (accountsResponse.status === "done")
+      setAccounts(accountsResponse.response);
+  };
+  useEffect(() => {
+    getAccounts();
+  }, []);
 
   const onSubmit = async (data) => {
     if (loading) return;

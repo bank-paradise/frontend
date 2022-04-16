@@ -48,6 +48,13 @@
         "en": "User does not have permission",
         "fr": "Vous n'avez pas la permission de faire ceci"
       }
+    },
+    {
+      "code": "USER_HAS_ALREADY_4_BANK_ACCOUNTS",
+      "message": {
+        "en": "User has already 3 bank accounts",
+        "fr": "Vous avez déjà 3 entreprises"
+      }
     }
   ]
 }
