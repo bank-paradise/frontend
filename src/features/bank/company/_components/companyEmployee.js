@@ -70,7 +70,10 @@ export default function ComanyEmployee({ employee, company_id }) {
           onChange={(e) => setAmount(e.target.value)}
           className="dark:!bg-slate-900"
         />
-        {getDays(new Date(), new Date(employee.last_payment)) >= 1 ? (
+        {getDays(
+          new Date(),
+          new Date(employee.last_payment.replace(/-/g, "/"))
+        ) >= 1 ? (
           <PrimaryButton onClick={sendSalary}>Envoyer</PrimaryButton>
         ) : (
           <PrimaryButton className="cursor-not-allowed opacity-50" disabled>
