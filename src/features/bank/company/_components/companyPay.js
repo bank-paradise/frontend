@@ -1,7 +1,13 @@
-import { LineButton } from "components/atoms";
+import { LineButton, Paragraph, SubParagraph } from "components/atoms";
+import BankTitle from "features/bank/account/_components/bankTitle";
 import joinClasses from "helpers/joinClasses";
+import ComanyEmployee from "./companyEmployee";
 
-export default function CompanyPay({ setTab = () => {} }) {
+export default function CompanyPay({
+  setTab = () => {},
+  employees = [],
+  company_id = 0,
+}) {
   return (
     <div className="w-full animate__animated animate__fadeIn ">
       <LineButton
@@ -16,7 +22,21 @@ export default function CompanyPay({ setTab = () => {} }) {
         </svg>
         Retour
       </LineButton>
-      <h1>CompanyPay</h1>
+      <BankTitle className="mt-5">Salaires</BankTitle>
+      <SubParagraph className="dark:text-white">
+        Vous ne pouvez envoyer le salaire{" "}
+        <span className="underline">qu’une fois par jour.</span>
+      </SubParagraph>
+
+      <ul>
+        {employees.map((employee, index) => (
+          <ComanyEmployee
+            employee={employee}
+            key={index}
+            company_id={company_id}
+          />
+        ))}
+      </ul>
     </div>
   );
 }

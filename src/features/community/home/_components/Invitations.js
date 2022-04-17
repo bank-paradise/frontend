@@ -1,6 +1,7 @@
 import { LineButton, PrimaryButton, SubParagraph } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import { Card } from "components/atoms/cards";
+import { getBank } from "features/bank/bank.model";
 import {
   getCommunity,
   joinCommunity,
@@ -15,11 +16,12 @@ export default function Invitations({ invitations = [] }) {
     e.preventDefault();
     await dispatch(joinCommunity({ ...invitation, accept }));
     await dispatch(getCommunity());
+    await dispatch(getBank());
   };
 
   return (
     <div className="mt-5">
-      <SubParagraph className="text-center">
+      <SubParagraph className="text-center dark:text-white">
         Retrouvez ici toutes vos invitations à des communautées.
       </SubParagraph>
       <ul>

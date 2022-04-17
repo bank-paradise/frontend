@@ -42,7 +42,11 @@ export default function CompanyAccount() {
                     <CompanyActivities rib={account.rib} tab={tab} />
                   </div>
                 ) : (
-                  <CompanyPay setTab={setTab} />
+                  <CompanyPay
+                    setTab={setTab}
+                    employees={account.employees}
+                    company_id={account.id}
+                  />
                 )}
               </div>
             </div>

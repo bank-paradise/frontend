@@ -6,7 +6,7 @@ export default function SelectPaymentMethod({ setMethod = () => {} }) {
       <SubTitle className="text-center mb-10">Que voulez-vous faire ?</SubTitle>
       <div className="w-full flex flex-col md:flex-row gap-10">
         <button
-          className="w-full bg-gray-50 shadow-md rounded-xl flex flex-col justify-center items-center py-5 md:h-[300px] gap-5 hover:scale-105 transition-all text-gray-700 hover:text-green-500 animate__animated active:animate__fadeOut"
+          className="w-full bg-gray-50 dark:bg-slate-700 dark:text-white shadow-md rounded-xl flex flex-col justify-center items-center py-5 md:h-[300px] gap-5 hover:scale-105 transition-all text-gray-700 hover:text-green-500 animate__animated active:animate__fadeOut"
           onClick={() => setMethod("personnal")}
         >
           <svg width="5em" height="5em" viewBox="0 0 36 36">
@@ -45,7 +45,7 @@ export default function SelectPaymentMethod({ setMethod = () => {} }) {
           <p className="font-bold">Envoyer de l'argent</p>
         </button>
         <button
-          className="w-full bg-gray-50 shadow-md rounded-xl flex flex-col justify-center items-center py-5 md:h-[300px] gap-5 hover:scale-105 transition-all text-gray-700 hover:text-green-500"
+          className="w-full bg-gray-50 dark:bg-slate-700 dark:text-white shadow-md rounded-xl flex flex-col justify-center items-center py-5 md:h-[300px] gap-5 hover:scale-105 transition-all text-gray-700 hover:text-green-500"
           onClick={() => setMethod("professional")}
         >
           <svg width="5em" height="5em" viewBox="0 0 512 512">

@@ -1,4 +1,4 @@
-import { Navbar, SubNavbar } from "components/molecules";
+import { Footer, Navbar, SubNavbar } from "components/molecules";
 import { bankProfessionalAccounts } from "features/bank/bank.model";
 import joinClasses from "helpers/joinClasses";
 import { useEffect, useState } from "react";
@@ -52,7 +52,7 @@ export const StaffTemplate = ({
     },
     {
       path: "/commu/transactions",
-      name: "Virements",
+      name: "Argents",
     },
     {
       path: "/commu/statistiques",
@@ -70,10 +70,11 @@ export const StaffTemplate = ({
       </header>
       <main className="flex flex-col md:flex-row">
         <SubNavbar items={adminnavitems} />
-        <div className="px-14 py-10 w-full md:w-[calc(100vw-260px)]">
+        <div className="px-[5%] md:px-14 py-10 w-full md:w-[calc(100vw-260px)] min-h-[calc(100vh-73px)]">
           {children}
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

@@ -29,18 +29,20 @@ export default function BankHeader({ accounts, currency = "EUR" }) {
         <div className="bg-primary text-white mt-4 px-5 py-5 rounded-lg ">
           <p className="text-md">Total:</p>
           <h3 className="text-[30px] font-bold mb-3">
-            <CountUp
+            {/* <CountUp
               end={getBalanceTotal()}
               duration={0.25}
               redraw={true}
               suffix={` ${currency}`}
               separator=" "
               decimals={2}
+              preserveValue={true}
+              startOnMount={true}
               decimal=","
             >
               {({ countUpRef }) => <span ref={countUpRef} />}
-            </CountUp>
-            {/* {formatPrice(getBalanceTotal(), currency)} */}
+            </CountUp> */}
+            {formatPrice(getBalanceTotal(), currency)}
           </h3>
           <div className="w-[100px] h-[1px] bg-white mb-3" />
           {accounts.map(({ id, name, balance }) => (

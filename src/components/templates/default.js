@@ -1,8 +1,9 @@
-import { Navbar } from "components/molecules";
+import { Footer, Navbar } from "components/molecules";
 import { bankProfessionalAccounts } from "features/bank/bank.model";
 import joinClasses from "helpers/joinClasses";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export const DefaultTemplate = ({
   connected = true,
@@ -55,6 +56,7 @@ export const DefaultTemplate = ({
       >
         {children}
       </main>
+      <Footer />
     </div>
   );
 };

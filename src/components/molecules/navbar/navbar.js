@@ -139,7 +139,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
         </div>
       </nav>
       {isOpen && (
-        <div className="fixed h-screen w-screen bg-white flex items-end lg:hidden animate__animated animate__fadeIn z-[5]">
+        <div className="fixed h-screen w-screen bg-white dark:bg-slate-800 dark:text-white flex items-end lg:hidden animate__animated animate__fadeIn z-[5]">
           {user && (
             <ul className="h-[calc(100vh-100px)] overflow-y-auto flex flex-col w-full gap-10 px-[10%]">
               {items.map((item, index) => {
@@ -190,35 +190,6 @@ export const Navbar = ({ connected = true, items = [] }) => {
                   Compte
                 </Link>
               </li>
-              {checkPermissions(user, 2) && (
-                <li className="w-full">
-                  <SecondaryButton
-                    onClick={() => {
-                      navigate("/commu/users");
-                      setIsOpen(false);
-                    }}
-                    className="flex gap-2 items-center font-medium"
-                  >
-                    <svg width="1.3em" height="1.3em" viewBox="0 0 24 24">
-                      <path
-                        fill="currentColor"
-                        d="M12 23C6.443 21.765 2 16.522 2 11V5l10-4l10 4v6c0 5.524-4.443 10.765-10 12ZM4 6v5a10.58 10.58 0 0 0 8 10a10.58 10.58 0 0 0 8-10V6l-8-3Z"
-                      ></path>
-                      <circle
-                        cx="12"
-                        cy="8.5"
-                        r="2.5"
-                        fill="currentColor"
-                      ></circle>
-                      <path
-                        fill="currentColor"
-                        d="M7 15a5.782 5.782 0 0 0 5 3a5.782 5.782 0 0 0 5-3c-.025-1.896-3.342-3-5-3c-1.667 0-4.975 1.104-5 3Z"
-                      ></path>
-                    </svg>
-                    Staff
-                  </SecondaryButton>
-                </li>
-              )}
               <li className="w-full">
                 <PrimaryButton onClick={() => dispatch(logout())}>
                   Déconnexion
@@ -229,6 +200,38 @@ export const Navbar = ({ connected = true, items = [] }) => {
         </div>
       )}
       <div className="h-[73px]" />
+
+      <div className="fixed right-10 bottom-10 lg:hidden flex flex-col gap-5">
+        <button
+          className="h-[55px] w-[55px] bg-gray-100  flex items-center justify-center text-gray-700 rounded-full shadow-lg hover:bg-gray-300 z-[5]"
+          onClick={() => navigate("/payment/new")}
+        >
+          <svg width="2em" height="2em" viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            ></path>
+          </svg>
+        </button>
+        {user && checkPermissions(user, 2) && (
+          <button
+            className="h-[55px] w-[55px] bg-primary flex items-center justify-center text-white rounded-full shadow-lg hover:bg-primary-dark z-[5]"
+            onClick={() => navigate("/commu/users")}
+          >
+            <svg width="2em" height="2em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M12 23C6.443 21.765 2 16.522 2 11V5l10-4l10 4v6c0 5.524-4.443 10.765-10 12ZM4 6v5a10.58 10.58 0 0 0 8 10a10.58 10.58 0 0 0 8-10V6l-8-3Z"
+              ></path>
+              <circle cx="12" cy="8.5" r="2.5" fill="currentColor"></circle>
+              <path
+                fill="currentColor"
+                d="M7 15a5.782 5.782 0 0 0 5 3a5.782 5.782 0 0 0 5-3c-.025-1.896-3.342-3-5-3c-1.667 0-4.975 1.104-5 3Z"
+              ></path>
+            </svg>
+          </button>
+        )}
+      </div>
     </>
   );
 };

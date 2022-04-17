@@ -3,12 +3,35 @@ import { bankTransactions } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
 import joinClasses from "helpers/joinClasses";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 
 export default function Activities() {
   const transactions = useSelector(bankTransactions);
   const user = useSelector(userData);
   const community = useSelector(communityInfo);
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const itemsPerPage = 6;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    const sortedTransactions = transactions.slice(0).reverse();
+
+    setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
+
+    setPageCount(Math.ceil(transactions.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, transactions]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % transactions.length;
+    setItemOffset(newOffset);
+  };
 
   const transactionType = (transaction, position) => {
     const formatedDate = new Date(transaction.created_at);
@@ -30,6 +53,32 @@ export default function Activities() {
           <p>{date}</p>
           <div className="col-span-2">
             <p className="uppercase">{community.name}</p>
+            <p className="text-xs">
+              <span className="text-green-500">Argent Reçu</span>
+              {transaction.description.length
+                ? ` - ${transaction.description}`
+                : ""}
+            </p>
+          </div>
+          <p className="text-right text-green-500">
+            +{formatPrice(transaction.amount, community.currency)}
+          </p>
+        </li>
+      );
+    } else if (transaction.receiver.user_id === user.id) {
+      return (
+        <li
+          className={joinClasses(
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm dark:text-white px-5 py-4",
+            position
+              ? "bg-white  dark:bg-slate-600"
+              : "bg-gray-100  dark:bg-slate-700"
+          )}
+          key={transaction.id}
+        >
+          <p>{date}</p>
+          <div className="col-span-2">
+            <p className="uppercase">{transaction.transmitter.name}</p>
             <p className="text-xs">
               <span className="text-green-500">Argent Reçu</span>
               {transaction.description.length
@@ -68,46 +117,46 @@ export default function Activities() {
           </p>
         </li>
       );
-    } else if (transaction.receiver.user_id === user.id) {
-      return (
-        <li
-          className={joinClasses(
-            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm dark:text-white px-5 py-4",
-            position
-              ? "bg-white  dark:bg-slate-600"
-              : "bg-gray-100  dark:bg-slate-700"
-          )}
-          key={transaction.id}
-        >
-          <p>{date}</p>
-          <div className="col-span-2">
-            <p className="uppercase">{transaction.transmitter.name}</p>
-            <p className="text-xs">
-              <span className="text-green-500">Argent Reçu</span>
-              {transaction.description.length
-                ? ` - ${transaction.description}`
-                : ""}
-            </p>
-          </div>
-          <p className="text-right text-green-500">
-            +{formatPrice(transaction.amount, community.currency)}
-          </p>
-        </li>
-      );
     } else {
       return <p>unknown</p>;
     }
   };
 
   return (
-    <ul className="w-full">
-      {transactions
-        .slice(0)
-        .reverse()
-        .map(
-          (transaction, index) =>
-            index < 6 && transactionType(transaction, index % 2)
+    <div className="w-full">
+      <ul className="w-full">
+        {currentItems.map((transaction, index) =>
+          transactionType(transaction, index % 2)
         )}
-    </ul>
+      </ul>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel={
+          <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="M7 1L5.6 2.5L13 10l-7.4 7.5L7 19l9-9z"
+            ></path>
+          </svg>
+        }
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel={
+          <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z"
+            ></path>
+          </svg>
+        }
+        previousClassName="text-primary hover:scale-110"
+        nextClassName="text-primary hover:scale-110"
+        renderOnZeroPageCount={null}
+        containerClassName="flex justify-start items-center text-md md:text-sm gap-2 mt-5"
+        activeLinkClassName="bg-primary !text-white"
+        pageLinkClassName="px-4 py-2 text-gray-600 hover:bg-primary hover:text-white rounded-md"
+      />
+    </div>
   );
 }

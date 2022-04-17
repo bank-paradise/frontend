@@ -1,16 +1,35 @@
 import formatDate from "helpers/formatDate";
 import { formatPrice } from "helpers/formatPrice";
 import joinClasses from "helpers/joinClasses";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 
 export default function TransactionsList({ list = [] }) {
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const itemsPerPage = 4;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(list.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(list.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, list]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % list.length;
+    setItemOffset(newOffset);
+  };
+
   return (
     <div>
       <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">
         Liste des transactions
       </h4>
       <ul className="w-full">
-        {list.length ? (
-          list
+        {currentItems.length ? (
+          currentItems
             .sort(function (a, b) {
               return new Date(b.created_at) - new Date(a.created_at);
             })
@@ -53,6 +72,36 @@ export default function TransactionsList({ list = [] }) {
           </p>
         )}
       </ul>
+
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel={
+          <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="M7 1L5.6 2.5L13 10l-7.4 7.5L7 19l9-9z"
+            ></path>
+          </svg>
+        }
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={1}
+        marginPagesDisplayed={1.3}
+        pageCount={pageCount}
+        previousLabel={
+          <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z"
+            ></path>
+          </svg>
+        }
+        previousClassName="text-primary hover:scale-110"
+        nextClassName="text-primary hover:scale-110"
+        renderOnZeroPageCount={null}
+        containerClassName="flex justify-start items-center text-md md:text-sm gap-2 mt-5"
+        activeLinkClassName="bg-primary !text-white"
+        pageLinkClassName="px-4 py-2 text-gray-600 hover:bg-primary hover:text-white rounded-md"
+      />
     </div>
   );
 }
