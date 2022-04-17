@@ -14,7 +14,6 @@ export default function CompanyActivities({ rib = "" }) {
   const itemsPerPage = 6;
 
   const transactions = useSelector((state) => {
-    console.log(state.bank.transactions);
     return state.bank.transactions.filter((transaction) => {
       return (
         transaction.transaction.transmitter === rib ||
@@ -36,7 +35,7 @@ export default function CompanyActivities({ rib = "" }) {
     setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(transactions.length / itemsPerPage));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemOffset, itemsPerPage, transactions]);
+  }, [itemOffset, itemsPerPage]);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % transactions.length;

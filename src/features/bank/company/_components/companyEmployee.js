@@ -10,14 +10,13 @@ export default function ComanyEmployee({ employee, company_id }) {
   const [amount, setAmount] = useState(employee.salary);
 
   const addDay = (last_payment) => {
-    let date = new Date(last_payment);
+    let date = new Date(last_payment.replace(/-/g, "/"));
     date.setDate(date.getDate() + 1);
     return date.getTime();
   };
-  const [expiry, setExpiry] = useState(addDay(employee.last_payment));
 
   const { seconds, minutes, hours } = useTimer({
-    expiryTimestamp: expiry,
+    expiryTimestamp: addDay(employee.last_payment),
   });
 
   const handleChangeAmout = async (e) => {
@@ -49,7 +48,6 @@ export default function ComanyEmployee({ employee, company_id }) {
     });
     if (transaction.status === "done") {
       toast.success("Salaire envoyé avec succès");
-      setExpiry(addDay(employee.last_payment));
     } else {
       toast.error("Une erreur est survenue");
     }
