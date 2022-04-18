@@ -97,7 +97,7 @@ export default function PersonalPayment({
   return (
     <div>
       {step === 1 ? (
-        <PrimaryCard className="w-full max-w-[530px] m-auto px-9 py-11 dark:bg-slate-800">
+        <PrimaryCard className="w-full max-w-[530px] m-auto px-9 py-11 bg-gray-100 dark:bg-slate-800">
           <SubTitle>Envoyer de l'argent</SubTitle>
           <SubParagraph className="dark:text-white">
             Entrez le pseudo du destinataire
@@ -130,10 +130,32 @@ export default function PersonalPayment({
           </form>
         </PrimaryCard>
       ) : (
-        <PrimaryCard className="w-full max-w-[530px] m-auto px-9 py-11 dark:bg-slate-800 animate__animated animate__fadeInRight">
-          <SubTitle>Envoyer de l'argent</SubTitle>
-          <SubParagraph className="dark:text-white">
-            Entrez le montant à envoyer
+        <PrimaryCard className="w-full max-w-[530px] m-auto px-9 py-11 bg-gray-100 dark:bg-slate-800 animate__animated animate__fadeInRight">
+          <div className="w-full flex justify-center">
+            <h1 className="text-xl bg-gray-300 dark:bg-slate-700 rounded-full p-3 dark:text-gray-800 text-gray-400">
+              <svg width="3em" height="3em" viewBox="0 0 256 256">
+                <circle
+                  cx="128"
+                  cy="96"
+                  r="64"
+                  fill="currentColor"
+                  opacity=".2"
+                ></circle>
+                <path
+                  fill="currentColor"
+                  d="M231.9 212a120.7 120.7 0 0 0-67.1-54.2a72 72 0 1 0-73.6 0A120.7 120.7 0 0 0 24.1 212a8 8 0 1 0 13.8 8a104.1 104.1 0 0 1 180.2 0a8 8 0 1 0 13.8-8ZM72 96a56 56 0 1 1 56 56a56 56 0 0 1-56-56Z"
+                ></path>
+              </svg>
+            </h1>
+          </div>
+          <SubParagraph className="dark:text-white text-center text-lg font-bold mt-2 pb-0 flex flex-col gap-0">
+            <span>{selectedAccount.name}</span>
+            <button
+              className="text-center w-full !text-xs underline"
+              onClick={() => setStep(1)}
+            >
+              changer
+            </button>
           </SubParagraph>
           <form
             className="flex flex-col gap-10 mt-10"

@@ -26,6 +26,7 @@ export default function CompanyPay({
   const commuAccounts = useSelector(communityAccounts);
   const dispatch = useDispatch();
   const [addEmployee, setAddEmployee] = useState(null);
+  const [randomKey, setRandomKey] = useState(Math.random());
 
   const handleAddEmployee = async (e) => {
     e.preventDefault();
@@ -42,6 +43,11 @@ export default function CompanyPay({
         toast.error(newEmployee.response);
       }
     }
+  };
+
+  const refreshSalaryComponent = async () => {
+    await dispatch(getBank());
+    setRandomKey(Math.random());
   };
 
   return (
@@ -67,12 +73,13 @@ export default function CompanyPay({
         {employees.map((employee, index) => (
           <ComanyEmployee
             employee={employee}
-            key={index}
+            key={index + randomKey}
             company_id={company_id}
+            callback={refreshSalaryComponent}
           />
         ))}
       </ul>
-      <PrimaryCard className="bg-gray-100">
+      <PrimaryCard className="bg-gray-100 dark:bg-slate-800">
         <BankTitle className="mb-3">Ajouter un salarié</BankTitle>
         <SubParagraph className="dark:text-white">
           Vous pouvez ajouter ici un salarié

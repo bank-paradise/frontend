@@ -12,7 +12,7 @@ export const Input = ({
   return (
     <input
       className={joinClasses(
-        "appearance-none focus:border-primary border-b w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400 dark:bg-slate-800 dark:text-white",
+        "appearance-none focus:border-primary border-b w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400 dark:bg-slate-800 dark:text-white text-[16px] md:text-sm",
         className,
         getSizeClass(size)
       )}

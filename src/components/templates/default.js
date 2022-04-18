@@ -4,6 +4,7 @@ import joinClasses from "helpers/joinClasses";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export const DefaultTemplate = ({
   connected = true,
@@ -13,6 +14,8 @@ export const DefaultTemplate = ({
 }) => {
   const enterprisesAccounts = useSelector(bankProfessionalAccounts);
   const [navitems, setNavitems] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const enterprisesLinks = enterprisesAccounts.map((account) => ({
@@ -44,6 +47,8 @@ export const DefaultTemplate = ({
       },
     ]);
   }, [enterprisesAccounts]);
+
+  useEffect(() => window.scrollTo(0, 0), [location.pathname]);
 
   return (
     <div className="font-montserrat dark:bg-slate-900">

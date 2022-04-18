@@ -6,9 +6,14 @@ import { useDispatch } from "react-redux";
 import { useTimer } from "react-timer-hook";
 import { toast } from "react-toastify";
 
-export default function ComanyEmployee({ employee, company_id }) {
+export default function ComanyEmployee({
+  employee,
+  company_id,
+  callback = () => {},
+}) {
   const [amount, setAmount] = useState(employee.salary);
   const [loading, setLoading] = useState(false);
+  const [randomKey, setRandomKey] = useState(Math.random());
 
   const add12h = (last_payment) => {
     let date = new Date(last_payment.replace(/-/g, "/"));
@@ -35,6 +40,7 @@ export default function ComanyEmployee({ employee, company_id }) {
 
     if (updatedSalary.status === "done") {
       toast.success(`Le salaire de ${employee.pseudo} a été mis à jour`);
+      await callback();
     } else {
       toast.error(updatedSalary.response);
     }
@@ -51,6 +57,7 @@ export default function ComanyEmployee({ employee, company_id }) {
     });
     if (transaction.status === "done") {
       toast.success("Salaire envoyé avec succès");
+      callback();
     } else {
       toast.error(transaction.response);
     }
