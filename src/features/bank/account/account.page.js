@@ -8,7 +8,7 @@ import Statistics from "./_components/statistics";
 
 export default function BankAccount() {
   const userInfo = useSelector(userData);
-  const { accounts, currency } = useSelector(bankAllInfo);
+  const { accounts, currency, transactions } = useSelector(bankAllInfo);
 
   return (
     <DefaultTemplate>
@@ -19,7 +19,12 @@ export default function BankAccount() {
       </div>
       {accounts && (
         <div className="flex flex-col gap-10">
-          <BankHeader accounts={accounts} currency={currency} />
+          <BankHeader
+            accounts={accounts}
+            currency={currency}
+            transactions={transactions}
+            username={userInfo.name}
+          />
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
             <div className="w-full lg:max-w-[350px]">
               <Statistics />

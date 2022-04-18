@@ -8,15 +8,16 @@ import { toast } from "react-toastify";
 
 export default function ComanyEmployee({ employee, company_id }) {
   const [amount, setAmount] = useState(employee.salary);
+  const [loading, setLoading] = useState(false);
 
-  const addDay = (last_payment) => {
+  const add12h = (last_payment) => {
     let date = new Date(last_payment.replace(/-/g, "/"));
-    date.setDate(date.getDate() + 1);
+    date.setHours(date.getHours() + 12);
     return date.getTime();
   };
 
   const { seconds, minutes, hours } = useTimer({
-    expiryTimestamp: addDay(employee.last_payment),
+    expiryTimestamp: add12h(employee.last_payment),
   });
 
   const handleChangeAmout = async (e) => {
@@ -41,6 +42,8 @@ export default function ComanyEmployee({ employee, company_id }) {
 
   const sendSalary = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
     const transaction = await fetchCreateTransactionSalary({
       company_id,
       amount,
@@ -49,12 +52,9 @@ export default function ComanyEmployee({ employee, company_id }) {
     if (transaction.status === "done") {
       toast.success("Salaire envoyé avec succès");
     } else {
-      toast.error("Une erreur est survenue");
+      toast.error(transaction.response);
     }
-  };
-
-  const getDays = (date1, date2) => {
-    return Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+    setLoading(false);
   };
 
   return (
@@ -70,11 +70,14 @@ export default function ComanyEmployee({ employee, company_id }) {
           onChange={(e) => setAmount(e.target.value)}
           className="dark:!bg-slate-900"
         />
-        {getDays(
-          new Date(),
-          new Date(employee.last_payment.replace(/-/g, "/"))
-        ) >= 1 ? (
-          <PrimaryButton onClick={sendSalary}>Envoyer</PrimaryButton>
+        {seconds + minutes + hours <= 0 ? (
+          loading ? (
+            <PrimaryButton className="cursor-not-allowed opacity-50" disabled>
+              Chargement...
+            </PrimaryButton>
+          ) : (
+            <PrimaryButton onClick={sendSalary}>Envoyer</PrimaryButton>
+          )
         ) : (
           <PrimaryButton className="cursor-not-allowed opacity-50" disabled>
             <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>

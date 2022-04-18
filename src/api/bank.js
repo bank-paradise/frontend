@@ -39,6 +39,18 @@ export async function fetchCreateCompany(payload) {
   return response;
 }
 
+export async function fetchDeleteCompany(company_id) {
+  const response = await axiosRequest({
+    method: "DELETE",
+    url: `/bank/company/${company_id}`,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
 export async function fetchCreateTransactionSalary(payload) {
   const response = await axiosRequest({
     method: "POST",
@@ -56,6 +68,19 @@ export async function fetchUpdateSalary(payload) {
   const response = await axiosRequest({
     method: "PUT",
     url: "/bank/company/salary",
+    data: payload,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
+export async function fetchAddEmployee(payload) {
+  const response = await axiosRequest({
+    method: "POST",
+    url: "/bank/company/employee",
     data: payload,
     headers: {
       Authorization: getLocalToken(),

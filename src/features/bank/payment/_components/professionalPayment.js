@@ -19,19 +19,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export default function ProfessionalPayment({ backtoMenu = () => {} }) {
+export default function ProfessionalPayment({
+  backtoMenu = () => {},
+  receiver = null,
+}) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const commuAccounts = useSelector(communityAccounts);
   const devise = useSelector(bankCurrentcy);
   const personalAccount = useSelector(bankPersonalAccount);
 
-  const [selectedAccount, setSelectedAccount] = useState(null);
+  const [selectedAccount, setSelectedAccount] = useState(receiver);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(receiver ? 2 : 1);
 
   const handleSelectAccount = (e) => {
     e.preventDefault();

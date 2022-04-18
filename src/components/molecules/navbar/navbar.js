@@ -44,6 +44,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
                         </Link>
                         <ul className="absolute bg-white group-hover:flex hidden px-5 py-3 rounded-md shadow-md flex-col justify-start gap-3 animate__animated animate__fadeIn">
                           {item.dropdown.map((dropdownItem, index) => {
+                            if (!dropdownItem.path) return null;
                             return (
                               <li
                                 key={index}
@@ -201,9 +202,9 @@ export const Navbar = ({ connected = true, items = [] }) => {
       )}
       <div className="h-[73px]" />
 
-      <div className="fixed right-10 bottom-10 lg:hidden flex flex-col gap-5">
+      <div className="fixed right-10 bottom-10 lg:hidden flex flex-col gap-5 z-[5]">
         <button
-          className="h-[55px] w-[55px] bg-gray-100  flex items-center justify-center text-gray-700 rounded-full shadow-lg hover:bg-gray-300 z-[5]"
+          className="h-[55px] w-[55px] bg-gray-100  flex items-center justify-center text-gray-700 rounded-full shadow-lg hover:bg-gray-300"
           onClick={() => navigate("/payment/new")}
         >
           <svg width="2em" height="2em" viewBox="0 0 24 24">
@@ -215,7 +216,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
         </button>
         {user && checkPermissions(user, 2) && (
           <button
-            className="h-[55px] w-[55px] bg-primary flex items-center justify-center text-white rounded-full shadow-lg hover:bg-primary-dark z-[5]"
+            className="h-[55px] w-[55px] bg-primary flex items-center justify-center text-white rounded-full shadow-lg hover:bg-primary-dark"
             onClick={() => navigate("/commu/users")}
           >
             <svg width="2em" height="2em" viewBox="0 0 24 24">

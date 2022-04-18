@@ -55,6 +55,20 @@
         "en": "User has already 3 bank accounts",
         "fr": "Vous avez déjà 3 entreprises"
       }
+    },
+    {
+      "code": "INSUFFICIENT_FUNDS",
+      "message": {
+        "en": "Insufficient funds",
+        "fr": "Fonds insuffisants"
+      }
+    },
+    {
+      "code": "USER_ALREADY_IN_COMPANY",
+      "message": {
+        "en": "User already in a company",
+        "fr": "Ce joueur est déjà dans l'entreprise"
+      }
     }
   ]
 }

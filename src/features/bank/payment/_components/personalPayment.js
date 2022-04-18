@@ -14,12 +14,15 @@ import {
 } from "features/bank/bank.model";
 import { communityAccounts } from "features/community/community.model";
 import joinClasses from "helpers/joinClasses";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export default function PersonalPayment({ backtoMenu = () => {} }) {
+export default function PersonalPayment({
+  backtoMenu = () => {},
+  receiver = null,
+}) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const commuAccounts = useSelector(communityAccounts);
@@ -32,6 +35,13 @@ export default function PersonalPayment({ backtoMenu = () => {} }) {
   const [loading, setLoading] = useState(false);
 
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    if (receiver) {
+      setSelectedAccount(receiver);
+      setStep(2);
+    }
+  }, [receiver]);
 
   const handleSelectAccount = (e) => {
     e.preventDefault();
@@ -83,7 +93,7 @@ export default function PersonalPayment({ backtoMenu = () => {} }) {
     setLoading(false);
     navigate("/");
   };
-
+  if (!personalAccount) return null;
   return (
     <div>
       {step === 1 ? (

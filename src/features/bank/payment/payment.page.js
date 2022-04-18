@@ -3,7 +3,7 @@ import { DefaultTemplate } from "components/templates";
 import { getCommunity } from "features/community/community.model";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import PersonalPayment from "./_components/personalPayment";
 import ProfessionalPayment from "./_components/professionalPayment";
 import SelectPaymentMethod from "./_components/selectPaymentMethod";
@@ -11,7 +11,9 @@ import SelectPaymentMethod from "./_components/selectPaymentMethod";
 export default function PaymentPage() {
   const { type } = useParams();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [paymentType, setPaymentType] = useState(type);
+  console.log(location);
 
   useEffect(() => {
     dispatch(getCommunity());
@@ -34,9 +36,23 @@ export default function PaymentPage() {
         {checkPaymentType(paymentType) ? (
           <div className="animate__animated animate__fadeInDown">
             {paymentType === "personnal" ? (
-              <PersonalPayment backtoMenu={backtoMenu} />
+              <PersonalPayment
+                backtoMenu={backtoMenu}
+                receiver={
+                  location.state && location.state.receiver
+                    ? location.state.receiver
+                    : null
+                }
+              />
             ) : (
-              <ProfessionalPayment backtoMenu={backtoMenu} />
+              <ProfessionalPayment
+                backtoMenu={backtoMenu}
+                receiver={
+                  location.state && location.state.receiver
+                    ? location.state.receiver
+                    : null
+                }
+              />
             )}
           </div>
         ) : (

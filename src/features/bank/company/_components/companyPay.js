@@ -1,6 +1,21 @@
-import { LineButton, Paragraph, SubParagraph } from "components/atoms";
+import { fetchAddEmployee } from "api/bank";
+import {
+  LineButton,
+  Paragraph,
+  PrimaryButton,
+  PrimaryCard,
+  Search,
+  SubParagraph,
+  SubTitle,
+} from "components/atoms";
+import { Card } from "components/atoms/cards";
 import BankTitle from "features/bank/account/_components/bankTitle";
+import { getBank } from "features/bank/bank.model";
+import { communityAccounts } from "features/community/community.model";
 import joinClasses from "helpers/joinClasses";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import ComanyEmployee from "./companyEmployee";
 
 export default function CompanyPay({
@@ -8,6 +23,27 @@ export default function CompanyPay({
   employees = [],
   company_id = 0,
 }) {
+  const commuAccounts = useSelector(communityAccounts);
+  const dispatch = useDispatch();
+  const [addEmployee, setAddEmployee] = useState(null);
+
+  const handleAddEmployee = async (e) => {
+    e.preventDefault();
+    if (addEmployee) {
+      const newEmployee = await fetchAddEmployee({
+        rib: addEmployee.rib,
+        company_id,
+      });
+
+      if (newEmployee.status === "done") {
+        toast.success("Employé ajouté avec succès");
+        window.location.reload();
+      } else {
+        toast.error(newEmployee.response);
+      }
+    }
+  };
+
   return (
     <div className="w-full animate__animated animate__fadeIn ">
       <LineButton
@@ -22,12 +58,11 @@ export default function CompanyPay({
         </svg>
         Retour
       </LineButton>
-      <BankTitle className="mt-5">Salaires</BankTitle>
+      <BankTitle className="mt-5 mb-3">Salaires</BankTitle>
       <SubParagraph className="dark:text-white">
         Vous ne pouvez envoyer le salaire{" "}
-        <span className="underline">qu’une fois par jour.</span>
+        <span className="underline">qu’une fois toute les 12 heures</span>
       </SubParagraph>
-
       <ul>
         {employees.map((employee, index) => (
           <ComanyEmployee
@@ -37,6 +72,22 @@ export default function CompanyPay({
           />
         ))}
       </ul>
+      <PrimaryCard className="bg-gray-100">
+        <BankTitle className="mb-3">Ajouter un salarié</BankTitle>
+        <SubParagraph className="dark:text-white">
+          Vous pouvez ajouter ici un salarié
+        </SubParagraph>
+        <br />
+        <form className="flex flex-col md:flex-row gap-3">
+          <Search
+            placeholder="Pseudo du joueur"
+            array={commuAccounts.personnal}
+            searchedKey="name"
+            select={setAddEmployee}
+          />
+          <PrimaryButton onClick={handleAddEmployee}>Ajouter</PrimaryButton>
+        </form>
+      </PrimaryCard>
     </div>
   );
 }

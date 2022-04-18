@@ -33,14 +33,12 @@ export default function TransactionsList({ list = [] }) {
             .sort(function (a, b) {
               return new Date(b.created_at) - new Date(a.created_at);
             })
-            .map((transaction, index) => (
+            .map((transaction) => (
               <li
                 key={transaction.id}
                 className={joinClasses(
                   "flex flex-col md:grid grid-cols-4 gap-5 px-5 py-3 justify-between dark:text-white",
-                  index % 2
-                    ? "bg-white dark:bg-slate-600"
-                    : "bg-gray-100 dark:bg-slate-700"
+                  "odd:bg-gray-100 odd:dark:bg-slate-700 even:bg-white  even:dark:bg-slate-600"
                 )}
               >
                 <p className="font-medium">
@@ -48,7 +46,9 @@ export default function TransactionsList({ list = [] }) {
                 </p>
                 <div className="col-span-2">
                   <p className="font-medium flex gap-2 items-center">
-                    {transaction.transmitter}
+                    <span className="text-red-500">
+                      {transaction.transmitter}
+                    </span>
 
                     <svg width="1em" height="1em" viewBox="0 0 24 24">
                       <path
@@ -56,7 +56,9 @@ export default function TransactionsList({ list = [] }) {
                         d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8l-8-8z"
                       ></path>
                     </svg>
-                    {transaction.receiver}
+                    <span className="text-green-500">
+                      {transaction.receiver}
+                    </span>
                   </p>
                   <p className="text-sm">{transaction.description}</p>
                 </div>
@@ -73,35 +75,37 @@ export default function TransactionsList({ list = [] }) {
         )}
       </ul>
 
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel={
-          <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
-            <path
-              fill="currentColor"
-              d="M7 1L5.6 2.5L13 10l-7.4 7.5L7 19l9-9z"
-            ></path>
-          </svg>
-        }
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={1}
-        marginPagesDisplayed={1.3}
-        pageCount={pageCount}
-        previousLabel={
-          <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
-            <path
-              fill="currentColor"
-              d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z"
-            ></path>
-          </svg>
-        }
-        previousClassName="text-primary hover:scale-110"
-        nextClassName="text-primary hover:scale-110"
-        renderOnZeroPageCount={null}
-        containerClassName="flex justify-start items-center text-md md:text-sm gap-2 mt-5"
-        activeLinkClassName="bg-primary !text-white"
-        pageLinkClassName="px-4 py-2 text-gray-600 hover:bg-primary hover:text-white rounded-md"
-      />
+      {currentItems >= itemsPerPage && (
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel={
+            <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
+              <path
+                fill="currentColor"
+                d="M7 1L5.6 2.5L13 10l-7.4 7.5L7 19l9-9z"
+              ></path>
+            </svg>
+          }
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={1}
+          marginPagesDisplayed={1.3}
+          pageCount={pageCount}
+          previousLabel={
+            <svg width="1.3em" height="1.3em" viewBox="0 0 20 20">
+              <path
+                fill="currentColor"
+                d="m4 10l9 9l1.4-1.5L7 10l7.4-7.5L13 1z"
+              ></path>
+            </svg>
+          }
+          previousClassName="text-primary hover:scale-110"
+          nextClassName="text-primary hover:scale-110"
+          renderOnZeroPageCount={null}
+          containerClassName="flex justify-start items-center text-md md:text-sm gap-2 mt-5"
+          activeLinkClassName="bg-primary !text-white"
+          pageLinkClassName="px-4 py-2 text-gray-600 hover:bg-primary hover:text-white rounded-md"
+        />
+      )}
     </div>
   );
 }
