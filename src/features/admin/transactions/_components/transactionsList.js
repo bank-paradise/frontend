@@ -75,7 +75,7 @@ export default function TransactionsList({ list = [] }) {
         )}
       </ul>
 
-      {currentItems >= itemsPerPage && (
+      {list.length >= itemsPerPage && (
         <ReactPaginate
           breakLabel="..."
           nextLabel={

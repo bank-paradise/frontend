@@ -25,11 +25,13 @@ export default function Activities() {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    const sortedTransactions = transactions.slice(0).reverse();
+    const sortedTransactions = transactions
+      .slice()
+      .sort((a, b) => b.created_at - a.created_at);
 
     setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
 
-    setPageCount(Math.ceil(transactions.length / itemsPerPage));
+    setPageCount(Math.ceil(sortedTransactions.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, transactions]);
 
   const handlePageClick = (event) => {
@@ -123,7 +125,7 @@ export default function Activities() {
       <ul className="w-full">
         {currentItems.map((transaction) => transactionType(transaction))}
       </ul>
-      {currentItems >= itemsPerPage && (
+      {transactions.length >= itemsPerPage && (
         <ReactPaginate
           breakLabel="..."
           nextLabel={

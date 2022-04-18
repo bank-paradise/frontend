@@ -123,8 +123,6 @@ export default function CompanyActivities({ rib = "" }) {
           </p>
         </li>
       );
-    } else {
-      return <p>error transaction: #{transaction.id}</p>;
     }
   };
 
@@ -134,7 +132,7 @@ export default function CompanyActivities({ rib = "" }) {
       <ul className="w-full mt-5">
         {currentItems.map((transaction) => transactionType(transaction))}
       </ul>
-      {currentItems >= itemsPerPage && (
+      {transactions.length >= itemsPerPage && (
         <ReactPaginate
           breakLabel="..."
           nextLabel={

@@ -23,7 +23,7 @@ export default function CommunityTransactions() {
       <BankTitle>Transactions</BankTitle>
       <SendTransaction callback={getTransactions} />
       <hr className="my-10" />
-      <TransactionsList list={transactions} />
+      <TransactionsList list={transactions.reverse()} />
     </StaffTemplate>
   );
 }

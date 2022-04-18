@@ -18,14 +18,13 @@ export default function CompanyAccount() {
     const accountById = accounts.find(
       (account) => account.id === Number(params.companyId)
     );
-    console.log(accountById);
     setAccount(accountById);
   }, [accounts, params, bankInformations]);
 
   return (
     <DefaultTemplate>
       {account && (
-        <div className="mt-5">
+        <div className="mt-5" key={account.rib}>
           {account && (
             <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 mt-10">
               <div className="w-full lg:max-w-[350px]">
