@@ -6,6 +6,7 @@ import {
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
 import joinClasses from "helpers/joinClasses";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
@@ -25,9 +26,12 @@ export default function Activities() {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    const sortedTransactions = transactions
-      .slice()
-      .sort((a, b) => b.created_at - a.created_at);
+
+    let sortedTransactions = transactions.slice();
+
+    sortedTransactions = sortedTransactions.sort((a, b) => {
+      return moment(a.created_at).isAfter(b.created_at) ? -1 : 1;
+    });
 
     setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
 
@@ -40,10 +44,7 @@ export default function Activities() {
   };
 
   const transactionType = (transaction) => {
-    const formatedDate = new Date(transaction.created_at);
-    const date = `${formatedDate.getDate()}/${
-      formatedDate.getMonth() + 1
-    }/${formatedDate.getFullYear()}`;
+    const date = moment(transaction.created_at).format("DD/MM/YYYY HH:mm");
 
     if (!transaction.transmitter) {
       return (

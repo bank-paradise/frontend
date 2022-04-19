@@ -2,6 +2,7 @@ import BankTitle from "features/bank/account/_components/bankTitle";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
 import joinClasses from "helpers/joinClasses";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
@@ -24,13 +25,11 @@ export default function CompanyActivities({ rib = "" }) {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    const sortedTransactions = transactions
-      .sort((a, b) => {
-        return (
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        );
-      })
-      .reverse();
+    let sortedTransactions = transactions.slice();
+
+    sortedTransactions = sortedTransactions.sort((a, b) => {
+      return moment(a.created_at).isAfter(b.created_at) ? -1 : 1;
+    });
 
     setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(transactions.length / itemsPerPage));
@@ -46,10 +45,7 @@ export default function CompanyActivities({ rib = "" }) {
 
   const transactionType = (transaction) => {
     if (!transaction) return;
-    const formatedDate = new Date(transaction.created_at);
-    const date = `${formatedDate.getDate()}/${
-      formatedDate.getMonth() + 1
-    }/${formatedDate.getFullYear()}`;
+    const date = moment(transaction.created_at).format("DD/MM/YYYY HH:mm");
 
     if (!transaction.transmitter) {
       return (

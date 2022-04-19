@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import { Howl } from "howler";
 import Pusher from "pusher-js";
 import createNotification from "helpers/createNotif";
@@ -26,6 +26,14 @@ export default function DefaultRouter() {
   const dispatch = useDispatch();
   const community = useSelector(communityInfo);
   const user = useSelector(userData);
+  //const location = useLocation();
+  // hotjar.initialize(2931934, 6);
+  // hotjar.identify(user.id, { userProperty: "value" });
+
+  // useEffect(() => {
+  //   if (process.env.NODE_ENV !== "development")
+  //     hotjar.stateChange(location.pathname);
+  // }, [location.pathname]);
 
   useEffect(() => {
     dispatch(getCommunity());

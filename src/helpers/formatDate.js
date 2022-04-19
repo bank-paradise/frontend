@@ -1,8 +1,7 @@
+import moment from "moment";
+
 export default function formatDate(initialDate) {
-  const formatedDate = new Date(initialDate);
-  const date = `${formatedDate.getDate()}/${
-    formatedDate.getMonth() + 1
-  }/${formatedDate.getFullYear()}`;
+  const date = moment(initialDate).format("DD/MM/YYYY HH:mm");
 
   return date;
 }

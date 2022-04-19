@@ -11,7 +11,7 @@ import SelectPaymentMethod from "./_components/selectPaymentMethod";
 export default function PaymentPage() {
   const { type } = useParams();
   const dispatch = useDispatch();
-  const location = useLocation();
+  let location = useLocation();
   const [paymentType, setPaymentType] = useState(type);
   console.log(location);
 
@@ -27,6 +27,9 @@ export default function PaymentPage() {
 
   const backtoMenu = () => {
     setPaymentType("none");
+    if (location.state && location.state.receiver) {
+      location.state = null;
+    }
   };
 
   return (
