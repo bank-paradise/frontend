@@ -1,9 +1,9 @@
 import { fetchAllAccounts, fetchinjectTransaction } from "api/community";
 import { Input, PrimaryButton, Select } from "components/atoms";
-import { communityAccounts } from "features/community/community.model";
+import getUsername from "helpers/getUsername";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import Switch from "react-switch";
 import { toast } from "react-toastify";
 
 export default function SendTransaction({ callback = () => {} }) {
@@ -12,6 +12,7 @@ export default function SendTransaction({ callback = () => {} }) {
     personnal: [],
     professional: [],
   });
+  const [removeMoney, setRemoveMoney] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const getAccounts = async () => {
@@ -27,9 +28,15 @@ export default function SendTransaction({ callback = () => {} }) {
   const onSubmit = async (data) => {
     if (loading) return;
     setLoading(true);
-    const invitation = await fetchinjectTransaction(data);
+    const invitation = await fetchinjectTransaction({
+      ...data,
+      remove: removeMoney,
+    });
     if (invitation.status === "done") {
-      toast.success(`${data.amount} on été ajouté`);
+      toast.success(
+        `${data.amount} on été ${removeMoney ? "retiré" : "ajouté"}`
+      );
+      setRemoveMoney(false);
       callback();
     } else {
       toast.error(invitation.response);
@@ -57,13 +64,21 @@ export default function SendTransaction({ callback = () => {} }) {
           <option disabled>compte</option>
           <option disabled>─── JOUEURS ───</option>
 
-          {accounts.personnal.map((account) => (
-            <option value={account.rib}>{account.name}</option>
-          ))}
+          {accounts.personnal.map((account) => {
+            return (
+              account.user_id && (
+                <option value={account.rib}>{account.name}</option>
+              )
+            );
+          })}
           <option disabled>── ENTREPRISES ──</option>
-          {accounts.professional.map((account) => (
-            <option value={account.rib}>{account.name}</option>
-          ))}
+          {accounts.professional.map((account) => {
+            return (
+              !account.name.includes("{{DELETED}}") && (
+                <option value={account.rib}>{account.name}</option>
+              )
+            );
+          })}
         </Select>
         <Input
           className="w-full"
@@ -81,6 +96,33 @@ export default function SendTransaction({ callback = () => {} }) {
           name="description"
           required
         />
+        <div className="flex flex-col gap-4">
+          <p className="font-medium">Vous voulez ?</p>
+          <label className="flex gap-4 items-center">
+            <Switch
+              checked={removeMoney}
+              onChange={() => setRemoveMoney(!removeMoney)}
+              color="red"
+              onColor="#ef4444"
+              onHandleColor="#f87171"
+              handleDiameter={30}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={20}
+              width={48}
+              className="react-switch"
+              id="material-switch"
+              offColor="#22c55e"
+              offHandleColor="#4ade80"
+            />
+            <span>
+              {removeMoney ? "Retirer de l'argent" : "Ajouter de l'argent"}
+            </span>
+          </label>
+        </div>
+
         {loading ? (
           <PrimaryButton type="submit" className="w-fit opacity-50">
             Chargement...

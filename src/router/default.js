@@ -21,6 +21,9 @@ import CompanyAccount from "features/bank/company/company.page";
 import { bankAccounts, getBank } from "features/bank/bank.model";
 import CompanyCreate from "features/bank/company_create/companyCreate.page";
 import PaymentPage from "features/bank/payment/payment.page";
+import { toast } from "react-toastify";
+import ErrorInConstruction from "features/error/inConstruction.page";
+import ErrorNotFound from "features/error/notFound.page";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
@@ -39,14 +42,20 @@ export default function DefaultRouter() {
     dispatch(getCommunity());
     dispatch(getBank());
 
-    if (process.env.NODE_ENV === "development") Pusher.logToConsole = true;
+    // if (process.env.NODE_ENV === "development") Pusher.logToConsole = true;
     // || "ws.bank-paradise.fr"
     const pusher = new Pusher("BCN5HT4fS9AofMgc", {
       broadcaster: "pusher",
       wsHost: process.env.REACT_APP_WS_HOST,
       wsPort: 6001,
       forceTLS: process.env.REACT_APP_WS_TLS === "true",
-      disableStats: true,
+      disableStats: false,
+    });
+
+    pusher.connection.bind("state_change", function (states) {
+      if (states.current === "unavailable") {
+        window.location.reload();
+      }
     });
 
     const channel = pusher.subscribe(`transaction.${user.id}`);
@@ -76,9 +85,16 @@ export default function DefaultRouter() {
         path="/"
         element={!community ? <CreateCommunity /> : <BankAccount />}
       />
+      <Route path="/activities" element={<ErrorInConstruction />} />
       <Route path="/payment/:type" element={<PaymentPage />} />
+
       <Route path="/entreprises/add" element={<CompanyCreate />} />
+      <Route
+        path="/entreprises/:companyId/payment/:type"
+        element={<PaymentPage />}
+      />
       <Route path="/entreprises/:companyId" element={<CompanyAccount />} />
+
       {/* All staff routes */}
       {checkPermissions(user, 2) && (
         <React.Fragment>
@@ -97,7 +113,7 @@ export default function DefaultRouter() {
         </React.Fragment>
       )}
 
-      <Route path="*" element={<p>Not found</p>} />
+      <Route path="*" element={<ErrorNotFound />} />
     </Routes>
   );
 }

@@ -1,13 +1,14 @@
 import BankTitle from "features/bank/account/_components/bankTitle";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
+import getUsername from "helpers/getUsername";
 import joinClasses from "helpers/joinClasses";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 
-export default function CompanyActivities({ rib = "" }) {
+export default function CompanyActivities({ rib = "", company_name = "MOI" }) {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -43,6 +44,8 @@ export default function CompanyActivities({ rib = "" }) {
 
   const community = useSelector(communityInfo);
 
+  if (!community) return null;
+
   const transactionType = (transaction) => {
     if (!transaction) return;
     const date = moment(transaction.created_at).format("DD/MM/YYYY HH:mm");
@@ -68,6 +71,41 @@ export default function CompanyActivities({ rib = "" }) {
           </div>
           <p className="text-right text-green-500">
             +{formatPrice(transaction.amount, community.currency)}
+          </p>
+        </li>
+      );
+    } else if (!transaction.receiver) {
+      return (
+        <li
+          className={joinClasses(
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm dark:text-white px-5 py-4",
+            "odd:bg-gray-100 odd:dark:bg-slate-700 even:bg-white  even:dark:bg-slate-600"
+          )}
+          key={transaction.id}
+        >
+          <p>{date}</p>
+          <div className="col-span-1 md:col-span-2">
+            <p className="uppercase flex items-center gap-1">
+              <span className="text-red-500">
+                {transaction.transmitter.name}
+              </span>
+              <svg width="1em" height="1em" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8l-8-8z"
+                ></path>
+              </svg>
+              <span className="text-green-500">{community.name}</span>
+            </p>
+            <p className="text-xs">
+              <span className="text-red-500">Payement</span>
+              {transaction.description.length
+                ? ` - ${transaction.description}`
+                : ""}
+            </p>
+          </div>
+          <p className="text-right text-red-500">
+            -{formatPrice(transaction.amount, community.currency)}
           </p>
         </li>
       );
@@ -106,7 +144,20 @@ export default function CompanyActivities({ rib = "" }) {
         >
           <p>{date}</p>
           <div className="col-span-1 md:col-span-2">
-            <p className="uppercase">Moi</p>
+            <p className="uppercase flex items-center gap-1">
+              <span className="text-red-500">
+                {transaction.transmitter.name}
+              </span>
+              <svg width="1em" height="1em" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8l-8-8z"
+                ></path>
+              </svg>
+              <span className="text-green-500">
+                {getUsername(transaction.receiver.name)}
+              </span>
+            </p>
             <p className="text-xs">
               <span className="text-red-500">Payement</span>
               {transaction.description.length

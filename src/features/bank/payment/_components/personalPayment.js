@@ -1,9 +1,11 @@
 import {
   Input,
+  Paragraph,
   PrimaryButton,
   PrimaryCard,
   Search,
   SecondaryButton,
+  Select,
   SubParagraph,
   SubTitle,
 } from "components/atoms";
@@ -18,8 +20,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import NoMembersError from "./noMembersError";
 
 export default function PersonalPayment({
+  transmitter = null,
   backtoMenu = () => {},
   receiver = null,
 }) {
@@ -78,7 +82,7 @@ export default function PersonalPayment({
     setLoading(true);
     const transaction = {
       amount,
-      transmitter: personalAccount.rib,
+      transmitter: transmitter ? transmitter.rib : personalAccount.rib,
       receiver: selectedAccount.rib,
       description,
     };
@@ -93,26 +97,60 @@ export default function PersonalPayment({
     setLoading(false);
     navigate("/");
   };
+
   if (!personalAccount) return null;
+
   return (
     <div>
       {step === 1 ? (
         <PrimaryCard className="w-full max-w-[530px] m-auto px-9 py-11 bg-gray-100 dark:bg-slate-800">
+          {transmitter && (
+            <Paragraph className="flex gap-2 items-center font-bold !text-[16px] dark:text-white">
+              <svg
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 24 24"
+                className="text-primary"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"
+                ></path>
+              </svg>
+              {transmitter.name}
+            </Paragraph>
+          )}
           <SubTitle>Envoyer de l'argent</SubTitle>
-          <SubParagraph className="dark:text-white">
+          <SubParagraph className="dark:text-white mb-5">
             Entrez le pseudo du destinataire
           </SubParagraph>
+          {!commuAccounts.personnal.length && <NoMembersError />}
           <form
-            className="flex flex-col gap-10 mt-10"
+            className="flex flex-col gap-10 mt-5"
             onSubmit={handleSelectAccount}
           >
-            <Search
-              array={commuAccounts.personnal}
-              searchedKey="name"
-              className="w-full "
-              select={setSelectedAccount}
+            <Select
+              className="border py-3 px-4 shadow-md rounded-md !text-lg"
               placeholder="choisir un bénéficiaire"
-            />
+              onChange={(e) => {
+                if (e.target.value === "") return;
+                const selected = commuAccounts.personnal.find(
+                  (account) => account.rib === e.target.value
+                );
+                setSelectedAccount(selected);
+              }}
+            >
+              <option value="">
+                {commuAccounts.personnal.length
+                  ? "Choisir un bénéficiaire"
+                  : "Aucun membre"}
+              </option>
+              {commuAccounts.personnal.map((account) => (
+                <option key={account.rib} value={account.rib}>
+                  {account.name}
+                </option>
+              ))}
+            </Select>
             <div className="flex gap-3">
               <SecondaryButton className="max-w-min" onClick={backtoMenu}>
                 Annuler

@@ -5,6 +5,7 @@ import {
 } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
+import getUsername from "helpers/getUsername";
 import joinClasses from "helpers/joinClasses";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -26,7 +27,6 @@ export default function Activities() {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-
     let sortedTransactions = transactions.slice();
 
     sortedTransactions = sortedTransactions.sort((a, b) => {
@@ -35,7 +35,7 @@ export default function Activities() {
 
     setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
 
-    setPageCount(Math.ceil(sortedTransactions.length / itemsPerPage));
+    setPageCount(Math.ceil(transactions.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, transactions]);
 
   const handlePageClick = (event) => {
@@ -70,6 +70,39 @@ export default function Activities() {
           </p>
         </li>
       );
+    } else if (!transaction.receiver) {
+      return (
+        <li
+          className={joinClasses(
+            "grid grid-cols-3 md:grid-cols-4 gap-5 text-sm dark:text-white px-5 py-4",
+            "odd:bg-gray-100 odd:dark:bg-slate-700 even:bg-white  even:dark:bg-slate-600"
+          )}
+          key={transaction.id}
+        >
+          <p>{date}</p>
+          <div className="col-span-2">
+            <p className="uppercase flex items-center gap-1">
+              <span className="text-red-500">Moi</span>
+              <svg width="1em" height="1em" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8l-8-8z"
+                ></path>
+              </svg>
+              <span className="text-green-500">{community.name}</span>
+            </p>
+            <p className="text-xs">
+              <span className="text-red-500">Payement</span>
+              {transaction.description.length
+                ? ` - ${transaction.description}`
+                : ""}
+            </p>
+          </div>
+          <p className="text-right text-red-500">
+            -{formatPrice(transaction.amount, community.currency)}
+          </p>
+        </li>
+      );
     } else if (transaction.receiver.rib === personnalAccount.rib) {
       return (
         <li
@@ -81,7 +114,9 @@ export default function Activities() {
         >
           <p>{date}</p>
           <div className="col-span-2">
-            <p className="uppercase">{transaction.transmitter.name}</p>
+            <p className="uppercase">
+              {getUsername(transaction.transmitter.name)}
+            </p>
             <p className="text-xs">
               <span className="text-green-500">Argent Reçu</span>
               {transaction.description.length
@@ -105,7 +140,18 @@ export default function Activities() {
         >
           <p>{date}</p>
           <div className="col-span-1 md:col-span-2">
-            <p className="uppercase">Moi</p>
+            <p className="uppercase flex items-center gap-1">
+              <span className="text-red-500">Moi</span>
+              <svg width="1em" height="1em" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8l-8-8z"
+                ></path>
+              </svg>
+              <span className="text-green-500">
+                {getUsername(transaction.receiver.name)}
+              </span>
+            </p>
             <p className="text-xs">
               <span className="text-red-500">Payement</span>
               {transaction.description.length

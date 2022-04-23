@@ -57,7 +57,7 @@ export default function Statistics() {
                   </p>
                 ) : (
                   <button
-                    className="uppercase text-sm flex gap-2 items-center"
+                    className="uppercase text-sm flex gap-2 items-center hover:font-medium"
                     onClick={() => navigate(`/entreprises/${account.id}`)}
                   >
                     <span>COMPTE {account.name} </span>

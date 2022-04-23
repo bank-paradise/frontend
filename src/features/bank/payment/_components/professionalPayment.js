@@ -1,9 +1,11 @@
 import {
   Input,
+  Paragraph,
   PrimaryButton,
   PrimaryCard,
   Search,
   SecondaryButton,
+  Select,
   SubParagraph,
   SubTitle,
 } from "components/atoms";
@@ -20,6 +22,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfessionalPayment({
+  transmitter = null,
   backtoMenu = () => {},
   receiver = null,
 }) {
@@ -28,6 +31,14 @@ export default function ProfessionalPayment({
   const commuAccounts = useSelector(communityAccounts);
   const devise = useSelector(bankCurrentcy);
   const personalAccount = useSelector(bankPersonalAccount);
+
+  // retourner une liste sans le compte qui a l'id du transmitter
+  const filteredAccounts = () => {
+    return commuAccounts.professional.filter(
+      (account) =>
+        !account.name.includes("{{DELETED}}") && account.rib !== transmitter.rib
+    );
+  };
 
   const [selectedAccount, setSelectedAccount] = useState(receiver);
   const [amount, setAmount] = useState("");
@@ -67,7 +78,7 @@ export default function ProfessionalPayment({
     setLoading(true);
     const transaction = {
       amount,
-      transmitter: personalAccount.rib,
+      transmitter: transmitter ? transmitter.rib : personalAccount.rib,
       receiver: selectedAccount.rib,
       description,
     };
@@ -82,11 +93,27 @@ export default function ProfessionalPayment({
     setLoading(false);
     navigate("/");
   };
-
+  if (!personalAccount) return null;
   return (
     <div>
       {step === 1 ? (
         <PrimaryCard className="w-full max-w-[530px] m-auto px-9 py-11 dark:bg-slate-800">
+          {transmitter && (
+            <Paragraph className="flex gap-2 items-center font-bold !text-[16px] dark:text-white">
+              <svg
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 24 24"
+                className="text-primary"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"
+                ></path>
+              </svg>
+              {transmitter.name}
+            </Paragraph>
+          )}
           <SubTitle>Payer un bien ou un service</SubTitle>
           <SubParagraph className="dark:text-white">
             Entrez le nom de l'entreprise qui recevra la somme
@@ -95,13 +122,31 @@ export default function ProfessionalPayment({
             className="flex flex-col gap-10 mt-10"
             onSubmit={handleSelectAccount}
           >
-            <Search
+            {/* <Search
               array={commuAccounts.professional}
               searchedKey="name"
               className="w-full "
               select={setSelectedAccount}
               placeholder="choisir un bénéficiaire"
-            />
+            /> */}
+            <Select
+              className="border py-3 px-4 shadow-md rounded-md !text-lg"
+              placeholder="choisir un bénéficiaire"
+              onChange={(e) => {
+                if (e.target.value === "") return;
+                const selected = commuAccounts.professional.find(
+                  (account) => account.rib === e.target.value
+                );
+                setSelectedAccount(selected);
+              }}
+            >
+              <option value="">Choisir une entreprise</option>
+              {filteredAccounts().map((account) => (
+                <option key={account.rib} value={account.rib}>
+                  {account.name}
+                </option>
+              ))}
+            </Select>
             <div className="flex gap-3 items-center">
               <SecondaryButton className="max-w-min" onClick={backtoMenu}>
                 Annuler

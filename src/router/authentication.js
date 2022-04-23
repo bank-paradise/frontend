@@ -1,5 +1,6 @@
 import Login from "features/authentication/login.page";
 import Register from "features/authentication/register.page";
+
 import { Route, Routes } from "react-router";
 
 export default function AuthenticationRouter() {

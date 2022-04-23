@@ -51,7 +51,7 @@ export default function Register() {
         >
           <Input
             type="text"
-            placeholder="Pseudo"
+            placeholder="Pseudo: JohnDoe123_"
             className="dark:bg-slate-800"
             register={register}
             name="name"

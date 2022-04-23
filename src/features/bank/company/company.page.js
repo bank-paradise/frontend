@@ -34,7 +34,11 @@ export default function CompanyAccount() {
                 {tab === "activities" ? (
                   <div className="flex flex-col gap-10 animate__animated animate__fadeIn">
                     <CompanyActions setTab={setTab} company_id={account.id} />
-                    <CompanyActivities rib={account.rib} tab={tab} />
+                    <CompanyActivities
+                      rib={account.rib}
+                      tab={tab}
+                      company_name={account.name}
+                    />
                   </div>
                 ) : (
                   <CompanyPay

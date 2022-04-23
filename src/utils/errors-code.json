@@ -15,6 +15,13 @@
       }
     },
     {
+      "code": "USER_NAME_ALREADY_REGISTED",
+      "message": {
+        "en": "Username already used",
+        "fr": "Pseudo déjà utilisé"
+      }
+    },
+    {
       "code": "USER_ALREADY_REGISTED",
       "message": {
         "en": "Email already used",

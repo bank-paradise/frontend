@@ -33,7 +33,7 @@ export const DefaultTemplate = ({
         name: "Virements",
       },
       {
-        path: "/entreprises",
+        path: "/entreprises/add",
         name: "Entreprises",
         dropdown: [
           ...enterprisesLinks,

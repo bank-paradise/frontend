@@ -3,9 +3,11 @@ import { LineButton } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import BankTitle from "features/bank/account/_components/bankTitle";
 import { formatPrice } from "helpers/formatPrice";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function CompanyActions({ setTab, company_id }) {
+  let navigate = useNavigate();
   const handleDeleteCompany = async (e) => {
     e.preventDefault();
     const res = await fetchDeleteCompany(company_id);
@@ -46,10 +48,20 @@ export default function CompanyActions({ setTab, company_id }) {
         </div>
         <div className="flex flex-col md:flex-row gap-5">
           <div className="flex flex-col gap-5 justify-center w-full">
-            <LineButton className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3">
+            <LineButton
+              className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
+              onClick={() =>
+                navigate(`/entreprises/${company_id}/payment/personnal`)
+              }
+            >
               Envoyer de l'argent
             </LineButton>
-            <LineButton className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3">
+            <LineButton
+              className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
+              onClick={() =>
+                navigate(`/entreprises/${company_id}/payment/professional`)
+              }
+            >
               Payer un bien ou un service
             </LineButton>
           </div>

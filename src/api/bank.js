@@ -89,3 +89,16 @@ export async function fetchAddEmployee(payload) {
 
   return response;
 }
+
+export async function fetchRemoveEmployee(payload) {
+  const response = await axiosRequest({
+    method: "POST",
+    url: "/bank/company/employee/fire",
+    data: payload,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}

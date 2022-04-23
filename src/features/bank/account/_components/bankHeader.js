@@ -21,6 +21,7 @@ export default function BankHeader({
     const contacts = transactions
       .filter(
         (transaction) =>
+          transaction.receiver &&
           transaction.receiver.name !== username &&
           transaction.receiver.user_id !== null
       )
@@ -45,11 +46,21 @@ export default function BankHeader({
             {formatPrice(getBalanceTotal(), currency)}
           </h3>
           <div className="w-[100px] h-[1px] bg-white mb-3" />
-          {accounts.map(({ id, name, balance }) => (
-            <p className="font-light text-md mt-1" key={id}>
-              {formatPrice(balance, currency)} - {name}
-            </p>
-          ))}
+          {accounts.map(({ id, name, balance, type }) => {
+            return type === "personnal" ? (
+              <p className="font-light text-md mt-1" key={id}>
+                {formatPrice(balance, currency)} - {name}
+              </p>
+            ) : (
+              <button
+                className="font-light text-md mt-1 hover:font-medium"
+                key={id}
+                onClick={() => navigate(`/entreprises/${id}`)}
+              >
+                {formatPrice(balance, currency)} - {name}
+              </button>
+            );
+          })}
         </div>
       </div>
       <div className="flex flex-col md:flex-row w-full bg-gray-100 px-10 py-5 gap-16 rounded-lg dark:bg-slate-700 dark:text-white">

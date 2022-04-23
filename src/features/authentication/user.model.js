@@ -54,6 +54,17 @@ export const userSlice = createSlice({
         state.header.status = "error";
         return;
       }
+      if (
+        !navigator.cookieEnabled ||
+        !navigator.storage ||
+        !navigator.storage.persist ||
+        !navigator.storage.persisted
+      ) {
+        alert(
+          "Veuillez activer les cookies, ou utiliser un navigateur plus récent"
+        );
+        return;
+      }
       state.header.status = "done";
       state.header.connected = true;
       state.data = action.payload.response.user;
@@ -66,6 +77,18 @@ export const userSlice = createSlice({
         state.header.status = "error";
         return;
       }
+      if (
+        !navigator.cookieEnabled ||
+        !navigator.storage ||
+        !navigator.storage.persist ||
+        !navigator.storage.persisted
+      ) {
+        alert(
+          "Veuillez activer les cookies, ou utiliser un navigateur plus récent"
+        );
+        return;
+      }
+
       state.header.status = "done";
       state.header.connected = true;
       state.data = action.payload.response.user;

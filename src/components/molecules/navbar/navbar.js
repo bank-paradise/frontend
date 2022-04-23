@@ -75,7 +75,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
               </ul>
               <ul className="flex gap-7 items-center">
                 <li>
-                  <Link to="/">Compte</Link>
+                  <Link to="/account">Compte</Link>
                 </li>
                 {checkPermissions(user, 2) && (
                   <li>

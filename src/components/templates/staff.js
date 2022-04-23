@@ -3,14 +3,18 @@ import { bankProfessionalAccounts } from "features/bank/bank.model";
 import joinClasses from "helpers/joinClasses";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 export const StaffTemplate = ({
   connected = true,
   className = "",
   children,
 }) => {
+  const location = useLocation();
   const enterprisesAccounts = useSelector(bankProfessionalAccounts);
   const [navitems, setNavitems] = useState([]);
+
+  useEffect(() => window.scrollTo(0, 0), [location.pathname]);
 
   useEffect(() => {
     const enterprisesLinks = enterprisesAccounts.map((account) => ({
@@ -28,7 +32,7 @@ export const StaffTemplate = ({
         name: "Virements",
       },
       {
-        path: "/entreprises",
+        path: "/entreprises/add",
         name: "Entreprises",
         dropdown: [
           ...enterprisesLinks,
