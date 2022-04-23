@@ -69,7 +69,7 @@ export default function TransactionsList({ list = [] }) {
               </li>
             ))
         ) : (
-          <p className="text-center text-sm font-medium py-5 ">
+          <p className="text-center text-sm font-medium py-5">
             Aucune transaction
           </p>
         )}

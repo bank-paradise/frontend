@@ -81,16 +81,7 @@ export default function Activities() {
         >
           <p>{date}</p>
           <div className="col-span-2">
-            <p className="uppercase flex items-center gap-1">
-              <span className="text-red-500">Moi</span>
-              <svg width="1em" height="1em" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8l-8-8z"
-                ></path>
-              </svg>
-              <span className="text-green-500">{community.name}</span>
-            </p>
+            <p className="uppercase">{community.name}</p>
             <p className="text-xs">
               <span className="text-red-500">Payement</span>
               {transaction.description.length
@@ -141,16 +132,7 @@ export default function Activities() {
           <p>{date}</p>
           <div className="col-span-1 md:col-span-2">
             <p className="uppercase flex items-center gap-1">
-              <span className="text-red-500">Moi</span>
-              <svg width="1em" height="1em" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8l-8-8z"
-                ></path>
-              </svg>
-              <span className="text-green-500">
-                {getUsername(transaction.receiver.name)}
-              </span>
+              {getUsername(transaction.receiver.name)}
             </p>
             <p className="text-xs">
               <span className="text-red-500">Payement</span>

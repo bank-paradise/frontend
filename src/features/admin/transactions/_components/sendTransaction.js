@@ -17,10 +17,10 @@ export default function SendTransaction({ callback = () => {} }) {
 
   const getAccounts = async () => {
     const accountsResponse = await fetchAllAccounts();
-    console.log(accountsResponse);
     if (accountsResponse.status === "done")
       setAccounts(accountsResponse.response);
   };
+
   useEffect(() => {
     getAccounts();
   }, []);
@@ -67,7 +67,9 @@ export default function SendTransaction({ callback = () => {} }) {
           {accounts.personnal.map((account) => {
             return (
               account.user_id && (
-                <option value={account.rib}>{account.name}</option>
+                <option key={account.id} value={account.rib}>
+                  {account.name}
+                </option>
               )
             );
           })}
@@ -75,7 +77,9 @@ export default function SendTransaction({ callback = () => {} }) {
           {accounts.professional.map((account) => {
             return (
               !account.name.includes("{{DELETED}}") && (
-                <option value={account.rib}>{account.name}</option>
+                <option key={account.id} value={account.rib}>
+                  {account.name}
+                </option>
               )
             );
           })}
@@ -97,7 +101,7 @@ export default function SendTransaction({ callback = () => {} }) {
           required
         />
         <div className="flex flex-col gap-4">
-          <p className="font-medium">Vous voulez ?</p>
+          <p className="font-medium dark:text-white">Vous voulez ?</p>
           <label className="flex gap-4 items-center">
             <Switch
               checked={removeMoney}
@@ -117,7 +121,7 @@ export default function SendTransaction({ callback = () => {} }) {
               offColor="#22c55e"
               offHandleColor="#4ade80"
             />
-            <span>
+            <span className="dark:text-white">
               {removeMoney ? "Retirer de l'argent" : "Ajouter de l'argent"}
             </span>
           </label>

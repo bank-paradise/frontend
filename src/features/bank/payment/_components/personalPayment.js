@@ -23,7 +23,12 @@ import { useNavigate } from "react-router-dom";
 import NoMembersError from "./noMembersError";
 
 export default function PersonalPayment({
-  transmitter = null,
+  transmitter = {
+    id: null,
+    name: null,
+    rib: null,
+    balance: null,
+  },
   backtoMenu = () => {},
   receiver = null,
 }) {
@@ -104,7 +109,7 @@ export default function PersonalPayment({
     <div>
       {step === 1 ? (
         <PrimaryCard className="w-full max-w-[530px] m-auto px-9 py-11 bg-gray-100 dark:bg-slate-800">
-          {transmitter && (
+          {transmitter.id && (
             <Paragraph className="flex gap-2 items-center font-bold !text-[16px] dark:text-white">
               <svg
                 width="1.5em"

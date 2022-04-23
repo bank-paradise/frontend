@@ -34,5 +34,4 @@ ReactDOM.render(
   document.getElementById("vanilla_coffee")
 );
 
-// change to register() for active PWA
 serviceWorker.register();

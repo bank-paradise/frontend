@@ -8,6 +8,13 @@
       }
     },
     {
+      "code": "MAIL_SEND_ERROR",
+      "message": {
+        "en": "An error has occurred while sending the email",
+        "fr": "Veuillez saisir une adresse email valide"
+      }
+    },
+    {
       "code": "WRONG_CREDENTIALS",
       "message": {
         "en": "Invalid credentials",
