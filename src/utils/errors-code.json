@@ -22,6 +22,13 @@
       }
     },
     {
+      "code": "WRONG_PASSWORD",
+      "message": {
+        "en": "Invalid password",
+        "fr": "Mot de passe invalide"
+      }
+    },
+    {
       "code": "USER_NAME_ALREADY_REGISTED",
       "message": {
         "en": "Username already used",

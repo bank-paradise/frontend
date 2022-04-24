@@ -24,6 +24,7 @@ import PaymentPage from "features/bank/payment/payment.page";
 import { toast } from "react-toastify";
 import ErrorInConstruction from "features/error/inConstruction.page";
 import ErrorNotFound from "features/error/notFound.page";
+import AccountSetting from "features/authentication/setting.page";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ export default function DefaultRouter() {
         path="/"
         element={!community ? <CreateCommunity /> : <BankAccount />}
       />
+      <Route path="/account" element={<AccountSetting />} />
       <Route path="/activities" element={<ErrorInConstruction />} />
       <Route path="/payment/:type" element={<PaymentPage />} />
 

@@ -83,11 +83,15 @@ export default function BankHeader({
         </div>
         <div className="w-full">
           <BankTitle className="mb-5">Renvoyer</BankTitle>
-          <div className="grid grid-cols-3 gap-3 justify-center">
-            {getLastTransmitters().map((receiver, index) => (
-              <Contact key={index} receiver={receiver} />
-            ))}
-          </div>
+          {getLastTransmitters().length ? (
+            <div className="grid grid-cols-3 gap-3 justify-center">
+              {getLastTransmitters().map((receiver, index) => (
+                <Contact key={index} receiver={receiver} />
+              ))}
+            </div>
+          ) : (
+            <p className="w-full text-center text-sm">Aucun contact</p>
+          )}
         </div>
       </div>
     </div>

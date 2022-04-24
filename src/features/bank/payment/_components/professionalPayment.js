@@ -83,7 +83,7 @@ export default function ProfessionalPayment({
     setLoading(true);
     const transaction = {
       amount,
-      transmitter: transmitter ? transmitter.rib : personalAccount.rib,
+      transmitter: transmitter.id ? transmitter.rib : personalAccount.rib,
       receiver: selectedAccount.rib,
       description,
     };

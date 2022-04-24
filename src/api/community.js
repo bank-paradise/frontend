@@ -13,6 +13,18 @@ export async function fetchCommunity() {
   return response;
 }
 
+export async function fetchDeleteCommunity() {
+  const response = await axiosRequest({
+    method: "DELETE",
+    url: "/community",
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
 export async function fetchJoinCommunity(invitation) {
   const response = await axiosRequest({
     method: "POST",
