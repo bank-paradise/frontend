@@ -125,8 +125,10 @@ export default function AccountSetting() {
     <DefaultTemplate>
       <SubTitle>Compte</SubTitle>
       <div className="flex flex-col-reverse md:flex-row w-full gap-10 md:gap-4 mt-5">
-        <PrimaryCard className="md:max-w-[350px] w-full">
-          <Paragraph className="mb-5 font-medium">Communauté</Paragraph>
+        <PrimaryCard className="md:max-w-[350px] w-full dark:bg-slate-800 dark:text-white">
+          <Paragraph className="mb-5 font-medium dark:text-white">
+            Communauté
+          </Paragraph>
           {community ? (
             <ul className="">
               <li>
@@ -174,9 +176,9 @@ export default function AccountSetting() {
           )}
         </PrimaryCard>
         {!editing ? (
-          <PrimaryCard className="w-full flex flex-col justify-between">
+          <PrimaryCard className="w-full flex flex-col justify-between dark:bg-slate-800 dark:text-white">
             <div>
-              <Paragraph className="mb-5 font-medium flex items-center justify-between">
+              <Paragraph className="mb-5 font-medium flex items-center justify-between dark:text-white">
                 Informations
                 <PrimaryButton size="small" onClick={() => setEditing(true)}>
                   Modifier
@@ -221,9 +223,9 @@ export default function AccountSetting() {
             </div>
           </PrimaryCard>
         ) : (
-          <PrimaryCard className="w-full flex flex-col justify-between">
+          <PrimaryCard className="w-full flex flex-col justify-between dark:bg-slate-800 dark:text-white">
             <div>
-              <Paragraph className="mb-5 font-medium flex items-center justify-between">
+              <Paragraph className="mb-5 font-medium flex items-center justify-between dark:text-white">
                 Informations
                 <PrimaryButton size="small" onClick={() => setEditing(false)}>
                   Annuler
@@ -251,7 +253,7 @@ export default function AccountSetting() {
                   required
                 />
                 <div className="flex flex-col gap-4">
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
                     Uniquement si vous souhaitez changer votre mot de passe:
                   </p>
                   <Input
