@@ -1,10 +1,14 @@
 import { DefaultTemplate } from "components/templates";
 import { userData } from "features/authentication/user.model";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { ShepherdTour } from "react-shepherd";
 import { bankAllInfo } from "../bank.model";
 import Activities from "./_components/activities";
 import BankHeader from "./_components/bankHeader";
 import Statistics from "./_components/statistics";
+
+import "shepherd.js/dist/css/shepherd.css";
 
 export default function BankAccount() {
   const userInfo = useSelector(userData);

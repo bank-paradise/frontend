@@ -40,7 +40,10 @@ export default function BankHeader({
     <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
       <div className="w-full md:max-w-[350px]">
         <BankTitle>Soldes</BankTitle>
-        <div className="bg-primary text-white mt-4 px-5 py-5 rounded-lg ">
+        <div
+          className="bg-primary text-white mt-4 px-5 py-5 rounded-lg "
+          id="balande-account-container"
+        >
           <p className="text-md">Total:</p>
           <h3 className="text-[30px] font-bold mb-3">
             {formatPrice(getBalanceTotal(), currency)}
@@ -64,7 +67,7 @@ export default function BankHeader({
         </div>
       </div>
       <div className="flex flex-col md:flex-row w-full bg-gray-100 px-10 py-5 gap-16 rounded-lg dark:bg-slate-700 dark:text-white">
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col" id="payment-account-container">
           <BankTitle className="mb-5">Actions Rapides</BankTitle>
           <div className="flex flex-col gap-5 justify-center">
             <LineButton

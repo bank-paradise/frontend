@@ -20,7 +20,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
         {/* DESKTOP VERSION */}
         <div className="flex justify-between m-auto items-center h-full px-[10%] max-w-[1920px] hidden lg:flex">
           <Link to="/" className="flex items-center justify-center h-full">
-            <img src="/assets/brand/logo.svg" alt="accueil du site" />
+            <img src="/assets/brand/logo-beta.svg" alt="accueil du site" />
           </Link>
           {user && (
             <div className="flex justify-between gap-16 text-white">
