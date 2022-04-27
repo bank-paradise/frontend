@@ -25,3 +25,8 @@ export { Search } from "./inputs/search";
  * Cards
  */
 export { PrimaryCard } from "./cards/primary";
+
+/**
+ * Loader
+ */
+export { Loader } from "./loader/loader";

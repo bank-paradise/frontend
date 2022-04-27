@@ -5,6 +5,8 @@ import joinClasses from "helpers/joinClasses";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import UseAnimation from "react-useanimations";
+import burgerMenu from "react-useanimations/lib/menu4";
 
 export const Navbar = ({ connected = true, items = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -117,7 +119,20 @@ export const Navbar = ({ connected = true, items = [] }) => {
           <Link to="/" className="flex items-center justify-center h-full">
             <img src="/assets/brand/logo.svg" alt="accueil du site" />
           </Link>
-          <button onClick={() => setIsOpen(!isOpen)}>
+          <UseAnimation
+            reverse={isOpen}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+            size={50}
+            strokeColor="#fff"
+            className="cursor-pointer"
+            wrapperStyle={{ marginTop: "5px" }}
+            animation={burgerMenu}
+            speed={1.5}
+          />
+
+          {/* <button onClick={() => setIsOpen(!isOpen)}>
             <span
               className={joinClasses(
                 "block h-0.5 w-5 my-1 transition-all transform bg-white",
@@ -136,70 +151,75 @@ export const Navbar = ({ connected = true, items = [] }) => {
                 isOpen && "absolute -rotate-45 -translate-y-2"
               )}
             />
-          </button>
+          </button> */}
         </div>
       </nav>
-      {isOpen && (
-        <div className="fixed h-screen w-screen bg-white dark:bg-slate-800 dark:text-white flex items-end lg:hidden animate__animated animate__fadeIn z-[5]">
-          {user && (
-            <ul className="h-[calc(100vh-100px)] overflow-y-auto flex flex-col w-full gap-10 px-[10%]">
-              {items.map((item, index) => {
-                if (item.dropdown) {
-                  return (
-                    <li key={index} className="group ">
-                      <p className="flex items-center gap-1 text-xl w-full group-hover:underline">
-                        {item.name}
 
-                        <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
-                          <path fill="currentColor" d="m7 10l5 5l5-5H7z"></path>
-                        </svg>
-                      </p>
-                      <ul className="group-hover:flex hidden px-7 py-5 flex-col gap-5 bg-gray-100 w-full left-0 mt-5">
-                        {item.dropdown.map((dropdownItem, index) => {
-                          return (
-                            <li
-                              key={index}
-                              className="text-secondary text-xl hover:text-primary"
-                            >
-                              <Link
-                                to={dropdownItem.path}
-                                dangerouslySetInnerHTML={{
-                                  __html: dropdownItem.name,
-                                }}
-                                className="w-full flex items-center gap-2"
-                              ></Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </li>
-                  );
-                }
+      <div
+        className={joinClasses(
+          "transition-all ease-in-out duration-300 fixed h-screen w-screen bg-white dark:bg-slate-800 dark:text-white flex items-end lg:hidden animate__animated animate__fadeIn z-[5]",
+          isOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        {user && (
+          <ul className="h-[calc(100vh-100px)] overflow-y-auto flex flex-col w-full gap-10 px-[10%]">
+            {items.map((item, index) => {
+              if (item.dropdown) {
                 return (
-                  <li className="w-full" key={index}>
-                    <Link
-                      to={item.path}
-                      className="hover:underline text-xl w-full"
-                    >
+                  <li key={index} className="group ">
+                    <p className="flex items-center gap-1 text-xl w-full group-hover:underline">
                       {item.name}
-                    </Link>
+
+                      <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="m7 10l5 5l5-5H7z"></path>
+                      </svg>
+                    </p>
+                    <ul className="group-hover:flex hidden px-7 py-5 flex-col gap-5 bg-gray-100 w-full left-0 mt-5">
+                      {item.dropdown.map((dropdownItem, index) => {
+                        return (
+                          <li
+                            key={index}
+                            className="text-secondary text-xl hover:text-primary"
+                          >
+                            <Link
+                              to={dropdownItem.path}
+                              dangerouslySetInnerHTML={{
+                                __html: dropdownItem.name,
+                              }}
+                              className="w-full flex items-center gap-2"
+                            ></Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </li>
                 );
-              })}
-              <li className="w-full">
-                <Link to="/account" className="hover:underline text-xl w-full">
-                  Compte
-                </Link>
-              </li>
-              <li className="w-full">
-                <PrimaryButton onClick={() => dispatch(logout())}>
-                  Déconnexion
-                </PrimaryButton>
-              </li>
-            </ul>
-          )}
-        </div>
-      )}
+              }
+              return (
+                <li className="w-full" key={index}>
+                  <Link
+                    to={item.path}
+                    className="hover:underline text-xl w-full"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
+            <li className="w-full">
+              <Link to="/account" className="hover:underline text-xl w-full">
+                Compte
+              </Link>
+            </li>
+            <li className="w-full">
+              <PrimaryButton onClick={() => dispatch(logout())}>
+                Déconnexion
+              </PrimaryButton>
+            </li>
+          </ul>
+        )}
+      </div>
+
       <div className="h-[73px]" />
 
       <div className="fixed right-10 bottom-10 lg:hidden flex flex-col gap-5 z-[5]">

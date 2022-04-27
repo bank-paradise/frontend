@@ -12,9 +12,9 @@ export const SubNavbar = ({ items = [] }) => {
             <li key={index}>
               <Link
                 className={joinClasses(
-                  "hover:border-b",
+                  "hover:border-b dark:text-white",
                   location.pathname === item.path &&
-                    "bg-primary md:bg-transparent p-2 md:p-0 md:border-b text-white"
+                    "bg-primary md:bg-transparent p-2 md:p-0 md:border-b text-white "
                 )}
                 to={item.path}
               >
