@@ -5,22 +5,26 @@ import joinClasses from "helpers/joinClasses";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import getMobileOperatingSystem from "helpers/getMobileSystem";
 import UseAnimation from "react-useanimations";
 import burgerMenu from "react-useanimations/lib/menu4";
 import heart from "react-useanimations/lib/heart";
 
 export const Navbar = ({ connected = true, items = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   let navigate = useNavigate();
   const location = useLocation();
-
   const user = useSelector(userData);
-
   const dispatch = useDispatch();
+
   return (
     <>
-      <nav className="h-[60px] border-t border-gray-200 lg:border-none lg:h-[73px] w-full bg-white lg:bg-gradient-to-r from-primary to-primary-light fixed z-10 bottom-0 lg:top-0">
+      <nav
+        className={joinClasses(
+          getMobileOperatingSystem() === "ios" ? "h-[100px]" : "h-[60px]",
+          "border-t border-gray-200 lg:border-none lg:h-[73px] w-full bg-white lg:bg-gradient-to-r from-primary to-primary-light fixed z-10 bottom-0 lg:top-0"
+        )}
+      >
         {/* DESKTOP VERSION */}
         <div className="flex justify-between m-auto items-center h-full px-[10%] max-w-[1920px] hidden lg:flex">
           <Link to="/" className="flex items-center justify-center h-full">
@@ -136,7 +140,12 @@ export const Navbar = ({ connected = true, items = [] }) => {
             speed={1.5}
           />
         </div> */}
-        <div className="flex justify-between items-center h-full text-gray-600 px-[5%] sm:px-[10%] lg:hidden text-[14px]">
+        <div
+          className={joinClasses(
+            "flex justify-between items-center h-full text-gray-600 px-[5%] sm:px-[10%] lg:hidden text-[14px]",
+            getMobileOperatingSystem() === "ios" && "pb-5"
+          )}
+        >
           <Link
             to="/"
             className={joinClasses(
@@ -296,7 +305,14 @@ export const Navbar = ({ connected = true, items = [] }) => {
 
       <div className="lg:h-[73px]" />
 
-      <div className="fixed right-5 bottom-[80px] lg:hidden flex flex-col gap-5 z-[5]">
+      <div
+        className={joinClasses(
+          "fixed right-5  lg:hidden flex flex-col gap-5 z-[5]",
+          getMobileOperatingSystem() === "ios"
+            ? "bottom-[120px]"
+            : "bottom-[80px]"
+        )}
+      >
         {/* <button
           className="h-[55px] w-[55px] bg-gray-100  flex items-center justify-center text-gray-700 rounded-full shadow-lg hover:bg-gray-300"
           onClick={() => navigate("/payment/new")}
