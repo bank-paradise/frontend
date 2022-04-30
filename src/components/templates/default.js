@@ -14,7 +14,6 @@ export const DefaultTemplate = ({
 }) => {
   const enterprisesAccounts = useSelector(bankProfessionalAccounts);
   const [navitems, setNavitems] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export const DefaultTemplate = ({
         name: "Virements",
       },
       {
-        path: "/entreprises/add",
+        path: "/entreprises",
         name: "Entreprises",
         dropdown: [
           ...enterprisesLinks,

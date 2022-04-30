@@ -32,7 +32,7 @@ export const StaffTemplate = ({
         name: "Virements",
       },
       {
-        path: "/entreprises/add",
+        path: "/entreprises",
         name: "Entreprises",
         dropdown: [
           ...enterprisesLinks,

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-gradient-to-r from-primary to-primary-light ">
+    <footer className="opacity-0 lg:opacity-100 w-full bg-gradient-to-r from-primary to-primary-light ">
       <div className="px-[5%] xl:px-[10%] max-w-[1500px] m-auto py-4 flex flex-col md:flex-row gap-2 md:justify-between mt-10">
         <div className="flex gap-4 items-center text-white text-sm">
           <Link to="/" className="hover:underline">

@@ -25,6 +25,7 @@ import { toast } from "react-toastify";
 import ErrorInConstruction from "features/error/inConstruction.page";
 import ErrorNotFound from "features/error/notFound.page";
 import AccountSetting from "features/authentication/setting.page";
+import CompanyList from "features/bank/company_list/companyList.page";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ export default function DefaultRouter() {
       <Route path="/activities" element={<ErrorInConstruction />} />
       <Route path="/payment/:type" element={<PaymentPage />} />
 
+      <Route path="/entreprises" element={<CompanyList />} />
       <Route path="/entreprises/add" element={<CompanyCreate />} />
       <Route
         path="/entreprises/:companyId/payment/:type"

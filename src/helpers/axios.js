@@ -5,6 +5,15 @@ import { getErrorMessage } from "./errors";
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 
+/*
+type axiosParams = {
+  method: string,
+  url: string,
+  data?: any,
+  headers?: any,
+};
+*/
+
 export const axiosRequest = async (axiosParams, redirectError = true) => {
   try {
     const response = await axios.request(axiosParams);
