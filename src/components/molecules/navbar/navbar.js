@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import getMobileOperatingSystem from "helpers/getMobileSystem";
 import UseAnimation from "react-useanimations";
-import burgerMenu from "react-useanimations/lib/menu4";
-import heart from "react-useanimations/lib/heart";
 
 export const Navbar = ({ connected = true, items = [] }) => {
   const [isOpen, setIsOpen] = useState(false);

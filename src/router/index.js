@@ -1,7 +1,3 @@
-import { Route, Routes } from "react-router";
-
-import Login from "features/authentication/login.page";
-import Register from "features/authentication/register.page";
 import { useDispatch, useSelector } from "react-redux";
 import { check, userHeader } from "features/authentication/user.model";
 import { useEffect } from "react";
