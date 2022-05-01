@@ -22,17 +22,13 @@ export const Navbar = ({ connected = true, items = [] }) => {
     window.navigator.standalone ||
     document.referrer.includes("android-app://");
 
-  if (isInStandaloneMode()) {
-    console.log("webapp is installed");
-  } else {
-    console.log("webapp is not installed");
-  }
-
   return (
     <>
       <nav
         className={joinClasses(
-          getMobileOperatingSystem() === "ios" ? "h-[100px]" : "h-[60px]",
+          getMobileOperatingSystem() === "ios" && isInStandaloneMode()
+            ? "h-[100px]"
+            : "h-[60px]",
           "border-t border-gray-200 lg:border-none lg:h-[73px] w-full bg-white lg:bg-gradient-to-r from-primary to-primary-light fixed z-10 bottom-0 lg:top-0"
         )}
       >
@@ -154,7 +150,9 @@ export const Navbar = ({ connected = true, items = [] }) => {
         <div
           className={joinClasses(
             "flex justify-between items-center h-full text-gray-600 px-[5%] sm:px-[10%] lg:hidden text-[14px]",
-            getMobileOperatingSystem() === "ios" && "pb-5"
+            getMobileOperatingSystem() === "ios" &&
+              isInStandaloneMode() &&
+              "pb-5"
           )}
         >
           <Link
@@ -319,7 +317,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
       <div
         className={joinClasses(
           "fixed right-5  lg:hidden flex flex-col gap-5 z-[5]",
-          getMobileOperatingSystem() === "ios"
+          getMobileOperatingSystem() === "ios" && isInStandaloneMode()
             ? "bottom-[120px]"
             : "bottom-[80px]"
         )}
