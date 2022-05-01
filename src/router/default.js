@@ -31,14 +31,6 @@ export default function DefaultRouter() {
   const dispatch = useDispatch();
   const community = useSelector(communityInfo);
   const user = useSelector(userData);
-  //const location = useLocation();
-  // hotjar.initialize(2931934, 6);
-  // hotjar.identify(user.id, { userProperty: "value" });
-
-  // useEffect(() => {
-  //   if (process.env.NODE_ENV !== "development")
-  //     hotjar.stateChange(location.pathname);
-  // }, [location.pathname]);
 
   useEffect(() => {
     dispatch(getCommunity());
@@ -55,9 +47,11 @@ export default function DefaultRouter() {
     });
 
     pusher.connection.bind("state_change", function (states) {
+      console.log(states.current);
       if (states.current === "unavailable") {
         window.location.reload();
       }
+      dispatch(getBank());
     });
 
     const channel = pusher.subscribe(`transaction.${user.id}`);
@@ -69,7 +63,6 @@ export default function DefaultRouter() {
           src: ["/assets/sounds/notification.mp3"],
         });
 
-        // créer une notification
         createNotification(
           `Vous avez reçu une transaction de ${formatPrice(
             event.transaction.transaction.amount

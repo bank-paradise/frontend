@@ -27,7 +27,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
           getMobileOperatingSystem() === "ios" && isInStandaloneMode()
             ? "h-[100px]"
             : "h-[60px]",
-          "border-t border-gray-200 lg:border-none lg:h-[73px] w-full bg-white lg:bg-gradient-to-r from-primary to-primary-light fixed z-10 bottom-0 lg:top-0"
+          "border-t border-gray-200 dark:border-gray-600 lg:border-none lg:h-[73px] w-full bg-white dark:bg-slate-700 lg:bg-gradient-to-r from-primary to-primary-light fixed z-10 bottom-0 lg:top-0"
         )}
       >
         {/* DESKTOP VERSION */}
@@ -126,28 +126,9 @@ export const Navbar = ({ connected = true, items = [] }) => {
           )}
         </div>
         {/* MOBILE VERSION */}
-        {/* 
-        <div className="flex justify-between items-center h-full px-[10%] lg:hidden">
-          <Link to="/" className="flex items-center justify-center h-full">
-            <img src="/assets/brand/logo.svg" alt="accueil du site" />
-          </Link>
-
-          <UseAnimation
-            reverse={isOpen}
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-            size={50}
-            strokeColor="#fff"
-            className="cursor-pointer"
-            wrapperStyle={{ marginTop: "5px" }}
-            animation={burgerMenu}
-            speed={1.5}
-          />
-        </div> */}
         <div
           className={joinClasses(
-            "flex justify-between items-center h-full text-gray-600 px-[5%] sm:px-[10%] lg:hidden text-[14px]",
+            "flex justify-between items-center h-full text-gray-600 dark:text-white px-[5%] sm:px-[10%] lg:hidden text-[14px] ",
             getMobileOperatingSystem() === "ios" &&
               isInStandaloneMode() &&
               "pb-5"
@@ -190,7 +171,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
           <Link
             to="/payment/new"
             className={joinClasses(
-              "flex flex-col items-center gap-1 text-primary"
+              "flex flex-col items-center gap-1 text-primary dark:text-white"
             )}
           >
             <svg width="2.8em" height="2.8em" viewBox="0 0 24 24">
