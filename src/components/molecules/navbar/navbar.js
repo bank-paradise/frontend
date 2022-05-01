@@ -17,6 +17,17 @@ export const Navbar = ({ connected = true, items = [] }) => {
   const user = useSelector(userData);
   const dispatch = useDispatch();
 
+  const isInStandaloneMode = () =>
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone ||
+    document.referrer.includes("android-app://");
+
+  if (isInStandaloneMode()) {
+    console.log("webapp is installed");
+  } else {
+    console.log("webapp is not installed");
+  }
+
   return (
     <>
       <nav
