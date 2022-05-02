@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router";
 import { Howl } from "howler";
@@ -26,15 +26,16 @@ import ErrorInConstruction from "features/error/inConstruction.page";
 import ErrorNotFound from "features/error/notFound.page";
 import AccountSetting from "features/authentication/setting.page";
 import CompanyList from "features/bank/company_list/companyList.page";
+import joinClasses from "helpers/joinClasses";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
   const community = useSelector(communityInfo);
   const user = useSelector(userData);
+  const [wsStatus, setWsStatus] = useState("initialized");
 
   useEffect(() => {
     dispatch(getCommunity());
-    dispatch(getBank());
 
     // if (process.env.NODE_ENV === "development") Pusher.logToConsole = true;
     // || "ws.bank-paradise.fr"
@@ -47,10 +48,7 @@ export default function DefaultRouter() {
     });
 
     pusher.connection.bind("state_change", function (states) {
-      console.log(states.current);
-      if (states.current === "unavailable") {
-        window.location.reload();
-      }
+      setWsStatus(states.current);
       dispatch(getBank());
     });
 
@@ -75,42 +73,63 @@ export default function DefaultRouter() {
   }, []);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={!community ? <CreateCommunity /> : <BankAccount />}
-      />
-      <Route path="/account" element={<AccountSetting />} />
-      <Route path="/activities" element={<ErrorInConstruction />} />
-      <Route path="/payment/:type" element={<PaymentPage />} />
-
-      <Route path="/entreprises" element={<CompanyList />} />
-      <Route path="/entreprises/add" element={<CompanyCreate />} />
-      <Route
-        path="/entreprises/:companyId/payment/:type"
-        element={<PaymentPage />}
-      />
-      <Route path="/entreprises/:companyId" element={<CompanyAccount />} />
-
-      {/* All staff routes */}
-      {checkPermissions(user, 2) && (
-        <React.Fragment>
-          <Route path="/commu/invitation" element={<CommunityInvitations />} />
-          <Route path="/commu/users" element={<CommunityMembers />} />
-          <Route
-            path="/commu/transactions"
-            element={<CommunityTransactions />}
-          />
-        </React.Fragment>
+    <div>
+      {wsStatus !== ("initialized" && "connected") && (
+        <div
+          className={joinClasses(
+            "animate__animated animate__fadeInDown  z-50 fixed w-full flex justify-center py-1 text-white text-xs",
+            wsStatus === "failed" ? "bg-red-500" : "bg-blue-500"
+          )}
+        >
+          <p>
+            {wsStatus === "unavailable"
+              ? `Reconnxion au serveur en cours...`
+              : wsStatus === "connecting"
+              ? `Connexion au serveur en cours...`
+              : `Connexion au serveur échouée, reconnxion...`}
+          </p>
+        </div>
       )}
-      {/* All owner routes */}
-      {checkPermissions(user, 4) && (
-        <React.Fragment>
-          <Route path="/commu/settings" element={<CommunitySettings />} />
-        </React.Fragment>
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={!community ? <CreateCommunity /> : <BankAccount />}
+        />
+        <Route path="/account" element={<AccountSetting />} />
+        <Route path="/activities" element={<ErrorInConstruction />} />
+        <Route path="/payment/:type" element={<PaymentPage />} />
 
-      <Route path="*" element={<ErrorNotFound />} />
-    </Routes>
+        <Route path="/entreprises" element={<CompanyList />} />
+        <Route path="/entreprises/add" element={<CompanyCreate />} />
+        <Route
+          path="/entreprises/:companyId/payment/:type"
+          element={<PaymentPage />}
+        />
+        <Route path="/entreprises/:companyId" element={<CompanyAccount />} />
+
+        {/* All staff routes */}
+        {checkPermissions(user, 2) && (
+          <React.Fragment>
+            <Route
+              path="/commu/invitation"
+              element={<CommunityInvitations />}
+            />
+            <Route path="/commu/users" element={<CommunityMembers />} />
+            <Route
+              path="/commu/transactions"
+              element={<CommunityTransactions />}
+            />
+          </React.Fragment>
+        )}
+        {/* All owner routes */}
+        {checkPermissions(user, 4) && (
+          <React.Fragment>
+            <Route path="/commu/settings" element={<CommunitySettings />} />
+          </React.Fragment>
+        )}
+
+        <Route path="*" element={<ErrorNotFound />} />
+      </Routes>
+    </div>
   );
 }
