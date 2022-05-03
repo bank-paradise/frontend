@@ -96,6 +96,10 @@ export const userSlice = createSlice({
         path: "/",
       });
     });
+
+    builder.addCase(check.pending, (state, action) => {
+      state.header.status = "loading";
+    });
     builder.addCase(check.fulfilled, (state, action) => {
       if (action.payload.status === "error") {
         cookies.remove("::token");
@@ -104,6 +108,10 @@ export const userSlice = createSlice({
       state.header.status = "done";
       state.header.connected = true;
       state.data = action.payload.response.user;
+    });
+
+    builder.addCase(logout.pending, (state, action) => {
+      state.header.status = "loading";
     });
     builder.addCase(logout.fulfilled, (state, action) => {
       if (action.payload.success) {

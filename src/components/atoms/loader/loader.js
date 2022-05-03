@@ -4,6 +4,7 @@ import loader from "react-useanimations/lib/loading";
 
 export function Loader({
   className = "",
+  size = 30,
   strokeColor = "currentColor",
   ...props
 }) {
@@ -12,7 +13,7 @@ export function Loader({
       <UseAnimation
         className={joinClasses("text-black dark:text-white", className)}
         strokeColor={strokeColor}
-        size={30}
+        size={size}
         animation={loader}
         autoplay={true}
         loop={true}
