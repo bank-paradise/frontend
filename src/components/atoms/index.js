@@ -4,6 +4,7 @@
 export { PrimaryButton } from "./buttons/primary";
 export { SecondaryButton } from "./buttons/secondary";
 export { LineButton } from "./buttons/line";
+export { BackButton } from "./buttons/back";
 
 /**
  * Texts

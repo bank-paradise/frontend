@@ -79,6 +79,11 @@ export const bankPersonalAccount = (state) => {
     null
   );
 };
+export const bankCashAccount = (state) => {
+  return (
+    state.bank.accounts.filter((account) => account.type === "cash")[0] || null
+  );
+};
 export const bankProfessionalAccounts = (state) => {
   return (
     state.bank.accounts.filter((account) => account.type === "professional") ||

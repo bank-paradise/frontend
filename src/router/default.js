@@ -27,6 +27,7 @@ import ErrorNotFound from "features/error/notFound.page";
 import AccountSetting from "features/authentication/setting.page";
 import CompanyList from "features/bank/company_list/companyList.page";
 import joinClasses from "helpers/joinClasses";
+import ATMPage from "features/bank/atm/atm.page";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
@@ -97,6 +98,7 @@ export default function DefaultRouter() {
         />
         <Route path="/account" element={<AccountSetting />} />
         <Route path="/activities" element={<ErrorInConstruction />} />
+        <Route path="/atm" element={<ATMPage />} />
         <Route path="/payment/:type" element={<PaymentPage />} />
 
         <Route path="/entreprises" element={<CompanyList />} />

@@ -12,6 +12,8 @@ export default function BankHeader({
 }) {
   let navigate = useNavigate();
 
+  const cashAccount = accounts.find((account) => account.type === "cash");
+
   const getBalanceTotal = () => {
     return accounts.reduce((acc, account) => acc + account.balance, 0);
   };
@@ -41,27 +43,34 @@ export default function BankHeader({
       <div className="w-full md:max-w-[350px]">
         <BankTitle>Soldes</BankTitle>
         <div
-          className="bg-primary text-white mt-4 px-5 py-5 rounded-lg "
+          className="bg-primary text-white mt-4 px-5 py-5 rounded-lg"
           id="balande-account-container"
         >
-          <p className="text-md">Total:</p>
-          <h3 className="text-[30px] font-bold mb-3">
-            {formatPrice(getBalanceTotal(), currency)}
-          </h3>
+          <div>
+            <p className="text-md">Total:</p>
+            <h3 className="text-[30px] font-bold">
+              {formatPrice(getBalanceTotal(), currency)}
+            </h3>
+            <p className="-mt-2 mb-5 text-lg">
+              {cashAccount && formatPrice(cashAccount.balance, currency)}
+            </p>
+          </div>
           <div className="w-[100px] h-[1px] bg-white mb-3" />
           {accounts.map(({ id, name, balance, type }) => {
             return type === "personnal" ? (
-              <p className="font-light text-md mt-1" key={id}>
+              <p className="font-light text-md mt-1 w-full" key={id}>
                 {formatPrice(balance, currency)} - {name}
               </p>
             ) : (
-              <button
-                className="font-light text-md mt-1 hover:font-medium"
-                key={id}
-                onClick={() => navigate(`/entreprises/${id}`)}
-              >
-                {formatPrice(balance, currency)} - {name}
-              </button>
+              type !== "cash" && (
+                <button
+                  className="font-light text-md mt-1 hover:font-medium w-full text-left"
+                  key={id}
+                  onClick={() => navigate(`/entreprises/${id}`)}
+                >
+                  {formatPrice(balance, currency)} - {name}
+                </button>
+              )
             );
           })}
         </div>

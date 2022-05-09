@@ -1,9 +1,13 @@
-import { SubTitle } from "components/atoms";
+import { PrimaryButton, SubTitle } from "components/atoms";
+import { Button } from "components/atoms/buttons";
+import { useNavigate } from "react-router-dom";
 
 export default function SelectPaymentMethod({ setMethod = () => {} }) {
+  let navigate = useNavigate();
   return (
     <div className="w-full">
       <SubTitle className="text-center mb-10">Que voulez-vous faire ?</SubTitle>
+
       <div className="w-full flex flex-col md:flex-row gap-10">
         <button
           className="w-full bg-gray-50 dark:bg-slate-700 dark:text-white shadow-md rounded-xl flex flex-col justify-center items-center py-5 md:h-[300px] gap-5 hover:scale-105 transition-all text-gray-700 hover:text-green-500 animate__animated active:animate__fadeOut"
@@ -57,6 +61,34 @@ export default function SelectPaymentMethod({ setMethod = () => {} }) {
           <p className="font-bold">Payer un bien ou un service</p>
         </button>
       </div>
+
+      <Button
+        className="mt-10 bg-gradient-to-r from-primary to-primary-light py-5 text-lg font-bold text-white flex justify-center group w-full md:w-1/2 m-auto hover:scale-105 transition-all items-center gap-2"
+        onClick={() => navigate("/atm")}
+      >
+        <svg
+          width="3em"
+          height="3em"
+          viewBox="0 0 24 24"
+          className="opacity-60 group-hover:opacity-100"
+        >
+          <path
+            fill="currentColor"
+            d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4V8h-2V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm9-13H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V6h16v12z"
+          ></path>
+        </svg>
+        <svg
+          width="5em"
+          height="5em"
+          viewBox="0 0 24 24"
+          className="opacity-60 group-hover:opacity-100"
+        >
+          <path
+            fill="currentColor"
+            d="M8 9v1.5h2.25V15h1.5v-4.5H14V9zM6 9H3c-.55 0-1 .45-1 1v5h1.5v-1.5h2V15H7v-5c0-.55-.45-1-1-1zm-.5 3h-2v-1.5h2V12zM21 9h-4.5c-.55 0-1 .45-1 1v5H17v-4.5h1V14h1.5v-3.51h1V15H22v-5c0-.55-.45-1-1-1z"
+          ></path>
+        </svg>
+      </Button>
     </div>
   );
 }
