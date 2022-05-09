@@ -4,47 +4,160 @@ import {
   PrimaryButton,
   SubParagraph,
 } from "components/atoms";
+import { Button } from "components/atoms/buttons";
+import {
+  bankCashAccount,
+  bankPersonalAccount,
+  createTransaction,
+} from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function ATMPayment() {
+export default function ATMPayment({ callback = () => {} }) {
+  const dispatch = useDispatch();
+  const [amount, setAmount] = useState(0);
+  const [paymentDone, setPaymentDone] = useState({
+    status: null,
+    message: "",
+  });
+
   const community = useSelector(communityInfo);
+  const personalAccount = useSelector(bankPersonalAccount);
+  const cashAccount = useSelector(bankCashAccount);
+
+  const handlePayment = async (amount) => {
+    const transaction = {
+      amount,
+      transmitter: cashAccount.rib,
+      receiver: personalAccount.rib,
+      description: "retrait depuis un ATM",
+    };
+    const { payload } = await dispatch(createTransaction(transaction));
+
+    setPaymentDone({
+      status: payload.status === "done",
+      message:
+        payload.status === "done"
+          ? "Argent déposé avec succès"
+          : payload.response,
+    });
+  };
+
   return (
     <div>
-      <Paragraph className="text-center dark:text-white">
-        Choisissez le montant à verser sur ce compte
-      </Paragraph>
-      <div className="grid grid-cols-2 gap-5 mt-10">
-        <PrimaryButton className="w-full order-1" size="large">
-          {formatPrice(50, community.currency)}
-        </PrimaryButton>
-        <PrimaryButton className="w-full order-3" size="large">
-          {formatPrice(500, community.currency)}
-        </PrimaryButton>
-        <PrimaryButton className="w-full order-5" size="large">
-          {formatPrice(2500, community.currency)}
-        </PrimaryButton>
-        <PrimaryButton className="w-full order-2" size="large">
-          {formatPrice(10000, community.currency)}
-        </PrimaryButton>
-        <PrimaryButton className="w-full order-4" size="large">
-          {formatPrice(100000, community.currency)}
-        </PrimaryButton>
-      </div>
-      <div className="flex w-full items-center gap-4 px-10 pb-4 dark:text-white">
-        <div className="w-full h-[1px] bg-secondary  dark:bg-white" />
-        <p className="text-secondary dark:text-white py-5">ou</p>
-        <div className="w-full h-[1px] bg-secondary  dark:bg-white" />
-      </div>
-      <p className="mb-2 text-gray-700 text-center dark:text-white">
-        Précisez le montant exact
-      </p>
-      <Input
-        className="shadow-md !py-3 rounded-lg"
-        placeholder="Montant exact"
-        type="number"
-      />
+      {paymentDone.status === null ? (
+        <div>
+          <Paragraph className="text-center font-bold">
+            Choisissez le montant à verser sur ce compte
+          </Paragraph>
+          <div className="grid grid-cols-2 gap-5 mt-10">
+            <PrimaryButton
+              className="w-full !bg-green-700 !px-0 order-1"
+              size="large"
+              onClick={() => {
+                setAmount(50);
+                handlePayment(50);
+              }}
+            >
+              {formatPrice(50, community.currency)}
+            </PrimaryButton>
+            <PrimaryButton
+              className="w-full !bg-green-700 !px-0 order-3"
+              size="large"
+              onClick={() => {
+                setAmount(500);
+                handlePayment(500);
+              }}
+            >
+              {formatPrice(500, community.currency)}
+            </PrimaryButton>
+            <PrimaryButton
+              className="w-full !bg-green-700 !px-0 order-5"
+              size="large"
+              onClick={() => {
+                setAmount(2500);
+                handlePayment(2500);
+              }}
+            >
+              {formatPrice(2500, community.currency)}
+            </PrimaryButton>
+            <PrimaryButton
+              className="w-full !bg-green-700 !px-0 order-2"
+              size="large"
+              onClick={() => {
+                setAmount(10000);
+                handlePayment(10000);
+              }}
+            >
+              {formatPrice(10000, community.currency)}
+            </PrimaryButton>
+            <PrimaryButton
+              className="w-full !bg-green-700 !px-0 order-4"
+              size="large"
+              onClick={() => {
+                setAmount(100000);
+                handlePayment(100000);
+              }}
+            >
+              {formatPrice(100000, community.currency)}
+            </PrimaryButton>
+          </div>
+          <div className="flex w-full items-center gap-4 px-10 pb-4 dark:text-white">
+            <div className="w-full h-[1px] bg-secondary" />
+            <p className="text-secondary py-5">ou</p>
+            <div className="w-full h-[1px] bg-secondary" />
+          </div>
+          <p className="mb-2 text-gray-700 text-center">
+            Précisez le montant exact
+          </p>
+          <Input
+            className="shadow-md !py-3 rounded-lg dark:bg-gray-100 bg-gray-100"
+            placeholder="Montant exact"
+            type="number"
+            onChange={(e) => setAmount(Number(e.target.value))}
+          />
+          {amount > 0 && (
+            <PrimaryButton className="w-full mt-3">Envoyer</PrimaryButton>
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-5 items-center">
+          {paymentDone.status ? (
+            <svg
+              width="5em"
+              height="5em"
+              viewBox="0 0 1024 1024"
+              className="text-green-700"
+            >
+              <path
+                fill="currentColor"
+                d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896zm-55.808 536.384l-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"
+              ></path>
+            </svg>
+          ) : (
+            <svg
+              width="5em"
+              height="5em"
+              viewBox="0 0 24 24"
+              className="text-primary"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+              ></path>
+            </svg>
+          )}
+          <Paragraph className="text-center font-bold">
+            {paymentDone.message}
+          </Paragraph>
+
+          <Button onClick={callback} className="bg-green-700 text-white">
+            Retour
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

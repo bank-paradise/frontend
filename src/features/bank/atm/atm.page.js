@@ -4,24 +4,43 @@ import {
   PrimaryButton,
   SubTitle,
 } from "components/atoms";
-import { DefaultTemplate } from "components/templates";
+import { ATMTemplate, DefaultTemplate } from "components/templates";
 import { userData } from "features/authentication/user.model";
 import { formatPrice } from "helpers/formatPrice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ATMPayment from "./_components/payment";
 import ATMWithdrawal from "./_components/withdrawal";
 
 export default function ATMPage() {
+  const [connexion, setConnexion] = useState(true);
   const { name } = useSelector(userData);
   let navigate = useNavigate();
   const [action, setAction] = useState("");
 
+  const backAction = () => {
+    setAction("");
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setConnexion(false);
+    }, 4000);
+  }, []);
+
   return (
-    <DefaultTemplate className="flex flex-col gap-5 justify-center items-center max-w-2xl">
+    <ATMTemplate className="flex flex-col gap-5 justify-center items-center max-w-2xl font-monospace">
+      {connexion && (
+        <div className="h-screen w-screen fixed top-0 left-0 bg-white z-50 flex flex-col gap-5 items-center justify-center">
+          <img src="/assets/brand/atm.webp" className="w-[250px]" alt="atm" />
+          <Paragraph className="font-bold mt-10 dost-loading flex">
+            Connexion en cours
+          </Paragraph>
+        </div>
+      )}
       <BackButton
-        className="absolute top-5 left-5"
+        className="absolute top-5 left-5 !text-black"
         onClick={() => {
           if (action.length) {
             setAction("");
@@ -32,28 +51,26 @@ export default function ATMPage() {
       />
       {action.length ? (
         <div>
-          {action === "payment" && <ATMPayment />}
-          {action === "withdrawal" && <ATMWithdrawal />}
+          {action === "payment" && <ATMPayment callback={backAction} />}
+          {action === "withdrawal" && <ATMWithdrawal callback={backAction} />}
         </div>
       ) : (
         <div className="flex flex-col gap-5 justify-center items-center w-full">
           <div className="absolute md:static top-16 px-10">
-            <Paragraph className="text-center dark:text-white">
-              {name}
-            </Paragraph>
-            <SubTitle className="text-center">
+            <Paragraph className="text-center font-medium">{name}</Paragraph>
+            <SubTitle className="text-center text-green-700">
               Choisissez une opération
             </SubTitle>
           </div>
           <PrimaryButton
-            className="w-full"
+            className="w-full !bg-green-700"
             size="large"
             onClick={() => setAction("payment")}
           >
             Versement
           </PrimaryButton>
           <PrimaryButton
-            className="w-full"
+            className="w-full !bg-green-700"
             size="large"
             onClick={() => setAction("withdrawal")}
           >
@@ -61,6 +78,6 @@ export default function ATMPage() {
           </PrimaryButton>
         </div>
       )}
-    </DefaultTemplate>
+    </ATMTemplate>
   );
 }
