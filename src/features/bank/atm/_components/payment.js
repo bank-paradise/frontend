@@ -124,7 +124,10 @@ export default function ATMPayment({ callback = () => {} }) {
             onChange={(e) => setAmount(Number(e.target.value))}
           />
           {amount > 0 && (
-            <PrimaryButton className="w-full mt-3 bg-gradient-to-b from-green-600 to-green-700">
+            <PrimaryButton
+              className="w-full mt-3 bg-gradient-to-b from-green-600 to-green-700"
+              onClick={() => handlePayment(amount)}
+            >
               Envoyer
             </PrimaryButton>
           )}
