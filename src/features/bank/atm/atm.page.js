@@ -24,16 +24,17 @@ export default function ATMPage() {
   };
 
   useEffect(() => {
+    const random = Math.floor(Math.random() * 4) + 1;
     setTimeout(() => {
       setConnexion(false);
-    }, 4000);
+    }, random * 1000);
   }, []);
 
   return (
     <ATMTemplate className="flex flex-col gap-5 justify-center items-center max-w-2xl font-monospace">
       {connexion && (
         <div className="h-screen w-screen fixed top-0 left-0 bg-white z-50 flex flex-col gap-5 items-center justify-center">
-          <img src="/assets/brand/atm.webp" className="w-[250px]" alt="atm" />
+          <img src="/assets/brand/atm.svg" className="w-[250px]" alt="atm" />
           <Paragraph className="font-bold mt-10 dost-loading flex">
             Connexion en cours
           </Paragraph>
@@ -49,6 +50,12 @@ export default function ATMPage() {
           }
         }}
       />
+      <img
+        src="/assets/brand/atm.svg"
+        className="w-[100px] absolute top-5 right-5"
+        alt="atm"
+      />
+
       {action.length ? (
         <div>
           {action === "payment" && <ATMPayment callback={backAction} />}
@@ -63,14 +70,14 @@ export default function ATMPage() {
             </SubTitle>
           </div>
           <PrimaryButton
-            className="w-full !bg-green-700"
+            className="w-full bg-gradient-to-b from-green-600 to-green-700"
             size="large"
             onClick={() => setAction("payment")}
           >
             Versement
           </PrimaryButton>
           <PrimaryButton
-            className="w-full !bg-green-700"
+            className="w-full bg-gradient-to-b from-green-600 to-green-700"
             size="large"
             onClick={() => setAction("withdrawal")}
           >

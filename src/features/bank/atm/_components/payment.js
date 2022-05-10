@@ -46,7 +46,12 @@ export default function ATMPayment({ callback = () => {} }) {
   };
 
   return (
-    <div>
+    <div
+      className="animate__animated animate__zoomIn"
+      style={{
+        animationDuration: "0.5s",
+      }}
+    >
       {paymentDone.status === null ? (
         <div>
           <Paragraph className="text-center font-bold">
@@ -54,7 +59,7 @@ export default function ATMPayment({ callback = () => {} }) {
           </Paragraph>
           <div className="grid grid-cols-2 gap-5 mt-10">
             <PrimaryButton
-              className="w-full !bg-green-700 !px-0 order-1"
+              className="w-full !px-0 order-1 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
                 setAmount(50);
@@ -64,7 +69,7 @@ export default function ATMPayment({ callback = () => {} }) {
               {formatPrice(50, community.currency)}
             </PrimaryButton>
             <PrimaryButton
-              className="w-full !bg-green-700 !px-0 order-3"
+              className="w-full !px-0 order-3 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
                 setAmount(500);
@@ -74,7 +79,7 @@ export default function ATMPayment({ callback = () => {} }) {
               {formatPrice(500, community.currency)}
             </PrimaryButton>
             <PrimaryButton
-              className="w-full !bg-green-700 !px-0 order-5"
+              className="w-full !px-0 order-5 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
                 setAmount(2500);
@@ -84,7 +89,7 @@ export default function ATMPayment({ callback = () => {} }) {
               {formatPrice(2500, community.currency)}
             </PrimaryButton>
             <PrimaryButton
-              className="w-full !bg-green-700 !px-0 order-2"
+              className="w-full !px-0 order-2 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
                 setAmount(10000);
@@ -94,7 +99,7 @@ export default function ATMPayment({ callback = () => {} }) {
               {formatPrice(10000, community.currency)}
             </PrimaryButton>
             <PrimaryButton
-              className="w-full !bg-green-700 !px-0 order-4"
+              className="w-full !px-0 order-4 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
                 setAmount(100000);
@@ -119,7 +124,9 @@ export default function ATMPayment({ callback = () => {} }) {
             onChange={(e) => setAmount(Number(e.target.value))}
           />
           {amount > 0 && (
-            <PrimaryButton className="w-full mt-3">Envoyer</PrimaryButton>
+            <PrimaryButton className="w-full mt-3 bg-gradient-to-b from-green-600 to-green-700">
+              Envoyer
+            </PrimaryButton>
           )}
         </div>
       ) : (
@@ -153,7 +160,10 @@ export default function ATMPayment({ callback = () => {} }) {
             {paymentDone.message}
           </Paragraph>
 
-          <Button onClick={callback} className="bg-green-700 text-white">
+          <Button
+            onClick={callback}
+            className="bg-gradient-to-b from-green-600 to-green-700 text-white"
+          >
             Retour
           </Button>
         </div>
