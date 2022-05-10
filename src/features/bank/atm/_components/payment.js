@@ -32,7 +32,7 @@ export default function ATMPayment({ callback = () => {} }) {
       amount,
       transmitter: cashAccount.rib,
       receiver: personalAccount.rib,
-      description: "retrait depuis un ATM",
+      description: "versement depuis un ATM ",
     };
     const { payload } = await dispatch(createTransaction(transaction));
 

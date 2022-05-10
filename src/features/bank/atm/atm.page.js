@@ -83,6 +83,13 @@ export default function ATMPage() {
           >
             Retrait
           </PrimaryButton>
+          <PrimaryButton
+            className="w-full bg-gradient-to-b from-gray-100 to-gray-300 text-black"
+            size="large"
+            onClick={() => setAction("withdrawal")}
+          >
+            Payement en liquide
+          </PrimaryButton>
         </div>
       )}
     </ATMTemplate>
