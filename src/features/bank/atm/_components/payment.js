@@ -12,6 +12,7 @@ import {
 } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
+import { Howl } from "howler";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -26,6 +27,14 @@ export default function ATMPayment({ callback = () => {} }) {
   const community = useSelector(communityInfo);
   const personalAccount = useSelector(bankPersonalAccount);
   const cashAccount = useSelector(bankCashAccount);
+
+  const atmKeySound = () => {
+    let sound = new Howl({
+      src: ["/assets/sounds/atm-key.mp3"],
+    });
+
+    sound.play();
+  };
 
   const handlePayment = async (amount) => {
     const transaction = {
@@ -62,6 +71,7 @@ export default function ATMPayment({ callback = () => {} }) {
               className="w-full !px-0 order-1 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(50);
                 handlePayment(50);
               }}
@@ -72,6 +82,7 @@ export default function ATMPayment({ callback = () => {} }) {
               className="w-full !px-0 order-3 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(500);
                 handlePayment(500);
               }}
@@ -82,6 +93,7 @@ export default function ATMPayment({ callback = () => {} }) {
               className="w-full !px-0 order-5 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(2500);
                 handlePayment(2500);
               }}
@@ -92,6 +104,7 @@ export default function ATMPayment({ callback = () => {} }) {
               className="w-full !px-0 order-2 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(10000);
                 handlePayment(10000);
               }}
@@ -102,6 +115,7 @@ export default function ATMPayment({ callback = () => {} }) {
               className="w-full !px-0 order-4 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(100000);
                 handlePayment(100000);
               }}
@@ -126,7 +140,10 @@ export default function ATMPayment({ callback = () => {} }) {
           {amount > 0 && (
             <PrimaryButton
               className="w-full mt-3 bg-gradient-to-b from-green-600 to-green-700"
-              onClick={() => handlePayment(amount)}
+              onClick={() => {
+                atmKeySound();
+                handlePayment(amount);
+              }}
             >
               Envoyer
             </PrimaryButton>

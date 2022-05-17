@@ -12,6 +12,7 @@ import {
 } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
+import { Howl } from "howler";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,6 +28,14 @@ export default function ATMWithdrawal({ callback = () => {} }) {
   const personalAccount = useSelector(bankPersonalAccount);
   const cashAccount = useSelector(bankCashAccount);
 
+  const atmKeySound = () => {
+    let sound = new Howl({
+      src: ["/assets/sounds/atm-key.mp3"],
+    });
+
+    sound.play();
+  };
+
   const handlePayment = async (amount) => {
     const transaction = {
       amount,
@@ -34,6 +43,7 @@ export default function ATMWithdrawal({ callback = () => {} }) {
       receiver: cashAccount.rib,
       description: "retrait depuis un ATM",
     };
+
     const { payload } = await dispatch(createTransaction(transaction));
 
     setPaymentDone({
@@ -62,6 +72,7 @@ export default function ATMWithdrawal({ callback = () => {} }) {
               className="w-full !px-0 order-1 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(50);
                 handlePayment(50);
               }}
@@ -72,6 +83,7 @@ export default function ATMWithdrawal({ callback = () => {} }) {
               className="w-full !px-0 order-3 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(500);
                 handlePayment(500);
               }}
@@ -82,6 +94,7 @@ export default function ATMWithdrawal({ callback = () => {} }) {
               className="w-full !px-0 order-5 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(2500);
                 handlePayment(2500);
               }}
@@ -102,6 +115,7 @@ export default function ATMWithdrawal({ callback = () => {} }) {
               className="w-full !px-0 order-4 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(100000);
                 handlePayment(100000);
               }}
@@ -112,6 +126,7 @@ export default function ATMWithdrawal({ callback = () => {} }) {
               className="w-full !px-0 order-6 bg-gradient-to-b from-green-600 to-green-700"
               size="large"
               onClick={() => {
+                atmKeySound();
                 setAmount(1000000);
                 handlePayment(1000000);
               }}
@@ -136,7 +151,10 @@ export default function ATMWithdrawal({ callback = () => {} }) {
           {amount > 0 && (
             <PrimaryButton
               className="w-full mt-3 bg-gradient-to-b from-green-600 to-green-700"
-              onClick={() => handlePayment(amount)}
+              onClick={() => {
+                atmKeySound();
+                handlePayment(amount);
+              }}
             >
               Envoyer
             </PrimaryButton>

@@ -27,15 +27,26 @@ export default function Activities() {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    let sortedTransactions = transactions.slice();
+    let filteredTransactions = [];
 
-    sortedTransactions = sortedTransactions.sort((a, b) => {
+    transactions.slice().map((transaction) => {
+      if (
+        !transaction.transmitter ||
+        !transaction.receiver ||
+        transaction.receiver.rib === personnalAccount.rib ||
+        transaction.transmitter.rib === personnalAccount.rib
+      ) {
+        filteredTransactions.push(transaction);
+      }
+    });
+
+    filteredTransactions = filteredTransactions.sort((a, b) => {
       return moment(a.created_at).isAfter(b.created_at) ? -1 : 1;
     });
 
-    setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
+    setCurrentItems(filteredTransactions.slice(itemOffset, endOffset));
 
-    setPageCount(Math.ceil(transactions.length / itemsPerPage));
+    setPageCount(Math.ceil(filteredTransactions.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, transactions]);
 
   const handlePageClick = (event) => {

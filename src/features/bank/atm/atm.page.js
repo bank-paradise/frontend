@@ -7,9 +7,11 @@ import {
 import { ATMTemplate, DefaultTemplate } from "components/templates";
 import { userData } from "features/authentication/user.model";
 import { formatPrice } from "helpers/formatPrice";
+import { Howl } from "howler";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ATMCash from "./_components/cash";
 import ATMPayment from "./_components/payment";
 import ATMWithdrawal from "./_components/withdrawal";
 
@@ -21,6 +23,14 @@ export default function ATMPage() {
 
   const backAction = () => {
     setAction("");
+  };
+
+  const atmKeySound = () => {
+    let sound = new Howl({
+      src: ["/assets/sounds/atm-key.mp3"],
+    });
+
+    sound.play();
   };
 
   useEffect(() => {
@@ -40,6 +50,7 @@ export default function ATMPage() {
           </Paragraph>
         </div>
       )}
+
       <BackButton
         className="absolute top-5 left-5 !text-black"
         onClick={() => {
@@ -50,6 +61,7 @@ export default function ATMPage() {
           }
         }}
       />
+
       <img
         src="/assets/brand/atm.svg"
         className="w-[100px] absolute top-5 right-5"
@@ -60,6 +72,7 @@ export default function ATMPage() {
         <div>
           {action === "payment" && <ATMPayment callback={backAction} />}
           {action === "withdrawal" && <ATMWithdrawal callback={backAction} />}
+          {action === "cash" && <ATMCash callback={backAction} />}
         </div>
       ) : (
         <div className="flex flex-col gap-5 justify-center items-center w-full">
@@ -72,21 +85,30 @@ export default function ATMPage() {
           <PrimaryButton
             className="w-full bg-gradient-to-b from-green-600 to-green-700"
             size="large"
-            onClick={() => setAction("payment")}
+            onClick={() => {
+              atmKeySound();
+              setAction("payment");
+            }}
           >
             Versement
           </PrimaryButton>
           <PrimaryButton
             className="w-full bg-gradient-to-b from-green-600 to-green-700"
             size="large"
-            onClick={() => setAction("withdrawal")}
+            onClick={() => {
+              atmKeySound();
+              setAction("withdrawal");
+            }}
           >
             Retrait
           </PrimaryButton>
           <PrimaryButton
             className="w-full bg-gradient-to-b from-gray-100 to-gray-300 text-black"
             size="large"
-            onClick={() => setAction("withdrawal")}
+            onClick={() => {
+              atmKeySound();
+              setAction("cash");
+            }}
           >
             Payement en liquide
           </PrimaryButton>
