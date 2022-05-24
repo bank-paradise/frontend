@@ -32,7 +32,7 @@ export default function Login() {
       setError(response.payload.response);
       return;
     }
-    navigate("/");
+    //navigate("/");
   };
 
   return (
