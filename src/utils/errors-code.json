@@ -90,6 +90,13 @@
         "en": "User already in a company",
         "fr": "Ce joueur est déjà dans l'entreprise"
       }
+    },
+    {
+      "code": "INVALID_INVITATION_CODE",
+      "message": {
+        "en": "Invalid invitation code",
+        "fr": "Code d'invitation invalide"
+      }
     }
   ]
 }

@@ -177,3 +177,39 @@ export async function fetchAllAccounts() {
 
   return response;
 }
+
+export async function fetchGetInvitationsLink() {
+  const response = await axiosRequest({
+    method: "GET",
+    url: "community/invitations/link",
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
+export async function fetchInvitationsLink(code) {
+  const response = await axiosRequest({
+    method: "GET",
+    url: `/community/link/invite/${code}`,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
+export async function sendInvitationsLink(code) {
+  const response = await axiosRequest({
+    method: "PUT",
+    url: `/community/link/invite/${code}`,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}

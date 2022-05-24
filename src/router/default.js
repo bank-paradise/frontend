@@ -28,6 +28,7 @@ import AccountSetting from "features/authentication/setting.page";
 import CompanyList from "features/bank/company_list/companyList.page";
 import joinClasses from "helpers/joinClasses";
 import ATMPage from "features/bank/atm/atm.page";
+import JoinCommunityWithLink from "features/community/invitations-link/joinCommunity.page";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
@@ -129,6 +130,8 @@ export default function DefaultRouter() {
             <Route path="/commu/settings" element={<CommunitySettings />} />
           </React.Fragment>
         )}
+
+        <Route path="/invitation/:code" element={<JoinCommunityWithLink />} />
 
         <Route path="*" element={<ErrorNotFound />} />
       </Routes>
