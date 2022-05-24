@@ -33,7 +33,7 @@ export default function CommunityInvitations() {
     if (invitResponse.status === "done") {
       const domain = window.location.hostname;
       const invitationLink = invitResponse.response.invitation_link.code;
-      const invitationLinkUrl = `https://${domain}/invitations/${invitationLink}`;
+      const invitationLinkUrl = `https://${domain}/invitation/${invitationLink}`;
       setInvitationsLink(invitationLinkUrl);
     }
   };
@@ -51,7 +51,7 @@ export default function CommunityInvitations() {
       <InvitationsList list={invitations} />
       <hr className="my-10" />
       <BankTitle className="mt-5">Lien d'invitations</BankTitle>
-      <div className="flex items-center mt-5">
+      <div className="flex items-center mt-5 max-w-xl">
         <Input
           className="rounded-l-[8px] !border-0"
           value={invitationsLink}

@@ -74,7 +74,7 @@ export default function JoinCommunityWithLink() {
           {!loading ? (
             <div>
               <div className="my-10">
-                {invitation ? (
+                {invitation && (
                   <div className="flex gap-3 items-center dark:text-white">
                     <svg
                       width="2.8em"
@@ -111,10 +111,6 @@ export default function JoinCommunityWithLink() {
                       </PrimaryButton>
                     </div>
                   </div>
-                ) : (
-                  <p className="text-center text-primary my-5 underline">
-                    {error ? error : "Une erreur est survenue"}
-                  </p>
                 )}
               </div>
               {error && (

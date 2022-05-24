@@ -97,6 +97,13 @@
         "en": "Invalid invitation code",
         "fr": "Code d'invitation invalide"
       }
+    },
+    {
+      "code": "ALREADY_IN_COMMUNITY",
+      "message": {
+        "en": "Already in the community",
+        "fr": "Vous êtes déjà dans la communauté"
+      }
     }
   ]
 }
