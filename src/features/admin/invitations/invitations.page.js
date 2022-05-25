@@ -1,4 +1,8 @@
-import { fetchGetInvitationsLink, fetchInvitations } from "api/community";
+import {
+  fetchGetInvitationsLink,
+  fetchInvitations,
+  sendResetInvitationsLink,
+} from "api/community";
 import { Input, PrimaryButton } from "components/atoms";
 import { StaffTemplate } from "components/templates";
 import BankTitle from "features/bank/account/_components/bankTitle";
@@ -21,6 +25,14 @@ export default function CommunityInvitations() {
     }, 2000);
   };
 
+  const resetInvitationsLink = async (e) => {
+    e.preventDefault();
+    setInvitationsLink(null);
+    await sendResetInvitationsLink();
+
+    getInvitationsLink();
+  };
+
   const getInvitations = async () => {
     const invitResponse = await fetchInvitations();
     if (invitResponse.status === "done")
@@ -29,7 +41,6 @@ export default function CommunityInvitations() {
 
   const getInvitationsLink = async () => {
     const invitResponse = await fetchGetInvitationsLink();
-    console.log(invitResponse.response.invitation_link);
     if (invitResponse.status === "done") {
       const domain = window.location.hostname;
       const invitationLink = invitResponse.response.invitation_link.code;
@@ -53,9 +64,10 @@ export default function CommunityInvitations() {
       <BankTitle className="mt-5">Lien d'invitations</BankTitle>
       <div className="flex items-center mt-5 max-w-xl">
         <Input
-          className="rounded-l-[8px] !border-0"
-          value={invitationsLink}
+          className="rounded-l-[8px] !border-0 shadow-lg"
+          value={invitationsLink ? invitationsLink : "Chargement..."}
           id="invitations-link"
+          readOnly
         />
         <PrimaryButton
           className="!rounded-l-none rounded-r-[8px]"
@@ -64,6 +76,12 @@ export default function CommunityInvitations() {
           {copyMessage}
         </PrimaryButton>
       </div>
+      <button
+        className="text-xs underline mt-2 px-2 active:text-primary"
+        onClick={resetInvitationsLink}
+      >
+        Réinitialiser le lien
+      </button>
     </StaffTemplate>
   );
 }

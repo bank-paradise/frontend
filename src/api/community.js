@@ -213,3 +213,15 @@ export async function sendInvitationsLink(code) {
 
   return response;
 }
+
+export async function sendResetInvitationsLink() {
+  const response = await axiosRequest({
+    method: "DELETE",
+    url: "community/invitations/link/reset",
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}

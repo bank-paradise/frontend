@@ -11,7 +11,7 @@ import { useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { registration } from "./user.model";
 
 export default function Register() {
@@ -20,6 +20,7 @@ export default function Register() {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit = async (data) => {
     if (loading) return;
@@ -32,7 +33,11 @@ export default function Register() {
       setError(response.payload.response);
       return;
     }
-    navigate("/");
+    if (location.state && location.state.from) {
+      navigate(location.state.from);
+    } else {
+      navigate("/");
+    }
   };
 
   return (

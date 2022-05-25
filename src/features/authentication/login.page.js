@@ -11,7 +11,7 @@ import { useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { login } from "./user.model";
 
 export default function Login() {
@@ -19,7 +19,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  let navigate = useNavigate();
+  const location = useLocation();
+
+  const getPreviousUrl = () => {
+    const { pathname } = location;
+    if (pathname === "/auth/login") return "/";
+    return pathname;
+  };
 
   const onSubmit = async (data) => {
     if (loading) return;
@@ -32,7 +38,6 @@ export default function Login() {
       setError(response.payload.response);
       return;
     }
-    //navigate("/");
   };
 
   return (
@@ -44,7 +49,11 @@ export default function Login() {
         <SubTitle>Connexion</SubTitle>
         <SubParagraph className="dark:text-white">
           Vous n'avez pas de compte ?{" "}
-          <Link to="/auth/register" className="underline text-primary">
+          <Link
+            to={"/auth/register"}
+            state={{ from: getPreviousUrl() }}
+            className="underline text-primary"
+          >
             Inscription
           </Link>
         </SubParagraph>
