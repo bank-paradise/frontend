@@ -11,6 +11,7 @@ export default function SendTransaction({ callback = () => {} }) {
   const [accounts, setAccounts] = useState({
     personnal: [],
     professional: [],
+    cash: [],
   });
   const [removeMoney, setRemoveMoney] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -75,6 +76,16 @@ export default function SendTransaction({ callback = () => {} }) {
           })}
           <option disabled>── ENTREPRISES ──</option>
           {accounts.professional.map((account) => {
+            return (
+              !account.name.includes("{{DELETED}}") && (
+                <option key={account.id} value={account.rib}>
+                  {account.name}
+                </option>
+              )
+            );
+          })}
+          <option disabled>── LIQUIDES ──</option>
+          {accounts.cash.map((account) => {
             return (
               !account.name.includes("{{DELETED}}") && (
                 <option key={account.id} value={account.rib}>

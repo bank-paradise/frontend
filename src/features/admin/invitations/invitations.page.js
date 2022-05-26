@@ -29,7 +29,6 @@ export default function CommunityInvitations() {
     e.preventDefault();
     setInvitationsLink(null);
     await sendResetInvitationsLink();
-
     getInvitationsLink();
   };
 
