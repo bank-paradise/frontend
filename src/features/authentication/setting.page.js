@@ -110,7 +110,7 @@ export default function AccountSetting() {
         caches.delete(name);
       });
     });
-    alert("Mise à jour du cache effectuée");
+    setLoading(true);
     window.location.reload();
   };
 

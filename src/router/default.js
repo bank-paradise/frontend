@@ -31,13 +31,15 @@ import ATMPage from "features/bank/atm/atm.page";
 import JoinCommunityWithLink from "features/community/invitations-link/joinCommunity.page";
 import SendSalaryRequest from "features/bank/salary/addsalary.page";
 import CommunitySalary from "features/admin/salary/salary.page";
+import { Modal } from "components/molecules";
+import { PrimaryButton } from "components/atoms";
 
-export default function DefaultRouter() {
+export default function DefaultRouter({ hasNewVersion = false }) {
   const dispatch = useDispatch();
   const community = useSelector(communityInfo);
   const user = useSelector(userData);
   const [wsStatus, setWsStatus] = useState("initialized");
-
+  const [isOpenVersionModal, setIsOpenVersionModal] = useState(hasNewVersion);
   useEffect(() => {
     dispatch(getCommunity());
 
@@ -93,6 +95,30 @@ export default function DefaultRouter() {
               : `Connexion au serveur échouée, reconnxion...`}
           </p>
         </div>
+      )}
+      {hasNewVersion && (
+        <Modal
+          title="Mise à jour"
+          isOpen={isOpenVersionModal}
+          setIsOpen={setIsOpenVersionModal}
+        >
+          <div className="flex flex-col items-center gap-7 py-10">
+            <h1 className="text-center text-xl">
+              Une nouvelle version est disponible
+            </h1>
+            <div>
+              <PrimaryButton onClick={() => window.location.reload()}>
+                Mettre à jour
+              </PrimaryButton>
+              <p className="text-center mt-2 text-xs">
+                Version:{" "}
+                {localStorage.getItem("version")
+                  ? localStorage.getItem("version")
+                  : ""}
+              </p>
+            </div>
+          </div>
+        </Modal>
       )}
       <Routes>
         <Route
