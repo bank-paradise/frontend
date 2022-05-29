@@ -119,19 +119,7 @@ export async function fetchCreateSalaryRequest(payload) {
 export async function fetchSalaryList() {
   const response = await axiosRequest({
     method: "GET",
-    url: "/bank/salary/time",
-    headers: {
-      Authorization: getLocalToken(),
-    },
-  });
-
-  return response;
-}
-
-export async function fetchLastSalaryRequest() {
-  const response = await axiosRequest({
-    method: "GET",
-    url: "/bank/salary/last",
+    url: "/community/salary",
     headers: {
       Authorization: getLocalToken(),
     },
