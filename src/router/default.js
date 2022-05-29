@@ -29,6 +29,8 @@ import CompanyList from "features/bank/company_list/companyList.page";
 import joinClasses from "helpers/joinClasses";
 import ATMPage from "features/bank/atm/atm.page";
 import JoinCommunityWithLink from "features/community/invitations-link/joinCommunity.page";
+import SendSalaryRequest from "features/bank/salary/addsalary.page";
+import CommunitySalary from "features/admin/salary/salary.page";
 
 export default function DefaultRouter() {
   const dispatch = useDispatch();
@@ -109,6 +111,7 @@ export default function DefaultRouter() {
           element={<PaymentPage />}
         />
         <Route path="/entreprises/:companyId" element={<CompanyAccount />} />
+        <Route path="/salary/add" element={<SendSalaryRequest />} />
 
         {/* All staff routes */}
         {checkPermissions(user, 2) && (
@@ -124,6 +127,13 @@ export default function DefaultRouter() {
             />
           </React.Fragment>
         )}
+        {/* All owner and admin routes */}
+        {checkPermissions(user, 3) && (
+          <React.Fragment>
+            <Route path="/commu/salary" element={<CommunitySalary />} />
+          </React.Fragment>
+        )}
+
         {/* All owner routes */}
         {checkPermissions(user, 4) && (
           <React.Fragment>

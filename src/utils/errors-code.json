@@ -104,6 +104,13 @@
         "en": "Already in the community",
         "fr": "Vous êtes déjà dans la communauté"
       }
+    },
+    {
+      "code": "TOO_SOON",
+      "message": {
+        "en": "You can't do this action yet",
+        "fr": "Vous ne pouvez pas faire ceci pour le moment"
+      }
     }
   ]
 }

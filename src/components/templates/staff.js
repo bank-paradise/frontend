@@ -55,6 +55,10 @@ export const StaffTemplate = ({
       name: "Membres",
     },
     {
+      path: "/commu/salary",
+      name: "Salaires",
+    },
+    {
       path: "/commu/transactions",
       name: "Argents",
     },

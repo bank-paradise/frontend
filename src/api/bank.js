@@ -102,3 +102,53 @@ export async function fetchRemoveEmployee(payload) {
 
   return response;
 }
+
+export async function fetchCreateSalaryRequest(payload) {
+  const response = await axiosRequest({
+    method: "POST",
+    url: "/bank/salary",
+    data: payload,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
+export async function fetchSalaryList() {
+  const response = await axiosRequest({
+    method: "GET",
+    url: "/bank/salary/time",
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
+export async function fetchLastSalaryRequest() {
+  const response = await axiosRequest({
+    method: "GET",
+    url: "/bank/salary/last",
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}
+
+export async function fetchSendAwnserSalary(payload) {
+  const response = await axiosRequest({
+    method: "PUT",
+    url: "/community/salary",
+    data: payload,
+    headers: {
+      Authorization: getLocalToken(),
+    },
+  });
+
+  return response;
+}

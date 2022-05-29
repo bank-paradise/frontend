@@ -91,6 +91,19 @@ export default function BankHeader({
             >
               Payer un bien ou un service
             </LineButton>
+            <hr />
+            <LineButton
+              className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3 flex items-center gap-2 justify-center"
+              onClick={() => navigate("/salary/add")}
+            >
+              <svg width="1.4em" height="1.4em" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M11 18h2v-1h1q.425 0 .713-.288Q15 16.425 15 16v-3q0-.425-.287-.713Q14.425 12 14 12h-3v-1h4V9h-2V8h-2v1h-1q-.425 0-.712.287Q9 9.575 9 10v3q0 .425.288.712Q9.575 14 10 14h3v1H9v2h2Zm7 4H6q-.825 0-1.412-.587Q4 20.825 4 20V4q0-.825.588-1.413Q5.175 2 6 2h8l6 6v12q0 .825-.587 1.413Q18.825 22 18 22Zm0-2V8.85L13.15 4H6v16ZM6 20V4v16Z"
+                ></path>
+              </svg>
+              Demande de salaire
+            </LineButton>
           </div>
         </div>
         <div className="w-full">
