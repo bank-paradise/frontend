@@ -104,6 +104,16 @@ export default function AccountSetting() {
     return ret;
   };
 
+  const clearCacheData = () => {
+    caches.keys().then((names) => {
+      names.forEach((name) => {
+        caches.delete(name);
+      });
+    });
+    alert("Mise à jour du cache effectuée");
+    window.location.reload();
+  };
+
   useEffect(() => {
     const defaultFieldsString = JSON.stringify({
       name: user.name,
@@ -201,6 +211,19 @@ export default function AccountSetting() {
                 <li>
                   <span className="font-medium">Créer le: </span>
                   {moment(user.created_at).format("DD/MM/YYYY")}
+                </li>
+                <li className="flex flex-col gap-1 mt-5">
+                  <PrimaryButton
+                    className=" max-w-max"
+                    onClick={clearCacheData}
+                    size="small"
+                  >
+                    Mettre à jour
+                  </PrimaryButton>
+
+                  <span className="text-xs text-gray-500">
+                    Permet de forcer la mise à jour du cache
+                  </span>
                 </li>
               </ul>
             </div>
