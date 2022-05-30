@@ -7,6 +7,7 @@ import FinishedSalaryList from "./_components/finishedSalaryList";
 import { useSelector } from "react-redux";
 import { communityInfo } from "features/community/community.model";
 import AwaitingSalaryList from "./_components/awaitingSalaryList";
+import FinishedSalaryListByDate from "./_components/finishedSalaryListByDate";
 
 export default function CommunitySalary() {
   const [salaryList, setSalaryList] = useState([]);
@@ -14,7 +15,6 @@ export default function CommunitySalary() {
 
   const getSalaryList = async () => {
     const salaryList = await fetchSalaryList();
-    console.log(salaryList.response);
     if (salaryList.status === "done") setSalaryList(salaryList.response);
   };
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function CommunitySalary() {
       <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">
         Demandes traitées
       </h4>
-      <FinishedSalaryList
+      <FinishedSalaryListByDate
         list={salaryList.salary_requests_finished}
         currency={currency}
       />

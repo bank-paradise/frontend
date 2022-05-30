@@ -11,7 +11,7 @@ export default function SalaryItem({ item, currency, callback }) {
   };
 
   return (
-    <li className=" my-5 rounded-lg shadow-lg p-5 transition-all">
+    <li className=" my-5 rounded-lg shadow-lg p-5 transition-all dark:bg-slate-700">
       <div className="flex justify-between items-center">
         <div>
           <p className="text-xs text-primary">

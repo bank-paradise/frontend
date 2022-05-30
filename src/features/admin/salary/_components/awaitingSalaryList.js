@@ -23,19 +23,25 @@ export default function AwaitingSalaryList({
 
   return (
     <ul>
-      {list
-        .slice()
-        .sort((a, b) => {
-          return moment(a.created_at).isAfter(b.created_at) ? -1 : 1;
-        })
-        .map((item, index) => (
-          <SalaryItem
-            item={item}
-            key={index}
-            currency={currency}
-            callback={handleAwnser}
-          />
-        ))}
+      {list.length ? (
+        list
+          .slice()
+          .sort((a, b) => {
+            return moment(a.created_at).isAfter(b.created_at) ? -1 : 1;
+          })
+          .map((item, index) => (
+            <SalaryItem
+              item={item}
+              key={index}
+              currency={currency}
+              callback={handleAwnser}
+            />
+          ))
+      ) : (
+        <li className="text-center text-gray-500 my-7">
+          Aucune demande de salaire en attente
+        </li>
+      )}
     </ul>
   );
 }
