@@ -103,14 +103,14 @@ export default function DefaultRouter({ hasNewVersion = false }) {
           setIsOpen={setIsOpenVersionModal}
         >
           <div className="flex flex-col items-center gap-7 py-10">
-            <h1 className="text-center text-xl">
+            <h1 className="text-center text-xl dark:text-white">
               Une nouvelle version est disponible
             </h1>
             <div>
               <PrimaryButton onClick={() => window.location.reload()}>
                 Mettre à jour
               </PrimaryButton>
-              <p className="text-center mt-2 text-xs">
+              <p className="text-center mt-2 text-xs dark:text-white">
                 Version:{" "}
                 {localStorage.getItem("version")
                   ? localStorage.getItem("version")

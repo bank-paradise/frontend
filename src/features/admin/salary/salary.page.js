@@ -34,7 +34,7 @@ export default function CommunitySalary() {
       />
       <hr className="my-10" />
       <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">
-        Demandes validées
+        Demandes traitées
       </h4>
       <FinishedSalaryList
         list={salaryList.salary_requests_finished}

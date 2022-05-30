@@ -20,7 +20,7 @@ export const axiosRequest = async (axiosParams, redirectError = true) => {
     return { status: "done", response: response.data };
   } catch (error) {
     if (error.response.status === 401 && redirectError) {
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
     }
     const message = error.response
       ? error.response.data.error

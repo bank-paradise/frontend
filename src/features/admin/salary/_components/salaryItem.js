@@ -17,12 +17,14 @@ export default function SalaryItem({ item, currency, callback }) {
           <p className="text-xs text-primary">
             {moment(item.salary.created_at).format("DD/MM/YYYY HH:mm")}
           </p>
-          <p className="font-medium text-gray-600">{item.bank_account.name}</p>
+          <p className="font-medium text-gray-600 dark:text-gray-400">
+            {item.bank_account.name}
+          </p>
           <p className="text-green-500 font-medium text-sm">
             {formatPrice(item.salary.salary, currency)}
           </p>
           <button
-            className="text-xs underline flex items-center mt-3 transition-all"
+            className="text-xs underline flex items-center mt-3 transition-all dark:text-white"
             onClick={() => setUnfold(!unfold)}
           >
             {unfold ? "masquer" : "voir plus"}
@@ -68,26 +70,20 @@ export default function SalaryItem({ item, currency, callback }) {
           ) : (
             <div>
               {item.salary.status === "accepted" ? (
-                <svg width="1em" height="1em" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41L9 16.17z"
-                  ></path>
-                </svg>
+                <span className="text-white bg-green-400 font-medium text-sm dark:text-black flex gap-2 items-center rounded px-3 py-1 uppercase">
+                  acceptée
+                </span>
               ) : (
-                <svg width="1em" height="1em" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
-                  ></path>
-                </svg>
+                <span className="text-white bg-red-400 font-medium text-sm dark:text-black flex gap-2 items-center rounded px-3 py-1 uppercase">
+                  refusée
+                </span>
               )}
             </div>
           )}
         </div>
       </div>
       {unfold && (
-        <div className="border-t mt-4 pt-4">
+        <div className="border-t mt-4 pt-4 dark:text-white">
           <p className="text-sm font-medium">Description:</p>
           <p className="whitespace-pre text-xs">{item.salary.description}</p>
         </div>
