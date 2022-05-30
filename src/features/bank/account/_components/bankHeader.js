@@ -3,6 +3,11 @@ import { formatPrice } from "helpers/formatPrice";
 import BankTitle from "./bankTitle";
 import Contact from "./contact";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  bankPersonalAccount,
+  bankProfessionalAccounts,
+} from "features/bank/bank.model";
 
 export default function BankHeader({
   accounts,
@@ -13,12 +18,8 @@ export default function BankHeader({
   let navigate = useNavigate();
 
   const cashAccount = accounts.find((account) => account.type === "cash");
-  const personnalAccount = accounts.find(
-    (account) => account.type === "personnal"
-  );
-  const entreprisesAccount = accounts.find(
-    (account) => account.type === "professional"
-  );
+  const personnalAccount = useSelector(bankPersonalAccount);
+  const entreprisesAccount = useSelector(bankProfessionalAccounts);
 
   const getBalanceTotal = () => {
     return accounts.reduce((acc, account) => acc + account.balance, 0);
@@ -53,26 +54,23 @@ export default function BankHeader({
           id="balande-account-container"
         >
           <div>
-            <p className="text-md">Total:</p>
             <h3 className="text-[30px] font-bold">
-              {personnalAccount &&
-                formatPrice(personnalAccount.balance, currency)}
+              {formatPrice(personnalAccount.balance, currency)}
             </h3>
             <p className="-mt-2 mb-5 text-lg">
               {cashAccount && formatPrice(cashAccount.balance, currency)}
             </p>
           </div>
           <div className="w-[100px] h-[1px] bg-white mb-3" />
-          {entreprisesAccount &&
-            entreprisesAccount.map(({ id, name, balance }) => (
-              <button
-                className="font-light text-md mt-1 hover:font-medium w-full text-left"
-                key={id}
-                onClick={() => navigate(`/entreprises/${id}`)}
-              >
-                {formatPrice(balance, currency)} - {name}
-              </button>
-            ))}
+          {entreprisesAccount.map(({ id, name, balance }) => (
+            <button
+              className="font-light text-md mt-1 hover:font-medium w-full text-left"
+              key={id}
+              onClick={() => navigate(`/entreprises/${id}`)}
+            >
+              {formatPrice(balance, currency)} - {name}
+            </button>
+          ))}
         </div>
       </div>
       <div className="flex flex-col md:flex-row w-full bg-gray-100 px-10 py-5 gap-16 rounded-lg dark:bg-slate-700 dark:text-white">
