@@ -55,22 +55,24 @@ export default function BankHeader({
         >
           <div>
             <h3 className="text-[30px] font-bold">
-              {formatPrice(personnalAccount.balance, currency)}
+              {personnalAccount &&
+                formatPrice(personnalAccount.balance, currency)}
             </h3>
             <p className="-mt-2 mb-5 text-lg">
               {cashAccount && formatPrice(cashAccount.balance, currency)}
             </p>
           </div>
           <div className="w-[100px] h-[1px] bg-white mb-3" />
-          {entreprisesAccount.map(({ id, name, balance }) => (
-            <button
-              className="font-light text-md mt-1 hover:font-medium w-full text-left"
-              key={id}
-              onClick={() => navigate(`/entreprises/${id}`)}
-            >
-              {formatPrice(balance, currency)} - {name}
-            </button>
-          ))}
+          {entreprisesAccount &&
+            entreprisesAccount.map(({ id, name, balance }) => (
+              <button
+                className="font-light text-md mt-1 hover:font-medium w-full text-left"
+                key={id}
+                onClick={() => navigate(`/entreprises/${id}`)}
+              >
+                {formatPrice(balance, currency)} - {name}
+              </button>
+            ))}
         </div>
       </div>
       <div className="flex flex-col md:flex-row w-full bg-gray-100 px-10 py-5 gap-16 rounded-lg dark:bg-slate-700 dark:text-white">
