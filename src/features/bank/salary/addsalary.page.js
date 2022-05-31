@@ -48,6 +48,13 @@ export default function SendSalaryRequest() {
     }
   };
 
+  const defaultDescription = `Nom: 
+Prénom: 
+Métier: 
+Heure d'arrivée: 
+Heure de départ: 
+Run: `;
+
   return (
     <DefaultTemplate className="flex justify-center items-center">
       <div className="flex flex-col items-center gap-5 w-full">
@@ -67,11 +74,12 @@ export default function SendSalaryRequest() {
             />
             <textarea
               className="appearance-none focus:border-primary border-b w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400 dark:bg-slate-800 dark:text-white text-[16px] md:text-sm border py-3 px-4 shadow-md rounded-md !text-lg"
-              placeholder="Nom:&#10;Prénom:&#10;Métier:&#10;Heure d'arrivée:&#10;Heure de départ:"
+              placeholder={defaultDescription}
               rows={6}
               onChange={(e) =>
                 setSalary({ ...salary, description: e.target.value })
               }
+              defaultValue={defaultDescription}
             ></textarea>
             {!loading ? (
               <PrimaryButton
