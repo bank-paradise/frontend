@@ -54,40 +54,41 @@ export const userSlice = createSlice({
         state.header.status = "error";
         return;
       }
-      if (
-        !navigator.cookieEnabled ||
-        !navigator.storage ||
-        !navigator.storage.persist ||
-        !navigator.storage.persisted
-      ) {
-        alert(
-          "Veuillez activer les cookies, ou utiliser un navigateur plus récent"
-        );
-        return;
-      }
+      // if (
+      //   !navigator.cookieEnabled &&
+      //   !navigator.storage &&
+      //   !navigator.storage.persist &&
+      //   !navigator.storage.persisted
+      // ) {
+      //   alert(
+      //     "Veuillez activer les cookies, ou utiliser un navigateur plus récent"
+      //   );
+      //   return;
+      // }
       state.header.status = "done";
       state.header.connected = true;
       state.data = action.payload.response.user;
       cookies.set("::token", action.payload.response.token, {
         path: "/",
       });
+      localStorage.setItem("::token", action.payload.response.token);
     });
     builder.addCase(registration.fulfilled, (state, action) => {
       if (action.payload.status === "error") {
         state.header.status = "error";
         return;
       }
-      if (
-        !navigator.cookieEnabled ||
-        !navigator.storage ||
-        !navigator.storage.persist ||
-        !navigator.storage.persisted
-      ) {
-        alert(
-          "Veuillez activer les cookies, ou utiliser un navigateur plus récent"
-        );
-        return;
-      }
+      // if (
+      //   !navigator.cookieEnabled &&
+      //   !navigator.storage &&
+      //   !navigator.storage.persist &&
+      //   !navigator.storage.persisted
+      // ) {
+      //   alert(
+      //     "Veuillez activer les cookies, ou utiliser un navigateur plus récent"
+      //   );
+      //   return;
+      // }
 
       state.header.status = "done";
       state.header.connected = true;
@@ -95,6 +96,7 @@ export const userSlice = createSlice({
       cookies.set("::token", action.payload.response.token, {
         path: "/",
       });
+      localStorage.setItem("::token", action.payload.response.token);
     });
 
     builder.addCase(check.pending, (state, action) => {
@@ -103,6 +105,7 @@ export const userSlice = createSlice({
     builder.addCase(check.fulfilled, (state, action) => {
       if (action.payload.status === "error") {
         cookies.remove("::token");
+        localStorage.removeItem("::token");
         return;
       }
       state.header.status = "done";
@@ -116,6 +119,7 @@ export const userSlice = createSlice({
     builder.addCase(logout.fulfilled, (state, action) => {
       if (action.payload.success) {
         cookies.remove("::token");
+        localStorage.removeItem("::token");
         state.header = initialState.header;
         state.data = initialState.data;
       }
