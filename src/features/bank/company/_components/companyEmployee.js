@@ -85,10 +85,39 @@ export default function ComanyEmployee({
     setLoading(false);
   };
 
+  const getLabels = (grade) => {
+    switch (grade) {
+      case "boss":
+        return (
+          <span className="text-xs bg-primary px-1.5 py-0.5 rounded">
+            👑 Patron
+          </span>
+        );
+      case "manager":
+        return (
+          <span className="text-xs bg-gray-500 px-1.5 py-0.5 rounded">
+            Manager
+          </span>
+        );
+      case "employee":
+        return (
+          <span className="text-xs bg-gray-500 px-1.5 py-0.5 rounded">
+            Employé
+          </span>
+        );
+      default:
+        return (
+          <span className="text-xs bg-primary px-1.5 py-0.5 rounded">
+            Employé
+          </span>
+        );
+    }
+  };
+
   return (
-    <div className="w-full my-7">
+    <div className="w-full my-14">
       <h3 className="text-md font-medium dark:text-white flex items-center gap-2">
-        {employee.pseudo}
+        {getLabels(employee.grade)} {employee.pseudo}
         {employee.grade !== "boss" && (
           <div className="relative group">
             <button className="translate-y-[3px]">
@@ -110,7 +139,8 @@ export default function ComanyEmployee({
           </div>
         )}
       </h3>
-      <form className="flex items-center gap-2">
+      <hr className="mt-3" />
+      {/* <form className="flex items-center gap-2">
         <Input
           name="salary"
           placeholder={`salaire de ${employee.pseudo}`}
@@ -133,7 +163,7 @@ export default function ComanyEmployee({
             <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
           </PrimaryButton>
         )}
-      </form>
+      </form> */}
     </div>
   );
 }

@@ -64,10 +64,9 @@ export default function CompanyPay({
         </svg>
         Retour
       </LineButton>
-      <BankTitle className="mt-5 mb-3">Salaires</BankTitle>
+      <BankTitle className="mt-5 mb-3">Employés</BankTitle>
       <SubParagraph className="dark:text-white">
-        Vous ne pouvez envoyer le salaire{" "}
-        <span className="underline">qu’une fois toute les 12 heures</span>
+        Retrouvez ici tous les employés de votre entreprise.
       </SubParagraph>
       <ul>
         {employees.map((employee, index) => (
@@ -80,9 +79,9 @@ export default function CompanyPay({
         ))}
       </ul>
       <PrimaryCard className="bg-gray-100 dark:bg-slate-800">
-        <BankTitle className="mb-3">Ajouter un salarié</BankTitle>
+        <BankTitle className="mb-3">Ajouter un employé</BankTitle>
         <SubParagraph className="dark:text-white">
-          Vous pouvez ajouter ici un salarié
+          Vous pouvez ajouter ici un employé
         </SubParagraph>
         <br />
         <form className="flex flex-col md:flex-row gap-3">

@@ -7,9 +7,11 @@ import CompanyActivities from "./_components/companyActivities";
 import CompanyPay from "./_components/companyPay";
 import CompanySolde from "./_components/companySolde";
 import CompanyActions from "./_components/companyActions";
+import { userData } from "features/authentication/user.model";
 
 export default function CompanyAccount() {
   const bankInformations = useSelector(bankAllInfo);
+  const user = useSelector(userData);
   const { accounts, currency } = bankInformations;
   const [account, setAccount] = useState(null);
   const [tab, setTab] = useState("activities");
@@ -33,12 +35,10 @@ export default function CompanyAccount() {
               <div className="w-full">
                 {tab === "activities" ? (
                   <div className="flex flex-col gap-10 animate__animated animate__fadeIn">
-                    <CompanyActions setTab={setTab} company_id={account.id} />
-                    <CompanyActivities
-                      rib={account.rib}
-                      tab={tab}
-                      company_name={account.name}
-                    />
+                    {account.user_id === user.id && (
+                      <CompanyActions setTab={setTab} company_id={account.id} />
+                    )}
+                    <CompanyActivities rib={account.rib} key={account.id} />
                   </div>
                 ) : (
                   <CompanyPay

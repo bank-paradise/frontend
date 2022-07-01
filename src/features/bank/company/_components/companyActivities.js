@@ -1,4 +1,5 @@
 import BankTitle from "features/bank/account/_components/bankTitle";
+import { bankTransactions } from "features/bank/bank.model";
 import { communityInfo } from "features/community/community.model";
 import { formatPrice } from "helpers/formatPrice";
 import getUsername from "helpers/getUsername";
@@ -8,25 +9,23 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 
-export default function CompanyActivities({ rib = "", company_name = "MOI" }) {
+export default function CompanyActivities({ rib = "" }) {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
   const itemsPerPage = 6;
 
-  const transactions = useSelector((state) => {
-    return state.bank.transactions.filter((transaction) => {
+  const transactions = useSelector(bankTransactions);
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    let sortedTransactions = transactions.slice().filter((transaction) => {
       return (
         transaction.transaction.transmitter === rib ||
         transaction.transaction.receiver === rib
       );
     });
-  });
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    let sortedTransactions = transactions.slice();
 
     sortedTransactions = sortedTransactions.sort((a, b) => {
       return moment(a.created_at).isAfter(b.created_at) ? -1 : 1;
@@ -35,7 +34,7 @@ export default function CompanyActivities({ rib = "", company_name = "MOI" }) {
     setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(transactions.length / itemsPerPage));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemOffset, itemsPerPage]);
+  }, [itemOffset, itemsPerPage, transactions]);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % transactions.length;
