@@ -5,6 +5,7 @@ import {
   PrimaryButton,
   PrimaryCard,
   Search,
+  Select,
   SubParagraph,
   SubTitle,
 } from "components/atoms";
@@ -85,12 +86,28 @@ export default function CompanyPay({
         </SubParagraph>
         <br />
         <form className="flex flex-col md:flex-row gap-3">
-          <Search
-            placeholder="Pseudo du joueur"
-            array={commuAccounts.personnal}
-            searchedKey="name"
-            select={setAddEmployee}
-          />
+          <Select
+            className="border py-3 px-4 shadow-md rounded-md !text-lg"
+            placeholder="choisir un bénéficiaire"
+            onChange={(e) => {
+              if (e.target.value === "") return;
+              const selected = commuAccounts.personnal.find(
+                (account) => account.rib === e.target.value
+              );
+              setAddEmployee(selected);
+            }}
+          >
+            <option value="">
+              {commuAccounts.personnal.length
+                ? "Choisir un joueur"
+                : "Aucun membre"}
+            </option>
+            {commuAccounts.personnal.map((account) => (
+              <option key={account.rib} value={account.rib}>
+                {account.name}
+              </option>
+            ))}
+          </Select>
           <PrimaryButton onClick={handleAddEmployee}>Ajouter</PrimaryButton>
         </form>
       </PrimaryCard>
