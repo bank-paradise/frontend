@@ -32,7 +32,7 @@ export default function CompanyActivities({ rib = "" }) {
     });
 
     setCurrentItems(sortedTransactions.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(transactions.length / itemsPerPage));
+    setPageCount(Math.ceil(sortedTransactions.length / itemsPerPage));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemOffset, itemsPerPage, transactions]);
 

@@ -90,7 +90,7 @@ export default function ComanyEmployee({
       case "boss":
         return (
           <span className="text-xs bg-primary px-1.5 py-0.5 rounded">
-            👑 Patron
+            👑 PDG
           </span>
         );
       case "manager":
