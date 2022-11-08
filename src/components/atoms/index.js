@@ -13,6 +13,7 @@ export { Title } from "./texts/title";
 export { SubTitle } from "./texts/subTitle";
 export { Paragraph } from "./texts/paragraph";
 export { SubParagraph } from "./texts/subParagraph";
+export { LabelNew } from "./texts/labelNew";
 
 /**
  * Inputs
@@ -26,6 +27,7 @@ export { Search } from "./inputs/search";
  * Cards
  */
 export { PrimaryCard } from "./cards/primary";
+export { SecondaryCard } from "./cards/secondary";
 
 /**
  * Loader

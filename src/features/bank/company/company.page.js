@@ -8,20 +8,28 @@ import CompanyPay from "./_components/companyPay";
 import CompanySolde from "./_components/companySolde";
 import CompanyActions from "./_components/companyActions";
 import { userData } from "features/authentication/user.model";
+import CompanyInvoice from "./invoices/companyInvoice";
 
 export default function CompanyAccount() {
   const bankInformations = useSelector(bankAllInfo);
   const user = useSelector(userData);
   const { accounts, currency } = bankInformations;
   const [account, setAccount] = useState(null);
+  const [grade, setGrade] = useState("employee");
   const [tab, setTab] = useState("activities");
   const params = useParams();
   useEffect(() => {
     const accountById = accounts.find(
       (account) => account.id === Number(params.companyId)
     );
-    setAccount(accountById);
-  }, [accounts, params, bankInformations]);
+    if (accountById) {
+      setAccount(accountById);
+      setGrade(
+        accountById.employees.find((employee) => employee.user_id === user.id)
+          .grade
+      );
+    }
+  }, [accounts, params, bankInformations, user]);
 
   return (
     <DefaultTemplate>
@@ -35,11 +43,16 @@ export default function CompanyAccount() {
               <div className="w-full">
                 {tab === "activities" ? (
                   <div className="flex flex-col gap-10 animate__animated animate__fadeIn">
-                    {account.user_id === user.id && (
-                      <CompanyActions setTab={setTab} company_id={account.id} />
-                    )}
+                    <CompanyActions
+                      setTab={setTab}
+                      company_id={account.id}
+                      grade={grade}
+                    />
+
                     <CompanyActivities rib={account.rib} key={account.id} />
                   </div>
+                ) : tab === "invoice" ? (
+                  <CompanyInvoice setTab={setTab} company_id={account.id} />
                 ) : (
                   <CompanyPay
                     setTab={setTab}

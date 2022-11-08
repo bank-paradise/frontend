@@ -1,12 +1,12 @@
 import { fetchDeleteCompany } from "api/bank";
-import { LineButton } from "components/atoms";
+import { LabelNew, LineButton } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import BankTitle from "features/bank/account/_components/bankTitle";
 import { formatPrice } from "helpers/formatPrice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function CompanyActions({ setTab, company_id }) {
+export default function CompanyActions({ setTab, company_id, grade }) {
   let navigate = useNavigate();
   const handleDeleteCompany = async (e) => {
     e.preventDefault();
@@ -21,8 +21,10 @@ export default function CompanyActions({ setTab, company_id }) {
     }
   };
 
+  console.log("grade -> ", grade);
+
   return (
-    <div className="flex flex-col md:flex-row w-full bg-gray-100 dark:bg-slate-700 px-10 py-5 gap-16 rounded-lg md:h-[230px] relative">
+    <div className="flex flex-col md:flex-row w-full bg-gray-100 dark:bg-slate-700 px-10 py-5 gap-16 rounded-lg md:min-h-[230px] relative">
       <div className="w-full flex flex-col">
         <BankTitle className="mb-5">Actions Rapides</BankTitle>
         <div className="absolute right-5 group">
@@ -35,47 +37,75 @@ export default function CompanyActions({ setTab, company_id }) {
             </svg>
           </button>
           <ul className="hidden group-active:flex group-hover:flex flex-col absolute right-0 bg-white shadow-lg rounded-lg">
-            <li className="px-5 text-sm py-3 inline-flex w-max hover:font-medium cursor-pointer">
-              Modifier le nom
-            </li>
-            <li
-              className="px-5 text-sm py-3 text-red-500 inline-flex w-max hover:font-medium cursor-pointer"
-              onClick={handleDeleteCompany}
-            >
-              Supprimer l'entreprise
-            </li>
+            {grade === "boss" && (
+              <li className="px-5 text-sm py-3 inline-flex w-max hover:font-medium cursor-pointer">
+                Modifier le nom
+              </li>
+            )}
+            {grade === "boss" && (
+              <li
+                className="px-5 text-sm py-3 text-red-500 inline-flex w-max hover:font-medium cursor-pointer"
+                onClick={handleDeleteCompany}
+              >
+                Supprimer l'entreprise
+              </li>
+            )}
+            {grade !== "boss" && (
+              <li
+                className="px-5 text-sm py-3 text-red-500 inline-flex w-max hover:font-medium cursor-pointer"
+                onClick={handleDeleteCompany}
+              >
+                Démissionner
+              </li>
+            )}
           </ul>
         </div>
         <div className="flex flex-col md:flex-row gap-5">
           <div className="flex flex-col gap-5 justify-center w-full">
-            <LineButton
-              className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
-              onClick={() =>
-                navigate(`/entreprises/${company_id}/payment/personnal`)
-              }
-            >
-              Envoyer de l'argent
-            </LineButton>
-            <LineButton
-              className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
-              onClick={() =>
-                navigate(`/entreprises/${company_id}/payment/professional`)
-              }
-            >
-              Payer un bien ou un service
-            </LineButton>
+            {grade === ("boss" || "manager") && (
+              <LineButton
+                className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
+                onClick={() =>
+                  navigate(`/entreprises/${company_id}/payment/personnal`)
+                }
+              >
+                Envoyer de l'argent
+              </LineButton>
+            )}
+            {grade === ("boss" || "manager") && (
+              <LineButton
+                className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white py-3"
+                onClick={() =>
+                  navigate(`/entreprises/${company_id}/payment/professional`)
+                }
+              >
+                Payer un bien ou un service
+              </LineButton>
+            )}
           </div>
+          {grade === "boss" && (
+            <Button
+              className="flex gap-3 items-center justify-center w-full bg-primary hover:bg-primary-dark text-white py-3"
+              onClick={() => setTab("pay")}
+            >
+              <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M17.755 14c.78 0 1.466.397 1.87 1H13.5a2.5 2.5 0 0 0-2.5 2.5v4c0 .161.015.32.045.472c-2.939-.186-5.136-1.25-6.53-3.207a2.75 2.75 0 0 1-.511-1.596v-.92A2.249 2.249 0 0 1 6.253 14h11.502ZM12 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10ZM12 17.5a1.5 1.5 0 0 1 1.5-1.5h8a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 1-1.5 1.5h-8a1.5 1.5 0 0 1-1.5-1.5v-4Zm10 .5a1 1 0 0 1-1-1h-1a2 2 0 0 0 2 2v-1Zm0 2a2 2 0 0 0-2 2h1a1 1 0 0 1 1-1v-1Zm-8-3a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2h-1Zm1 5a2 2 0 0 0-2-2v1a1 1 0 0 1 1 1h1Zm4.25-2.5a1.75 1.75 0 1 0-3.5 0a1.75 1.75 0 0 0 3.5 0Z"
+                ></path>
+              </svg>
+              Gestion des employés
+            </Button>
+          )}
+        </div>
+        {grade === ("boss" || "manager") && <hr className="mt-5" />}
+        <div className="relative">
+          <LabelNew className="translate-y-1/2 translate-x-5" />
           <Button
-            className="flex gap-3 items-center justify-center w-full bg-primary hover:bg-primary-dark text-white py-3"
-            onClick={() => setTab("pay")}
+            className="flex gap-3 items-center justify-center w-full bg-blue-500 hover:bg-blue-600 text-white py-3 mt-5"
+            onClick={() => setTab("invoice")}
           >
-            <svg width="1.5em" height="1.5em" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M17.755 14c.78 0 1.466.397 1.87 1H13.5a2.5 2.5 0 0 0-2.5 2.5v4c0 .161.015.32.045.472c-2.939-.186-5.136-1.25-6.53-3.207a2.75 2.75 0 0 1-.511-1.596v-.92A2.249 2.249 0 0 1 6.253 14h11.502ZM12 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10ZM12 17.5a1.5 1.5 0 0 1 1.5-1.5h8a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 1-1.5 1.5h-8a1.5 1.5 0 0 1-1.5-1.5v-4Zm10 .5a1 1 0 0 1-1-1h-1a2 2 0 0 0 2 2v-1Zm0 2a2 2 0 0 0-2 2h1a1 1 0 0 1 1-1v-1Zm-8-3a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2h-1Zm1 5a2 2 0 0 0-2-2v1a1 1 0 0 1 1 1h1Zm4.25-2.5a1.75 1.75 0 1 0-3.5 0a1.75 1.75 0 0 0 3.5 0Z"
-              ></path>
-            </svg>
-            Gestion des employés
+            💰 Factures
           </Button>
         </div>
       </div>
