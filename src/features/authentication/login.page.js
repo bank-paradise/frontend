@@ -54,7 +54,7 @@ export default function Login() {
             state={{ from: getPreviousUrl() }}
             className="underline text-primary"
           >
-            Inscriptionn
+            Inscription
           </Link>
         </SubParagraph>
         <form
