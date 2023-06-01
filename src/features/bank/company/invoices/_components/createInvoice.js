@@ -3,8 +3,6 @@ import {
   PrimaryButton,
   SecondaryCard,
   Select,
-  SubTitle,
-  Title,
 } from "components/atoms";
 import { communityAccounts } from "features/community/community.model";
 import { useState } from "react";
@@ -60,11 +58,10 @@ export default function CreateInvoice({ company_id = 0 }) {
           >
             <option value="">
               {commuAccounts.personnal.length
-                ? `Choisir${
-                    invoice.recipient_type === "company"
-                      ? " une entreprise"
-                      : " un joueur"
-                  }`
+                ? `Choisir${invoice.recipient_type === "company"
+                  ? " une entreprise"
+                  : " un joueur"
+                }`
                 : "Aucun membre"}
             </option>
             {invoice.recipient_type === "company" &&

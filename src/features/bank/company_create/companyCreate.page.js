@@ -1,6 +1,5 @@
 import {
   Input,
-  Paragraph,
   PrimaryButton,
   PrimaryCard,
   SubParagraph,

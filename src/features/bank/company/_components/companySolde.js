@@ -1,4 +1,3 @@
-import { Button } from "components/atoms/buttons";
 import BankTitle from "features/bank/account/_components/bankTitle";
 import { formatPrice } from "helpers/formatPrice";
 

@@ -1,5 +1,3 @@
-import { Input, SubTitle, Title } from "components/atoms";
-import { Card } from "components/atoms/cards";
 import { StaffTemplate } from "components/templates";
 import BankTitle from "features/bank/account/_components/bankTitle";
 import InformationsSettings from "./_components/informations";

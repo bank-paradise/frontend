@@ -3,7 +3,6 @@ import {
   Paragraph,
   PrimaryButton,
   PrimaryCard,
-  Search,
   SecondaryButton,
   Select,
   SubParagraph,
@@ -29,7 +28,7 @@ export default function PersonalPayment({
     rib: null,
     balance: null,
   },
-  backtoMenu = () => {},
+  backtoMenu = () => { },
   receiver = null,
 }) {
   const dispatch = useDispatch();

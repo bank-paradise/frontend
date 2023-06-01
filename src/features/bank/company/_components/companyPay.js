@@ -1,26 +1,21 @@
 import { fetchAddEmployee } from "api/bank";
 import {
   LineButton,
-  Paragraph,
   PrimaryButton,
   PrimaryCard,
-  Search,
   Select,
   SubParagraph,
-  SubTitle,
 } from "components/atoms";
-import { Card } from "components/atoms/cards";
 import BankTitle from "features/bank/account/_components/bankTitle";
 import { getBank } from "features/bank/bank.model";
 import { communityAccounts } from "features/community/community.model";
-import joinClasses from "helpers/joinClasses";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import ComanyEmployee from "./companyEmployee";
 
 export default function CompanyPay({
-  setTab = () => {},
+  setTab = () => { },
   employees = [],
   company_id = 0,
 }) {

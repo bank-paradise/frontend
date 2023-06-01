@@ -1,4 +1,4 @@
-import { userData } from "features/authentication/user.model";
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   bankPersonalAccount,
   bankTransactions,
@@ -15,7 +15,6 @@ import { useSelector } from "react-redux";
 export default function Activities() {
   const transactions = useSelector(bankTransactions);
   const personnalAccount = useSelector(bankPersonalAccount);
-  const user = useSelector(userData);
   const community = useSelector(communityInfo);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -29,6 +28,7 @@ export default function Activities() {
     const endOffset = itemOffset + itemsPerPage;
     let filteredTransactions = [];
 
+    // eslint-disable-next-line array-callback-return
     transactions.slice().map((transaction) => {
       if (
         !transaction.transmitter ||

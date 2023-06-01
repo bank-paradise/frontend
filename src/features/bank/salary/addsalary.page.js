@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import {
   Input,
@@ -87,8 +88,8 @@ Run: `;
                 className={joinClasses(
                   "max-w-min mt-4",
                   !salary.salary.length &&
-                    !salary.description.length &&
-                    "opacity-50"
+                  !salary.description.length &&
+                  "opacity-50"
                 )}
                 type="submit"
               >

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { fetchDeleteUser, fetchEditUser } from "api/authentication";
 import { fetchDeleteCommunity, fetchKickMember } from "api/community";
 import {

@@ -2,14 +2,11 @@ import { PrimaryButton, SecondaryButton } from "components/atoms";
 import { logout, userData } from "features/authentication/user.model";
 import checkPermissions from "helpers/checkPermissions";
 import joinClasses from "helpers/joinClasses";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import getMobileOperatingSystem from "helpers/getMobileSystem";
-import UseAnimation from "react-useanimations";
 
 export const Navbar = ({ connected = true, items = [] }) => {
-  const [isOpen, setIsOpen] = useState(false);
   let navigate = useNavigate();
   const location = useLocation();
   const user = useSelector(userData);
@@ -130,8 +127,8 @@ export const Navbar = ({ connected = true, items = [] }) => {
           className={joinClasses(
             "flex justify-between items-center h-full text-gray-600 dark:text-white px-[5%] sm:px-[10%] lg:hidden text-[14px] ",
             getMobileOperatingSystem() === "ios" &&
-              isInStandaloneMode() &&
-              "pb-5"
+            isInStandaloneMode() &&
+            "pb-5"
           )}
         >
           <Link
@@ -186,7 +183,7 @@ export const Navbar = ({ connected = true, items = [] }) => {
             className={joinClasses(
               "flex flex-col items-center gap-1 active:text-primary",
               location.pathname.includes("/entreprises") &&
-                "text-primary font-medium"
+              "text-primary font-medium"
             )}
           >
             <svg width="1.5em" height="1.5em" viewBox="0 0 32 32">

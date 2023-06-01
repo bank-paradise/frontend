@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchTransactions } from "api/community";
 import { StaffTemplate } from "components/templates";
 import BankTitle from "features/bank/account/_components/bankTitle";
 import { fetchSalaryList } from "api/bank";
-import FinishedSalaryList from "./_components/finishedSalaryList";
 import { useSelector } from "react-redux";
 import { communityInfo } from "features/community/community.model";
 import AwaitingSalaryList from "./_components/awaitingSalaryList";

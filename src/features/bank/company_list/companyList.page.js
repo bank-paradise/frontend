@@ -1,6 +1,5 @@
 import {
   PrimaryButton,
-  PrimaryCard,
   SubParagraph,
   SubTitle,
 } from "components/atoms";

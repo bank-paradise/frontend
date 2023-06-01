@@ -4,9 +4,8 @@ import {
   PrimaryButton,
   SubTitle,
 } from "components/atoms";
-import { ATMTemplate, DefaultTemplate } from "components/templates";
+import { ATMTemplate } from "components/templates";
 import { userData } from "features/authentication/user.model";
-import { formatPrice } from "helpers/formatPrice";
 import { Howl } from "howler";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

@@ -21,10 +21,6 @@ export default function BankHeader({
   const personnalAccount = useSelector(bankPersonalAccount);
   const entreprisesAccount = useSelector(bankProfessionalAccounts);
 
-  const getBalanceTotal = () => {
-    return accounts.reduce((acc, account) => acc + account.balance, 0);
-  };
-
   // fonction qui recup les 6 derniers transmitters
   const getLastTransmitters = () => {
     const contacts = transactions

@@ -1,23 +1,20 @@
+/* eslint-disable no-unused-vars */
 import {
   fetchCreateTransactionSalary,
   fetchRemoveEmployee,
   fetchUpdateSalary,
 } from "api/bank";
-import { Input, PrimaryButton } from "components/atoms";
-import { getBank } from "features/bank/bank.model";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useTimer } from "react-timer-hook";
 import { toast } from "react-toastify";
 
 export default function ComanyEmployee({
   employee,
   company_id,
-  callback = () => {},
+  callback = () => { },
 }) {
   const [amount, setAmount] = useState(employee.salary);
   const [loading, setLoading] = useState(false);
-  const [randomKey, setRandomKey] = useState(Math.random());
 
   const add12h = (last_payment) => {
     let date = new Date(last_payment.replace(/-/g, "/"));
@@ -25,6 +22,7 @@ export default function ComanyEmployee({
     return date.getTime();
   };
 
+  // eslint-disable-next-line no-unused-vars
   const { seconds, minutes, hours } = useTimer({
     expiryTimestamp: add12h(employee.last_payment),
   });

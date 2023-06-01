@@ -1,6 +1,5 @@
 import { Footer, Navbar, SubNavbar } from "components/molecules";
 import { bankProfessionalAccounts } from "features/bank/bank.model";
-import joinClasses from "helpers/joinClasses";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";

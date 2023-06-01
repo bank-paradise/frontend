@@ -2,7 +2,6 @@ import {
   Input,
   Paragraph,
   PrimaryButton,
-  SubParagraph,
 } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import {
@@ -16,7 +15,7 @@ import { Howl } from "howler";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function ATMWithdrawal({ callback = () => {} }) {
+export default function ATMWithdrawal({ callback = () => { } }) {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
   const [paymentDone, setPaymentDone] = useState({

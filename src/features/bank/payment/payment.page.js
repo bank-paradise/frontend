@@ -1,4 +1,4 @@
-import { SubTitle } from "components/atoms";
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DefaultTemplate } from "components/templates";
 import { getCommunity } from "features/community/community.model";
 import { useEffect, useState } from "react";

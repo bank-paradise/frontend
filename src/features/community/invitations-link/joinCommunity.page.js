@@ -9,7 +9,6 @@ import {
 import { Button } from "components/atoms/buttons";
 import { DefaultTemplate } from "components/templates";
 import { getBank } from "features/bank/bank.model";
-import { axiosRequest } from "helpers/axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";

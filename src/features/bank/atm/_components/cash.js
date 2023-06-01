@@ -3,12 +3,10 @@ import {
   Paragraph,
   PrimaryButton,
   Select,
-  SubParagraph,
 } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import {
   bankCashAccount,
-  bankPersonalAccount,
   createTransaction,
 } from "features/bank/bank.model";
 import {
@@ -21,7 +19,7 @@ import { Howl } from "howler";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function ATMCash({ callback = () => {} }) {
+export default function ATMCash({ callback = () => { } }) {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
   const [step, setStep] = useState(1);

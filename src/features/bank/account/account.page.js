@@ -1,7 +1,6 @@
 import { DefaultTemplate } from "components/templates";
 import { userData } from "features/authentication/user.model";
 import { useSelector } from "react-redux";
-import { ShepherdTour } from "react-shepherd";
 import { bankAllInfo } from "../bank.model";
 import Activities from "./_components/activities";
 import BankHeader from "./_components/bankHeader";

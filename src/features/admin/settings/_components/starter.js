@@ -1,4 +1,4 @@
-import { Input, PrimaryButton, Select } from "components/atoms";
+import { Input, PrimaryButton } from "components/atoms";
 import {
   communityInfo,
   updateCommunity,

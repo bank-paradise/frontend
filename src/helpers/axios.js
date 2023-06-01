@@ -1,18 +1,7 @@
 import axios from "axios";
-import { toast } from "react-toastify";
-import Cookies from "universal-cookie";
 import { getErrorMessage } from "./errors";
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
-
-/*
-type axiosParams = {
-  method: string,
-  url: string,
-  data?: any,
-  headers?: any,
-};
-*/
 
 export const axiosRequest = async (axiosParams, redirectError = true) => {
   try {

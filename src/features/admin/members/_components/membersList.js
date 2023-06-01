@@ -1,7 +1,6 @@
-import joinClasses from "helpers/joinClasses";
 import MemberItem from "./memberItem";
 
-export default function MembersList({ list = [], callback = () => {} }) {
+export default function MembersList({ list = [], callback = () => { } }) {
   return (
     <div>
       <h4 className="text-md font-medium mt-5 mb-2 dark:text-white">

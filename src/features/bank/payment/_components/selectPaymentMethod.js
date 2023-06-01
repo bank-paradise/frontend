@@ -1,8 +1,8 @@
-import { PrimaryButton, SubTitle } from "components/atoms";
+import { SubTitle } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import { useNavigate } from "react-router-dom";
 
-export default function SelectPaymentMethod({ setMethod = () => {} }) {
+export default function SelectPaymentMethod({ setMethod = () => { } }) {
   let navigate = useNavigate();
   return (
     <div className="w-full">

@@ -2,7 +2,6 @@ import { fetchDeleteCompany } from "api/bank";
 import { LabelNew, LineButton } from "components/atoms";
 import { Button } from "components/atoms/buttons";
 import BankTitle from "features/bank/account/_components/bankTitle";
-import { formatPrice } from "helpers/formatPrice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

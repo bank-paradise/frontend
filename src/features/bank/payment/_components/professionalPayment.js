@@ -3,7 +3,6 @@ import {
   Paragraph,
   PrimaryButton,
   PrimaryCard,
-  Search,
   SecondaryButton,
   Select,
   SubParagraph,
@@ -28,7 +27,7 @@ export default function ProfessionalPayment({
     rib: null,
     balance: null,
   },
-  backtoMenu = () => {},
+  backtoMenu = () => { },
   receiver = null,
 }) {
   const dispatch = useDispatch();

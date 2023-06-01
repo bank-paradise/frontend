@@ -1,12 +1,11 @@
 import { fetchAllAccounts, fetchinjectTransaction } from "api/community";
 import { Input, PrimaryButton, Select } from "components/atoms";
-import getUsername from "helpers/getUsername";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Switch from "react-switch";
 import { toast } from "react-toastify";
 
-export default function SendTransaction({ callback = () => {} }) {
+export default function SendTransaction({ callback = () => { } }) {
   const { register, handleSubmit } = useForm();
   const [accounts, setAccounts] = useState({
     personnal: [],

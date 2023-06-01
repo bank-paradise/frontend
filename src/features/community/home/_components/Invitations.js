@@ -1,6 +1,5 @@
-import { LineButton, PrimaryButton, SubParagraph } from "components/atoms";
+import { PrimaryButton, SubParagraph } from "components/atoms";
 import { Button } from "components/atoms/buttons";
-import { Card } from "components/atoms/cards";
 import { getBank } from "features/bank/bank.model";
 import {
   getCommunity,
