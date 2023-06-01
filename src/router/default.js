@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useLocation } from "react-router";
+import { Route, Routes } from "react-router";
 import { Howl } from "howler";
 import Pusher from "pusher-js";
 import createNotification from "helpers/createNotif";
@@ -18,10 +19,9 @@ import CommunityInvitations from "features/admin/invitations/invitations.page";
 import CommunityTransactions from "features/admin/transactions/transactions.page";
 import CommunityMembers from "features/admin/members/members.page";
 import CompanyAccount from "features/bank/company/company.page";
-import { bankAccounts, getBank } from "features/bank/bank.model";
+import { getBank } from "features/bank/bank.model";
 import CompanyCreate from "features/bank/company_create/companyCreate.page";
 import PaymentPage from "features/bank/payment/payment.page";
-import { toast } from "react-toastify";
 import ErrorInConstruction from "features/error/inConstruction.page";
 import ErrorNotFound from "features/error/notFound.page";
 import AccountSetting from "features/authentication/setting.page";
@@ -91,8 +91,8 @@ export default function DefaultRouter({ hasNewVersion = false }) {
             {wsStatus === "unavailable"
               ? `Reconnxion au serveur en cours...`
               : wsStatus === "connecting"
-              ? `Connexion au serveur en cours...`
-              : `Connexion au serveur échouée, reconnxion...`}
+                ? `Connexion au serveur en cours...`
+                : `Connexion au serveur échouée, reconnxion...`}
           </p>
         </div>
       )}
