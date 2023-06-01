@@ -78,7 +78,6 @@ export default function Login() {
             required
           />
           {error && <p className="text-sm text-red-500">{error}</p>}
-
           <PrimaryButton
             className={joinClasses("max-w-min", loading ? "opacity-50" : "")}
             type="submit"
