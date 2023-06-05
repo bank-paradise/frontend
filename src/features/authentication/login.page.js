@@ -48,7 +48,7 @@ export default function Login() {
       <PrimaryCard className="w-full max-w-[530px] m-auto px-8 py-12 dark:bg-slate-800">
         <SubTitle>Connexion</SubTitle>
         <SubParagraph className="dark:text-white">
-          Vous n'avez pas de compte ?{" "}
+          Vous n'avez pas de compte ??{" "}
           <Link
             to={"/auth/register"}
             state={{ from: getPreviousUrl() }}
